@@ -1,4 +1,4 @@
-# tesky (hurrier)
+# tesky (mitscha)(hurrier)
 GPG key management, encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 
 

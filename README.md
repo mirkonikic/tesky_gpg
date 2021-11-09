@@ -1,6 +1,8 @@
 # tesky (mitscha)(hurrier)
 GPG key management, encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 
+### Verzije:
+![ ](img/version_v0_1.jpg)
 
 <br>
 Isto kao kleopatra za windows, na desnom kliku stoji encrypt, gore desno u taskbaru kao telegram stoji otvoren program

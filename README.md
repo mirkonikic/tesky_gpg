@@ -26,3 +26,12 @@ koristi .tgpg direktorijum u home/user direktorijumu
 pisacu u C++
 <br>
 za GPGME lib, u C++ ukljuciti         #include <gpgme.h>   onda imas pristup metodama za poziv enkripcije, umesto sam da implementiras sve
+
+
+### TODO
+- [ ] finished icon taskbar implementation
+- [ ] finished clipboard encryption decryption
+- [ ] finished right click on file encrypt
+- [ ] finished certificate creation and management in application
+- [ ] finished notepad part in application
+- [ ] finished application design

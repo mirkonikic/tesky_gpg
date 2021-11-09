@@ -14,3 +14,9 @@ OpenGPG and Horowitz Keyserver Protocol
 https://github.com/gpg/gnupg
 <br>
 GUI Framework: WxWidgets -> TaskBarIcon, Clipboard and RightClick
+<br>
+Na task bar icon mozes da kliknes SetRecipient, ClEncrypt, ClDecrypt, ClEncryptTo.., ClDecryptFrom.., Encrypt, Decrypt
+<br>
+Gde setRecipient postavi nekog od public kljuceva na recipienta, da ne bi morao za svaki ClEncrypt da biras kome saljes
+<br>
+ClEncrypt je Clipboard, a obicno Encrypt je da izadje prompt

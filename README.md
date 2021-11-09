@@ -10,3 +10,5 @@ Kad se otvori isto ima notepad i certificates sekciju, pronadji samo jezik u kom
 A videcu kad ispisem za linux, da ispisem i za Windows u C#, sa nicer GUI-jem
 <br>
 OpenGPG and Horowitz Keyserver Protocol
+<br>
+https://github.com/gpg/gnupg

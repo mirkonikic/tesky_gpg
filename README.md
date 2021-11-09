@@ -12,3 +12,5 @@ A videcu kad ispisem za linux, da ispisem i za Windows u C#, sa nicer GUI-jem
 OpenGPG and Horowitz Keyserver Protocol
 <br>
 https://github.com/gpg/gnupg
+<br>
+GUI Framework: WxWidgets -> TaskBarIcon, Clipboard and RightClick

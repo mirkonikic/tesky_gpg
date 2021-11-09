@@ -8,3 +8,5 @@ Isto kao kleopatra za windows, na desnom kliku stoji encrypt, gore desno u taskb
 Kad se otvori isto ima notepad i certificates sekciju, pronadji samo jezik u kom pises
 <br>
 A videcu kad ispisem za linux, da ispisem i za Windows u C#, sa nicer GUI-jem
+<br>
+OpenGPG and Horowitz Keyserver Protocol

@@ -24,3 +24,5 @@ ClEncrypt je Clipboard, a obicno Encrypt je da izadje prompt
 koristi .tgpg direktorijum u home/user direktorijumu
 <br>
 pisacu u C++
+<br>
+za GPGME lib, u C++ ukljuciti         #include <gpgme.h>   onda imas pristup metodama za poziv enkripcije, umesto sam da implementiras sve

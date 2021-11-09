@@ -5,8 +5,7 @@
 
 #include <ostream>
 
-//interface to gnupg
-#include <gpgme.h>
+#include <gpgme.h>	//interface to gnupg
 
 // For compilers that support precompilation, includes "wx/wx.h".
 #include <wx/wxprec.h>
@@ -14,14 +13,17 @@
     #include <wx/wx.h>
 #endif
 
-//include classes	
+#include <wx/clipbrd.h>
+//#include "mondrian.xpm"
 
+//include classes	
+#include "tmenu.h"	//main menu when application opens
 
 
 
 //[2] APPLICATION CLASS:
 
-class TeskyApp: public wxApp
+class TeskyApp : public wxApp
 {
 	public:
 		virtual bool OnInit();

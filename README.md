@@ -37,3 +37,4 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] finished certificate creation and management in application
 - [ ] finished notepad part in application
 - [ ] finished application design
+- [ ] finished making code compileable on windows, *nix and macOS

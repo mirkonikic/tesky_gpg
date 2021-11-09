@@ -20,3 +20,7 @@ Na task bar icon mozes da kliknes SetRecipient, ClEncrypt, ClDecrypt, ClEncryptT
 Gde setRecipient postavi nekog od public kljuceva na recipienta, da ne bi morao za svaki ClEncrypt da biras kome saljes
 <br>
 ClEncrypt je Clipboard, a obicno Encrypt je da izadje prompt
+<br>
+koristi .tgpg direktorijum u home/user direktorijumu
+<br>
+pisacu u C++

@@ -2,6 +2,10 @@
 GPG key management, encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 <br>finish this!
 
+<br>
+<br>tesky gpgme zavrsi - ed->grep - EFI programming - LinuxKernelNewbies - customArch - learnChroot
+<br>
+
 ### Verzije:
 ![ ](img/version_v0_1.jpg)
 

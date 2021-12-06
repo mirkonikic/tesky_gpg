@@ -23,7 +23,7 @@ bool TeskyApp::OnInit()
 	wxMessageBox(data.GetText());
 	wxTheClipboard->Close();
 
-	TMenu *frame = new TMenu(wxT("Tesky v0.02 :)"));
+	TMenu *frame = new TMenu(wxT("Tesky v0.02"));
 	frame->Show(true);
 	//SetTopWindow(frame);
 	return true;
@@ -43,14 +43,48 @@ TMenu::TMenu(const wxString& title) : wxFrame(NULL, wxID_ANY, title)
 	wxMenu *settMenu = new wxMenu;
 	wxMenu *wndwMenu = new wxMenu;
 	wxMenu *helpMenu = new wxMenu;
+	wxMenu *clipMenu = new wxMenu;
+
+
+
+//              -File
+//                      .NewKeyPair
+//                      .Import..
+//                      .Export..
+//                      .PrintSecretKey
+//                      .Decrypt/Verify
+//                      .Encrypt/Sign
+//                      .CreateCheksumFiles
+//                      .VerifyChecksumFiles
+//                      .Close
+//                      .Quit
+//              -View
+//                      .Certificates
+//                      .Notepad
+//                      .Smartcards
+//              -Certificates
+//              -Tools
+//                      .Clipboard
+//                              ->Import
+//                              ->Encrypt
+//                              ->Decrypt
+//              -Settings
+//              -Window
+//              -Help
+//                      .About Tesky
+//                      .About Mirko
 
 	//Append items to menu's
+	toolMenu->Append(wxID_ANY, wxT("ClImport"), wxT("Import Certificate from Clipboard"));
+	toolMenu->Append(wxID_ANY, wxT("ClEncrypt"), wxT("Encrypt data in Clipboard"));
+	toolMenu->Append(wxID_ANY, wxT("ClDecrypt"), wxT("Decrypt data in Clipboard"));
 	helpMenu->Append(wxID_ABOUT, wxT("&About...\tF1"), wxT("Show about dialog"));
-	wndwMenu->Append(wxID_ANY, wxT("&About...\tF1"), wxT("Show about dialog"));
-	settMenu->Append(wxID_ANY, wxT("&About...\tF1"), wxT("Show about dialog"));
-	toolMenu->Append(wxID_ANY, wxT("&About...\tF1"), wxT("Show about dialog"));
-	certMenu->Append(wxID_ANY, wxT("&About...\tF1"), wxT("Show about dialog"));
-	viewMenu->Append(wxID_ANY, wxT("&About...\tF1"), wxT("Show about dialog"));
+	wndwMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
+	settMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
+	certMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
+	viewMenu->Append(wxID_ANY, wxT("Certificates"), wxT("Open Certificates tab"));
+	viewMenu->Append(wxID_ANY, wxT("Notepad"), wxT("Open Notepad tab"));
+	viewMenu->Append(wxID_ANY, wxT("Smartcards"), wxT("Open Smartcards tab"));
 	fileMenu->Append(wxID_ANY, wxT("NewKeyPair\tCtrl-N"), wxT("Create New Key Pair"));
 	fileMenu->Append(wxID_ANY, wxT("Import..\tCtrl-I"), wxT("Import Public/Private Key"));
 	fileMenu->Append(wxID_ANY, wxT("Export..\tCtrl-E"), wxT("Export Public/Private Key"));
@@ -66,6 +100,11 @@ TMenu::TMenu(const wxString& title) : wxFrame(NULL, wxID_ANY, title)
 	//append freshly created menu to the menu bar
 	wxMenuBar *menuBar = new wxMenuBar();
 	menuBar->Append(fileMenu, wxT("&File"));
+	menuBar->Append(viewMenu, wxT("&View"));
+	menuBar->Append(certMenu, wxT("&Certificates"));
+	menuBar->Append(toolMenu, wxT("&Tools"));
+	menuBar->Append(settMenu, wxT("&Settings"));
+	menuBar->Append(wndwMenu, wxT("&Window"));
 	menuBar->Append(helpMenu, wxT("&Help"));
 
 	//Attach Menu Bar to the frame

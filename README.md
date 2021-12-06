@@ -1,5 +1,6 @@
-# tesky (mitscha)(hurrier)
+# tesky
 GPG key management, encryption/decryption, sign/verify GUI software, based on OpenPGP standard
+<br>finish this!
 
 ### Verzije:
 ![ ](img/version_v0_1.jpg)

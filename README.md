@@ -3,8 +3,8 @@ GPG key management, encryption/decryption, sign/verify GUI software, based on Op
 <br>finish this!
 
 <br>
-<br>tesky gpgme zavrsi - ed->grep - EFI programming - LinuxKernelNewbies - customArch - learnChroot
-<br>
+<br>tesky gpgme zavrsi - ed->grep - EFI programming - LinuxKernelNewbies - customArch - learnChroot 
+<br>UEFI beyond bios - LiveLinuxCD books - Kernel - xv6
 
 ### Verzije:
 ![ ](img/version_v0_1.jpg)

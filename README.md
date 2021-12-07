@@ -4,7 +4,7 @@ GPG key management, encryption/decryption, sign/verify GUI software, based on Op
 
 <br>
 <br>tesky gpgme zavrsi - ed->grep - EFI programming - LinuxKernelNewbies - customArch - learnChroot 
-<br>UEFI beyond bios - LiveLinuxCD books - Kernel - xv6 - Cryptography in C - RHEL cert
+<br>UEFI beyond bios - LiveLinuxCD books - Kernel - xv6 - Cryptography in C - RHCSA->RHCE->RHCA cert
 
 ### Verzije:
 ![ ](img/version_v0_1.jpg)

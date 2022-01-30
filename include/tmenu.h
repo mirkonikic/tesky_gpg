@@ -49,6 +49,7 @@ private:
 	DECLARE_EVENT_TABLE()
 };
 
+//static event table
 BEGIN_EVENT_TABLE(TMenu, wxFrame)
 	EVT_MENU(wxID_ABOUT, TMenu::OnAboutTesky)
 	EVT_MENU(wxID_EXIT, TMenu::OnQuit)

@@ -19,8 +19,6 @@
 //include classes	
 #include "tmenu.h"	//main menu when application opens
 
-
-
 //[2] APPLICATION CLASS:
 
 class TeskyApp : public wxApp
@@ -30,5 +28,41 @@ class TeskyApp : public wxApp
 };
 
 DECLARE_APP(TeskyApp)
+
+//id brojevi za svaki event koji moze da se dogodi
+enum
+{
+	ID_Hello = 1
+};
+
+class TMenu : public wxFrame
+{
+public:
+	//Constructor
+	TMenu(const wxString& title);
+
+	//Event Handlers
+		//File
+	void OnQuit(wxCommandEvent& event);
+		//View
+		//Certificates
+		//Tools
+		//Settings
+		//Window
+		//Help
+	void OnAboutTesky(wxCommandEvent& event);
+	void OnAboutMirko(wxCommandEvent& event);
+	void ClImport(wxCommandEvent& event);
+
+private:
+	DECLARE_EVENT_TABLE()
+};
+
+//static event table
+BEGIN_EVENT_TABLE(TMenu, wxFrame)
+	EVT_MENU(ID_Hello, TMenu::ClImport)
+	EVT_MENU(wxID_ABOUT, TMenu::OnAboutTesky)
+	EVT_MENU(wxID_EXIT, TMenu::OnQuit)
+END_EVENT_TABLE()
 
 #endif

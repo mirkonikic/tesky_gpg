@@ -6,6 +6,7 @@
 
 #include "../include/tesky.h"
 
+//starts the main function and implements passed class
 IMPLEMENT_APP(TeskyApp)
 
 //[MAIN:]
@@ -26,6 +27,8 @@ bool TeskyApp::OnInit()
 	TMenu *frame = new TMenu(wxT("Tesky v0.02"));
 	frame->Show(true);
 	//SetTopWindow(frame);
+
+	//succesfull initialization
 	return true;
 }
 
@@ -75,7 +78,7 @@ TMenu::TMenu(const wxString& title) : wxFrame(NULL, wxID_ANY, title)
 //                      .About Mirko
 
 	//Append items to menu's
-	toolMenu->Append(wxID_ANY, wxT("ClImport"), wxT("Import Certificate from Clipboard"));
+	toolMenu->Append(ID_Hello, wxT("ClImport"), wxT("Import Certificate from Clipboard"));
 	toolMenu->Append(wxID_ANY, wxT("ClEncrypt"), wxT("Encrypt data in Clipboard"));
 	toolMenu->Append(wxID_ANY, wxT("ClDecrypt"), wxT("Decrypt data in Clipboard"));
 	helpMenu->Append(wxID_ABOUT, wxT("&About...\tF1"), wxT("Show about dialog"));
@@ -113,6 +116,8 @@ TMenu::TMenu(const wxString& title) : wxFrame(NULL, wxID_ANY, title)
 	//Create a status bar
 	CreateStatusBar(2);
 	SetStatusText(wxT("GnuPG Mirko's Implementation"));
+
+	//Bind(wxEVT_MENU, &TMenu::ClImport, this, ID_Hello);
 }
 
 //[Method implementations:]
@@ -127,4 +132,11 @@ void TMenu::OnAboutTesky(wxCommandEvent& event)
 void TMenu::OnQuit(wxCommandEvent& event)
 {
 	Close();
+}
+
+void TMenu::ClImport(wxCommandEvent& event)
+{
+	wxString msg;
+	msg.Printf(wxT("CLIMPORT :)"));
+	wxMessageBox(msg, wxT("About Tesky"), wxOK | wxICON_INFORMATION, this);
 }

@@ -26,31 +26,3 @@
 //		-Help
 //			.About Tesky
 //			.About Mirko
-
-class TMenu : public wxFrame
-{
-public:
-	//Constructor
-	TMenu(const wxString& title);
-
-	//Event Handlers
-		//File
-	void OnQuit(wxCommandEvent& event);
-		//View
-		//Certificates
-		//Tools
-		//Settings
-		//Window
-		//Help
-	void OnAboutTesky(wxCommandEvent& event);
-	void OnAboutMirko(wxCommandEvent& event);
-
-private:
-	DECLARE_EVENT_TABLE()
-};
-
-//static event table
-BEGIN_EVENT_TABLE(TMenu, wxFrame)
-	EVT_MENU(wxID_ABOUT, TMenu::OnAboutTesky)
-	EVT_MENU(wxID_EXIT, TMenu::OnQuit)
-END_EVENT_TABLE()

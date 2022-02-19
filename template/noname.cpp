@@ -14,6 +14,7 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
 	m_menubar1 = new wxMenuBar( 0 );
+	
 	m_menu1 = new wxMenu();
 	wxMenuItem* m_menuItem1;
 	m_menuItem1 = new wxMenuItem( m_menu1, wxID_ANY, wxString( wxT("MyMenuItem") ) , wxEmptyString, wxITEM_NORMAL );

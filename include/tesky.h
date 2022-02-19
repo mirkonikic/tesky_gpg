@@ -14,6 +14,7 @@
 #endif
 
 #include <wx/clipbrd.h>
+#include <wx/notebook.h>
 //#include "mondrian.xpm"
 
 //include classes	
@@ -46,13 +47,11 @@ enum
 	ID_Close,
 	ID_Quit,
 	ID_View,
-	ID_Certificates,
 	ID_Notepad,
 	ID_Smartcards,
 	ID_Certificates,
 	ID_Tools,
 	ID_Clipboard,
-	ID_Import,
 	ID_ClEncrypt,
 	ID_ClDecrypt,
 	ID_Settings,

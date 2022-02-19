@@ -51,3 +51,12 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] finished notepad part in application
 - [ ] finished application design
 - [ ] finished making code compileable on windows, *nix and macOS
+- [ ] Create Sizers for frame
+- [ ] Create Notebook
+- [ ] Create tabs for notebook
+- [ ] Create Certificates, Notepad and Properties tabs
+- [ ] Enable gpgme.h library
+- [ ] Add functionalities to buttons
+- [ ] Enable Clipboard
+- [ ] Enable system tray icon, na desni klik clipboard en/dec
+- [ ] Right Click enc/dec files ili ako je txt file samo dec to clipbrd

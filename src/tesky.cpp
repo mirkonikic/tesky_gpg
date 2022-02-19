@@ -39,6 +39,9 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 	SetIcon(wxIcon());
 
 	//Create a menu bar
+	wxMenuBar *menuBar = new wxMenuBar();
+
+	//Create menu's
 	wxMenu *fileMenu = new wxMenu;
 	wxMenu *viewMenu = new wxMenu;
 	wxMenu *certMenu = new wxMenu;
@@ -99,9 +102,7 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 	fileMenu->Append(ID_Close, wxT("Close\tCtrl-W"), wxT("Close/Stay in Background"));
 	fileMenu->Append(wxID_EXIT, wxT("E&xit\tCtrl-Q"), wxT("Quit this program"));
 
-
-	//append freshly created menu to the menu bar
-	wxMenuBar *menuBar = new wxMenuBar();
+	//append menu's to the menu bar
 	menuBar->Append(fileMenu, wxT("&File"));
 	menuBar->Append(viewMenu, wxT("&View"));
 	menuBar->Append(certMenu, wxT("&Certificates"));
@@ -116,6 +117,16 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 	//Create a status bar
 	CreateStatusBar(2);
 	SetStatusText(wxT("GnuPG Mirko's Implementation"));
+
+	//Create Sizers for frame
+	//Create Notebook
+	//Create tabs for notebook
+	//Create Certificates, Notepad and Properties tabs
+	//Enable gpgme.h library
+	//Add functionalities to buttons
+	//Enable Clipboard
+	//Enable system tray icon, na desni klik clipboard en/dec
+	//Right Click enc/dec files ili ako je txt file samo dec to clipbrd
 
 	//Bind(wxEVT_MENU, &TMenu::ClImport, this, ID_Hello);
 }

@@ -7,7 +7,10 @@ GPG key management, encryption/decryption, sign/verify GUI software, based on Op
 <br>UEFI beyond bios - LiveLinuxCD books - Kernel - xv6 - Cryptography in C - RHCSA->RHCE->RHCA cert
 
 ### Verzije:
+---
+Verzija v0.2
 ![ ](img/version_v0.2.jpg)
+Verzija v0.1
 ![ ](img/version_v0_1.jpg)
 
 <br>

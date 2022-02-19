@@ -17,7 +17,7 @@
 //#include "mondrian.xpm"
 
 //include classes	
-#include "tmenu.h"	//main menu when application opens
+//#include "tmenu.h"	//main menu when application opens
 
 //[2] APPLICATION CLASS:
 
@@ -32,7 +32,34 @@ DECLARE_APP(TeskyApp)
 //id brojevi za svaki event koji moze da se dogodi
 enum
 {
-	ID_Hello = 1
+	ID_ClImport = 1,
+	ID_NewKeyPair,
+	ID_Import,
+	ID_Export,
+	ID_PrintSecretKey,
+	ID_Decrypt,
+	ID_Verify,
+	ID_Encrypt,
+	ID_Sign,
+	ID_CreateCheksumFiles,
+	ID_VerifyChecksumFiles,
+	ID_Close,
+	ID_Quit,
+	ID_View,
+	ID_Certificates,
+	ID_Notepad,
+	ID_Smartcards,
+	ID_Certificates,
+	ID_Tools,
+	ID_Clipboard,
+	ID_Import,
+	ID_ClEncrypt,
+	ID_ClDecrypt,
+	ID_Settings,
+	ID_Window,
+	ID_Help,
+	ID_About_Tesky,
+	ID_About_Mirko,
 };
 
 class TMenu : public wxFrame
@@ -60,7 +87,7 @@ private:
 
 //static event table
 BEGIN_EVENT_TABLE(TMenu, wxFrame)
-	EVT_MENU(ID_Hello, TMenu::ClImport)
+	EVT_MENU(ID_ClImport, TMenu::ClImport)
 	EVT_MENU(wxID_ABOUT, TMenu::OnAboutTesky)
 	EVT_MENU(wxID_EXIT, TMenu::OnQuit)
 END_EVENT_TABLE()

@@ -33,7 +33,7 @@ bool TeskyApp::OnInit()
 }
 
 //[Constructor implementations:]
-TMenu::TMenu(const wxString& title) : wxFrame(NULL, wxID_ANY, title)
+TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(30, 30), wxSize(640, 480))
 {
 	//Set the frame icon
 	SetIcon(wxIcon());
@@ -78,25 +78,25 @@ TMenu::TMenu(const wxString& title) : wxFrame(NULL, wxID_ANY, title)
 //                      .About Mirko
 
 	//Append items to menu's
-	toolMenu->Append(ID_Hello, wxT("ClImport"), wxT("Import Certificate from Clipboard"));
-	toolMenu->Append(wxID_ANY, wxT("ClEncrypt"), wxT("Encrypt data in Clipboard"));
-	toolMenu->Append(wxID_ANY, wxT("ClDecrypt"), wxT("Decrypt data in Clipboard"));
+	toolMenu->Append(ID_ClImport, wxT("ClImport"), wxT("Import Certificate from Clipboard"));
+	toolMenu->Append(ID_ClEncrypt, wxT("ClEncrypt"), wxT("Encrypt data in Clipboard"));
+	toolMenu->Append(ID_ClDecrypt, wxT("ClDecrypt"), wxT("Decrypt data in Clipboard"));
 	helpMenu->Append(wxID_ABOUT, wxT("&About...\tF1"), wxT("Show about dialog"));
 	wndwMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
 	settMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
 	certMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
-	viewMenu->Append(wxID_ANY, wxT("Certificates"), wxT("Open Certificates tab"));
-	viewMenu->Append(wxID_ANY, wxT("Notepad"), wxT("Open Notepad tab"));
-	viewMenu->Append(wxID_ANY, wxT("Smartcards"), wxT("Open Smartcards tab"));
-	fileMenu->Append(wxID_ANY, wxT("NewKeyPair\tCtrl-N"), wxT("Create New Key Pair"));
-	fileMenu->Append(wxID_ANY, wxT("Import..\tCtrl-I"), wxT("Import Public/Private Key"));
-	fileMenu->Append(wxID_ANY, wxT("Export..\tCtrl-E"), wxT("Export Public/Private Key"));
-	fileMenu->Append(wxID_ANY, wxT("PrintSecretKey\tCtrl-P"), wxT("Print out key"));
-	fileMenu->Append(wxID_ANY, wxT("Encrypt/Sign"), wxT("Encrypt Message or File"));
-	fileMenu->Append(wxID_ANY, wxT("Decrypt/Verify"), wxT("Decrypt Message or File"));
-	fileMenu->Append(wxID_ANY, wxT("Create Cheksum Files"), wxT("Create Cheksum Files"));
-	fileMenu->Append(wxID_ANY, wxT("Verify Cheksum Files"), wxT("Verify Cheksum Files"));
-	fileMenu->Append(wxID_ANY, wxT("Close\tCtrl-W"), wxT("Close/Stay in Background"));
+	viewMenu->Append(ID_Certificates, wxT("Certificates"), wxT("Open Certificates tab"));
+	viewMenu->Append(ID_Notepad, wxT("Notepad"), wxT("Open Notepad tab"));
+	viewMenu->Append(ID_Smartcards, wxT("Smartcards"), wxT("Open Smartcards tab"));
+	fileMenu->Append(ID_NewKeyPair, wxT("NewKeyPair\tCtrl-N"), wxT("Create New Key Pair"));
+	fileMenu->Append(ID_Import, wxT("Import..\tCtrl-I"), wxT("Import Public/Private Key"));
+	fileMenu->Append(ID_Export, wxT("Export..\tCtrl-E"), wxT("Export Public/Private Key"));
+	fileMenu->Append(ID_PrintSecretKey, wxT("PrintSecretKey\tCtrl-P"), wxT("Print out key"));
+	fileMenu->Append(ID_Encrypt, wxT("Encrypt/Sign"), wxT("Encrypt Message or File"));
+	fileMenu->Append(ID_Decrypt, wxT("Decrypt/Verify"), wxT("Decrypt Message or File"));
+	fileMenu->Append(ID_CreateCheksumFiles, wxT("Create Cheksum Files"), wxT("Create Cheksum Files"));
+	fileMenu->Append(ID_VerifyChecksumFiles, wxT("Verify Cheksum Files"), wxT("Verify Cheksum Files"));
+	fileMenu->Append(ID_Close, wxT("Close\tCtrl-W"), wxT("Close/Stay in Background"));
 	fileMenu->Append(wxID_EXIT, wxT("E&xit\tCtrl-Q"), wxT("Quit this program"));
 
 
@@ -127,11 +127,13 @@ void TMenu::OnAboutTesky(wxCommandEvent& event)
 	msg.Printf(wxT("Hello and welcome to Tesky v0.02\n\t-written by Mirko"));
 
 	wxMessageBox(msg, wxT("About Tesky"), wxOK | wxICON_INFORMATION, this);
+	//Event.Skip();
 }
 
 void TMenu::OnQuit(wxCommandEvent& event)
 {
 	Close();
+	//Event.Skip();
 }
 
 void TMenu::ClImport(wxCommandEvent& event)
@@ -139,4 +141,5 @@ void TMenu::ClImport(wxCommandEvent& event)
 	wxString msg;
 	msg.Printf(wxT("CLIMPORT :)"));
 	wxMessageBox(msg, wxT("About Tesky"), wxOK | wxICON_INFORMATION, this);
+	//Event.Skip();
 }

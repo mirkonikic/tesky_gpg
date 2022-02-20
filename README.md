@@ -8,7 +8,7 @@ GPG key management, encryption/decryption, sign/verify GUI software, based on Op
 
 ### Verzije:
 ---
-Verzija v0.3
+Verzija v0.3<br>
 ![ ](img/version_v0.3.jpg)
 <br>
 Ideja v0.2.1 - wxformbuilder added za brzi dizajn interfejsa

@@ -9,7 +9,7 @@ GPG key management, encryption/decryption, sign/verify GUI software, based on Op
 ### Verzije:
 ---
 Verzija v0.3<br>
-![ ](img/version_v0.3.jpg)
+![ ](img/version_v0.3.gif)
 <br>
 Ideja v0.2.1 - wxformbuilder added za brzi dizajn interfejsa
 ![ ](img/version_v0.2.1.jpg)
@@ -18,7 +18,7 @@ Verzija v0.2
 ![ ](img/version_v0.2.jpg)
 <br>
 Verzija v0.1
-![ ](img/version_v0_1.jpg)
+![ ](img/version_v0.1.jpg)
 
 <br>
 Isto kao kleopatra za windows, na desnom kliku stoji encrypt, gore desno u taskbaru kao telegram stoji otvoren program

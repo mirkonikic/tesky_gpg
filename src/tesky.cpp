@@ -24,7 +24,7 @@ bool TeskyApp::OnInit()
 	wxMessageBox(data.GetText());
 	wxTheClipboard->Close();
 
-	TMenu *frame = new TMenu(wxT("Tesky v0.02"));
+	TMenu *frame = new TMenu(wxT("Tesky v0.03"));
 	frame->Show(true);
 	//SetTopWindow(frame);
 
@@ -119,9 +119,44 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 	SetStatusText(wxT("GnuPG Mirko's Implementation"));
 
 	//Create Sizers for frame
+	wxBoxSizer* bSizer1;
+	wxBoxSizer* bSizer2;
+	wxBoxSizer* bSizer3;
+
 	//Create Notebook
+	wxPanel* panel = new wxPanel(this, wxID_ANY);
+	wxNotebook* notebook = new wxNotebook(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNB_TOP );
+
+	//setup notebook
+	notebook->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
+	notebook->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_BACKGROUND ) );
+	
 	//Create tabs for notebook
+	// Add 2 pages to the wxNotebook widget
+    wxTextCtrl* textCtrl1 = new wxTextCtrl(notebook, wxID_ANY, L"Import Create Certificates, Select to which you are talking to");
+    notebook->AddPage(textCtrl1, L"Certificates");
+    wxTextCtrl* textCtrl2 = new wxTextCtrl(notebook, wxID_ANY, L"Encrypt Decrypt, Sign Verify, File search, Save to clipboard");
+    notebook->AddPage(textCtrl2, L"Notepad");
+	wxTextCtrl* textCtrl3 = new wxTextCtrl(notebook, wxID_ANY, L"Client Server for sharing keys, compatible with website servers");
+    notebook->AddPage(textCtrl3, L"Hub");
+	wxTextCtrl* textCtrl4 = new wxTextCtrl(notebook, wxID_ANY, L"Minimize option, few others");
+    notebook->AddPage(textCtrl4, L"Properties");
+	
+	// Set up the sizer for the panel
+    wxBoxSizer* panelSizer = new wxBoxSizer(wxVERTICAL);
+    panelSizer->Add(notebook, 1, wxEXPAND);
+    panel->SetSizer(panelSizer);
+
+    // Set up the sizer for the frame and resize the frame
+    // according to its contents
+    wxBoxSizer* topSizer = new wxBoxSizer(wxVERTICAL);
+    topSizer->SetMinSize(640, 480);
+    topSizer->Add(panel, 1, wxEXPAND);
+    SetSizerAndFit(topSizer);
+
 	//Create Certificates, Notepad and Properties tabs
+	
+	
 	//Enable gpgme.h library
 	//Add functionalities to buttons
 	//Enable Clipboard

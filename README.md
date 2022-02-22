@@ -47,19 +47,23 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 
 
 ### TODO
-- [ ] finished icon taskbar implementation
-- [ ] finished clipboard encryption decryption
+- [ ] finished icon taskbar implementation - NOT WORKING
+- [ ] finished clipboard encryption decryption - HASNT STARTED
 - [ ] finished right click on file encrypt
 - [ ] finished certificate creation and management in application
 - [ ] finished notepad part in application
 - [ ] finished application design
 - [ ] finished making code compileable on windows, *nix and macOS
 - [ ] Create Sizers for frame
-- [ ] Create Notebook
-- [ ] Create tabs for notebook
+- [x] Create Notebook
+- [x] Create tabs for notebook
 - [ ] Create Certificates, Notepad and Properties tabs
 - [ ] Enable gpgme.h library
 - [ ] Add functionalities to buttons
 - [ ] Enable Clipboard
 - [ ] Enable system tray icon, na desni klik clipboard en/dec
 - [ ] Right Click enc/dec files ili ako je txt file samo dec to clipbrd
+- [ ] Make .tesky in ~/.tesky directory path linux
+- [ ] Make .tesky in documents in Windows
+- [ ] Notepad osmisliti kako i da ubacis da moze odmah u clipboard
+- [ ] osmisliti da na pokretanju programa on analizira .tesky i kreira linked listu ili array, pa popuni wxString u notepadu pre wxChoice

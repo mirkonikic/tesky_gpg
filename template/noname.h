@@ -76,7 +76,7 @@ class TMenu : public forward_declare
 		wxPanel* m_panel8;
 		wxStaticText* m_staticText131;
 		wxStaticText* m_staticText161;
-		wxStaticText* server_address;
+		wxTextCtrl* m_textCtrl31;
 		wxButton* m_button131;
 		wxButton* m_button141;
 		wxPanel* m_panel9;

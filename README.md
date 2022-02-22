@@ -8,16 +8,19 @@ GPG key management, encryption/decryption, sign/verify GUI software, based on Op
 
 ### Verzije:
 ---
-Verzija v0.3<br>
+Verzija v0.05<br>
+![ ](img/version_v0.5.gif)
+<br>
+Verzija v0.03<br>
 ![ ](img/version_v0.3.gif)
 <br>
-Ideja v0.2.1 - wxformbuilder added za brzi dizajn interfejsa
+Ideja v0.02.1 - wxformbuilder added za brzi dizajn interfejsa
 ![ ](img/version_v0.2.1.jpg)
 <br>
-Verzija v0.2
+Verzija v0.02
 ![ ](img/version_v0.2.jpg)
 <br>
-Verzija v0.1
+Verzija v0.01
 ![ ](img/version_v0.1.jpg)
 
 <br>
@@ -67,3 +70,4 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Make .tesky in documents in Windows
 - [ ] Notepad osmisliti kako i da ubacis da moze odmah u clipboard
 - [ ] osmisliti da na pokretanju programa on analizira .tesky i kreira linked listu ili array, pa popuni wxString u notepadu pre wxChoice
+- [ ] popraviti alignment u Hub tabu

@@ -128,91 +128,85 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	menu->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	menu->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_BACKGROUND ) );
 
-//CERTIFICATES
 	m_panel4 = new wxPanel( menu, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	m_panel4->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_INACTIVEBORDER ) );
 
-	wxBoxSizer* certSizer;
-	certSizer = new wxBoxSizer(wxVERTICAL);
+	wxBoxSizer* bSizer10;
+	bSizer10 = new wxBoxSizer( wxVERTICAL );
 
-	wxBoxSizer* certBoxSizer;
-	certBoxSizer = new wxBoxSizer(wxHORIZONTAL);
+	wxBoxSizer* bSizer11;
+	bSizer11 = new wxBoxSizer( wxHORIZONTAL );
 
-	certBoxSizer->SetMinSize( wxSize( -1,40 ) );
+	bSizer11->SetMinSize( wxSize( -1,40 ) );
 	m_button7 = new wxButton( m_panel4, wxID_ANY, wxT("New key"), wxDefaultPosition, wxDefaultSize, 0 );
-	certBoxSizer->Add( m_button7, 0, wxALL, 5 );
+	bSizer11->Add( m_button7, 0, wxALL, 5 );
 
 	m_staticText8 = new wxStaticText( m_panel4, wxID_ANY, wxT("Import keys:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText8->Wrap( -1 );
-	certBoxSizer->Add( m_staticText8, 0, wxALL, 12 );
+	bSizer11->Add( m_staticText8, 0, wxALL, 12 );
 
 	m_filePicker3 = new wxFilePickerCtrl( m_panel4, wxID_ANY, wxEmptyString, wxT("Select a file"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_DEFAULT_STYLE );
-	certBoxSizer->Add( m_filePicker3, 0, wxALL, 5 );
+	bSizer11->Add( m_filePicker3, 0, wxALL, 5 );
 
 	m_staticText9 = new wxStaticText( m_panel4, wxID_ANY, wxT("Search:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText9->Wrap( -1 );
-	certBoxSizer->Add( m_staticText9, 0, wxALL, 12 );
+	bSizer11->Add( m_staticText9, 0, wxALL, 12 );
 
 	m_searchCtrl2 = new wxSearchCtrl( m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	#ifndef __WXMAC__
 	m_searchCtrl2->ShowSearchButton( true );
 	#endif
 	m_searchCtrl2->ShowCancelButton( false );
-	certBoxSizer->Add( m_searchCtrl2, 0, wxALL|wxLEFT|wxRESERVE_SPACE_EVEN_IF_HIDDEN, 10 );
+	bSizer11->Add( m_searchCtrl2, 0, wxALL|wxLEFT|wxRESERVE_SPACE_EVEN_IF_HIDDEN, 10 );
 
 	m_button10 = new wxButton( m_panel4, wxID_ANY, wxT("OK"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
-	certBoxSizer->Add( m_button10, 0, wxALL, 5 );
+	bSizer11->Add( m_button10, 0, wxALL, 5 );
 
 
-	certSizer->Add( certBoxSizer, 1, wxALIGN_CENTER, 5 );
+	bSizer10->Add( bSizer11, 1, wxALIGN_CENTER, 5 );
 
-	wxGridSizer* certGridSizer;
-	certGridSizer = new wxGridSizer( 2, 0, 0, 0 );
+	wxGridSizer* gSizer1;
+	gSizer1 = new wxGridSizer( 2, 0, 0, 0 );
 
-	certGridSizer->SetMinSize( wxSize( -1,250 ) );
-	wxBoxSizer* certB1Sizer;
-	certB1Sizer = new wxBoxSizer( wxVERTICAL );
+	gSizer1->SetMinSize( wxSize( -1,250 ) );
+	wxBoxSizer* bSizer14;
+	bSizer14 = new wxBoxSizer( wxVERTICAL );
 
 	m_staticText6 = new wxStaticText( m_panel4, wxID_ANY, wxT("Private keys:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText6->Wrap( -1 );
-	certB1Sizer->Add( m_staticText6, 0, wxALL, 5 );
+	bSizer14->Add( m_staticText6, 0, wxALL, 5 );
 
 	m_listBox5 = new wxListBox( m_panel4, wxID_ANY, wxDefaultPosition, wxSize( 620,200 ), 0, NULL, 0 );
 	m_listBox5->Append( wxT("mirko_priv") );
-	certB1Sizer->Add( m_listBox5, 0, wxALL, 5 );
+	bSizer14->Add( m_listBox5, 0, wxALL, 5 );
 
 
-	certGridSizer->Add( certB1Sizer, 1, wxEXPAND, 5 );
+	gSizer1->Add( bSizer14, 1, wxEXPAND, 5 );
 
-	wxBoxSizer* certB2Sizer;
-	certB2Sizer = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* bSizer15;
+	bSizer15 = new wxBoxSizer( wxVERTICAL );
 
 	m_staticText7 = new wxStaticText( m_panel4, wxID_ANY, wxT("Public keys:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText7->Wrap( -1 );
-	certB2Sizer->Add( m_staticText7, 0, wxALL, 5 );
+	bSizer15->Add( m_staticText7, 0, wxALL, 5 );
 
 	m_listBox6 = new wxListBox( m_panel4, wxID_ANY, wxDefaultPosition, wxSize( 620,200 ), 0, NULL, 0 );
 	m_listBox6->Append( wxT("rope_key") );
 	m_listBox6->Append( wxT("dimi_key") );
 	m_listBox6->Append( wxT("elon_musk") );
-	certB2Sizer->Add( m_listBox6, 0, wxALL, 5 );
+	bSizer15->Add( m_listBox6, 0, wxALL, 5 );
 
 
-	certGridSizer->Add( certB2Sizer, 1, wxEXPAND, 5 );
+	gSizer1->Add( bSizer15, 1, wxEXPAND, 5 );
 
 
-	certSizer->Add( certGridSizer, 1, wxEXPAND, 5 );
+	bSizer10->Add( gSizer1, 1, wxEXPAND, 5 );
 
 
-	m_panel4->SetSizer( certSizer );
+	m_panel4->SetSizer( bSizer10 );
 	m_panel4->Layout();
-	certSizer->Fit( m_panel4 );
+	bSizer10->Fit( m_panel4 );
 	menu->AddPage( m_panel4, wxT("Certificates"), false );
-
-
-
-
-//NOTEPAD	
 	m_panel5 = new wxPanel( menu, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer4;
 	bSizer4 = new wxBoxSizer( wxVERTICAL );
@@ -256,15 +250,6 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_panel5->Layout();
 	bSizer4->Fit( m_panel5 );
 	menu->AddPage( m_panel5, wxT("Notepad"), false );
-//NOTEPAD END
-
-
-
-
-
-
-
-//HUB
 	m_panel41 = new wxPanel( menu, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer9;
 	bSizer9 = new wxBoxSizer( wxVERTICAL );
@@ -295,9 +280,8 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_staticText161->Wrap( -1 );
 	bSizer211->Add( m_staticText161, 0, wxALL, 5 );
 
-	server_address = new wxStaticText( m_panel8, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	server_address->Wrap( -1 );
-	bSizer211->Add( server_address, 0, wxALL, 5 );
+	m_textCtrl31 = new wxTextCtrl( m_panel8, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 170,-1 ), wxTE_READONLY );
+	bSizer211->Add( m_textCtrl31, 0, wxALL, 5 );
 
 
 	bSizer18->Add( bSizer211, 1, wxEXPAND, 5 );
@@ -381,15 +365,11 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 
 	bSizer9->Add( bSizer17, 1, wxEXPAND, 5 );
 
+
 	m_panel41->SetSizer( bSizer9 );
 	m_panel41->Layout();
 	bSizer9->Fit( m_panel41 );
 	menu->AddPage( m_panel41, wxT("Hub"), true );
-//HUB END
-
-
-
-//PROPERTIES
 	m_panel6 = new wxPanel( menu, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer5;
 	bSizer5 = new wxBoxSizer( wxVERTICAL );
@@ -403,10 +383,6 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_panel6->Layout();
 	bSizer5->Fit( m_panel6 );
 	menu->AddPage( m_panel6, wxT("Properties"), false );
-//PROPERTIES END
-
-
-
 
 	bSizer2->Add( menu, 1, wxEXPAND | wxALL, 5 );
 

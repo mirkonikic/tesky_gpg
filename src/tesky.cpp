@@ -12,6 +12,8 @@ IMPLEMENT_APP(TeskyApp)
 //[MAIN:]
 bool TeskyApp::OnInit()
 {
+	//Check if the .tesky directory exists, if it does not, create one
+	//If it does, import all the keys stored inside of the directory and continue from than on
 
 	//Test TaskBarIcon
 	if ( !wxTaskBarIcon::IsAvailable() )
@@ -94,27 +96,39 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 //                      .About Mirko
 
 	//Append items to menu's
-	toolMenu->Append(ID_ClImport, wxT("ClImport"), wxT("Import Certificate from Clipboard"));
-	toolMenu->Append(ID_ClEncrypt, wxT("ClEncrypt"), wxT("Encrypt data in Clipboard"));
-	toolMenu->Append(ID_ClDecrypt, wxT("ClDecrypt"), wxT("Decrypt data in Clipboard"));
-	helpMenu->Append(wxID_ABOUT, wxT("&About...\tF1"), wxT("Show about dialog"));
-	wndwMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
-	settMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
-	certMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
-	viewMenu->Append(ID_Certificates, wxT("Certificates"), wxT("Open Certificates tab"));
-	viewMenu->Append(ID_Notepad, wxT("Notepad"), wxT("Open Notepad tab"));
-	viewMenu->Append(ID_Smartcards, wxT("Smartcards"), wxT("Open Smartcards tab"));
-	fileMenu->Append(ID_NewKeyPair, wxT("NewKeyPair\tCtrl-N"), wxT("Create New Key Pair"));
-	fileMenu->Append(ID_Import, wxT("Import..\tCtrl-I"), wxT("Import Public/Private Key"));
-	fileMenu->Append(ID_Export, wxT("Export..\tCtrl-E"), wxT("Export Public/Private Key"));
-	fileMenu->Append(ID_PrintSecretKey, wxT("PrintSecretKey\tCtrl-P"), wxT("Print out key"));
-	fileMenu->Append(ID_Encrypt, wxT("Encrypt/Sign"), wxT("Encrypt Message or File"));
-	fileMenu->Append(ID_Decrypt, wxT("Decrypt/Verify"), wxT("Decrypt Message or File"));
-	fileMenu->Append(ID_CreateCheksumFiles, wxT("Create Cheksum Files"), wxT("Create Cheksum Files"));
-	fileMenu->Append(ID_VerifyChecksumFiles, wxT("Verify Cheksum Files"), wxT("Verify Cheksum Files"));
-	fileMenu->Append(ID_Close, wxT("Close\tCtrl-W"), wxT("Close/Stay in Background"));
-	fileMenu->Append(wxID_EXIT, wxT("E&xit\tCtrl-Q"), wxT("Quit this program"));
-
+		//File
+		fileMenu->Append(ID_NewKeyPair, wxT("New certificate\tCtrl-N"), wxT("Create New Key Pair"));
+		fileMenu->Append(ID_Import, wxT("Import keys\tCtrl-I"), wxT("Import Public/Private Key"));
+		fileMenu->Append(ID_Export, wxT("Export keys\tCtrl-E"), wxT("Export Public/Private Key"));
+		fileMenu->Append(ID_PrintSecretKey, wxT("Print secret key\tCtrl-P"), wxT("Print out key"));
+		fileMenu->Append(ID_Encrypt, wxT("Encrypt/Sign"), wxT("Encrypt Message or File"));
+		fileMenu->Append(ID_Decrypt, wxT("Decrypt/Verify"), wxT("Decrypt Message or File"));
+		fileMenu->Append(ID_CreateCheksumFiles, wxT("Create Cheksum Files"), wxT("Create Cheksum Files"));
+		fileMenu->Append(ID_VerifyChecksumFiles, wxT("Verify Cheksum Files"), wxT("Verify Cheksum Files"));
+		fileMenu->Append(ID_Close, wxT("Close\tCtrl-W"), wxT("Close/Stay in Background"));
+		fileMenu->Append(wxID_EXIT, wxT("E&xit\tCtrl-Q"), wxT("Quit this program"));
+		//View
+		viewMenu->Append(ID_Refresh, wxT("Refresh\tF5"), wxT("Refresh current list"));
+		viewMenu->Append(ID_CertDetails, wxT("Certificate details"), wxT("Details about selected certificate"));
+		viewMenu->Append(ID_Certificates, wxT("Certificates"), wxT("Open Certificates tab"));
+		viewMenu->Append(ID_Notepad, wxT("Notepad"), wxT("Open Notepad tab"));
+		viewMenu->Append(ID_Hub, wxT("Hub"), wxT("Open Hub tab"));
+		viewMenu->Append(ID_Chat, wxT("Chat"), wxT("Open Chat tab"));
+		//Certificates
+		certMenu->Append(wxID_ANY, wxT("&????...\tF1"), wxT("Show about dialog"));
+		//Tools
+		toolMenu->Append(ID_LogViewer, wxT("Log viewer"), wxT("View log files"));
+		toolMenu->Append(ID_ClImport, wxT("Import from Clipboard"), wxT("Import data from Clipboard"));
+		toolMenu->Append(ID_ClEncrypt, wxT("Clipboard Encrypt"), wxT("Encrypt data in Clipboard"));
+		toolMenu->Append(ID_ClDecrypt, wxT("Clipboard Decrypt"), wxT("Decrypt data in Clipboard"));
+		//Settings
+		settMenu->Append(ID_SelfTest, wxT("Self test"), wxT("Perform self test"));
+		//Window
+		wndwMenu->Append(wxID_ANY, wxT("&????\tF1"), wxT("Show about dialog"));
+		//Help
+		helpMenu->Append(wxID_ABOUT, wxT("&About Tesky v0.06"), wxT("Show about dialog"));
+		helpMenu->Append(ID_About_Mirko, wxT("&About Mirko and Credits"), wxT("Show about mirko dialog"));
+		
 	//append menu's to the menu bar
 	menuBar->Append(fileMenu, wxT("&File"));
 	menuBar->Append(viewMenu, wxT("&View"));
@@ -136,7 +150,7 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 	wxPanel* panel = new wxPanel(this, wxID_ANY);
 	
 	//Notebook
-	wxNotebook* notebook = new wxNotebook(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNB_BOTTOM);
+	notebook = new wxNotebook(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNB_BOTTOM);
 
 	//setup notebook
 	notebook->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
@@ -223,12 +237,12 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 		//Notepad - Encrypt Decrypt, Sign Verify, File search, Save to clipboard
 		wxBoxSizer* ntpdSizer = new wxBoxSizer(wxVERTICAL);
 		wxBoxSizer* ntpdB1Sizer = new wxBoxSizer(wxVERTICAL);
-			wxTextCtrl* notepadTextBox = new wxTextCtrl(tab2, wxID_ANY, "Hi!", wxDefaultPosition, wxSize(620, 300), wxTE_MULTILINE | wxTE_RICH , wxDefaultValidator, wxTextCtrlNameStr);
+			notepadTextBox = new wxTextCtrl(tab2, wxID_ANY, "Hi!", wxDefaultPosition, wxSize(620, 300), wxTE_MULTILINE | wxTE_RICH , wxDefaultValidator, wxTextCtrlNameStr);
 			//wxTextCtrl* notepadTextBox = new wxTextCtrl(tab2, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(640, 300), 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS);
 		wxBoxSizer* ntpdB2Sizer = new wxBoxSizer(wxHORIZONTAL);
-			wxButton* encryptButton = new wxButton(tab2, wxID_ANY, wxT("Encrypt"), wxDefaultPosition, wxDefaultSize, 0);
-			wxButton* decryptButton = new wxButton(tab2, wxID_ANY, wxT("Decrypt"), wxDefaultPosition, wxDefaultSize, 0);
-			wxButton* loadFromClipboardButton = new wxButton(tab2, wxID_ANY, wxT("Load from clipboard"), wxDefaultPosition, wxDefaultSize, 0);
+			wxButton* encryptButton = new wxButton(tab2, ID_ntpdEncrypt, wxT("Encrypt"), wxDefaultPosition, wxDefaultSize, 0);
+			wxButton* decryptButton = new wxButton(tab2, ID_ntpdDecrypt, wxT("Decrypt"), wxDefaultPosition, wxDefaultSize, 0);
+			wxButton* loadFromClipboardButton = new wxButton(tab2, ID_ntpdClImport, wxT("Load from clipboard"), wxDefaultPosition, wxDefaultSize, 0);
 //TODO:
 //	popuniti wxString sa izborima preko for petlje
 //	koliko kljuceva ima toliko izbora
@@ -285,9 +299,6 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 			int chech_list_n_choices = sizeof(check_list_choices) / sizeof(wxString);
 			wxCheckListBox* hubCheckListBox = new wxCheckListBox(tab3, wxID_ANY, wxDefaultPosition, wxSize(620,200), chech_list_n_choices, check_list_choices, 0);
 
-//TODO:
-//	fix alignment in HUB tab
-//	nesto ne valja :/
 		//server
 		serverB1Sizer->Add(serverLabel, 0, wxALL, 5);
 		serverB2Sizer->Add(serverAddressLabel, 0, wxALL, 5);
@@ -324,6 +335,13 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 		tab3->SetSizer(hubSizer);
 		tab3->Layout();
 		hubSizer->Fit(tab3);
+
+
+
+//TODO:
+//	Add CHAT tab later on
+//	Add MDNetwork later on
+//	Popravi: fali info kad se neko konektuje na server, 
 
 
 
@@ -369,25 +387,84 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 }
 
 //[Method implementations:]
-void TMenu::OnAboutTesky(wxCommandEvent& event)
+	/*	Cool way i generated methods from event enum :D
+		clear; 
+		for i in $(cat src/tesky.cpp | grep "(ID*" | cut -c20-45 | cut -d " " -f 1); 
+		do 
+			echo "void On$(echo $i | cut -c4- | tr -d ",")(wxCommandEvent& event);"; 
+		done; 
+		for i in $(cat src/tesky.cpp | grep "(ID*" | cut -c20-45 | cut -d " " -f 1); 
+		do 
+			echo -e "void TMenu::On$(echo $i | cut -c4- | tr -d ",")(wxCommandEvent& event)\n{\n\n\tevent.Skip();\n}\n"; 
+		done
+	*/
+
+//MENUBAR methods
+void TMenu::OnNewKeyPair(wxCommandEvent& event){event.Skip();}
+void TMenu::OnImport(wxCommandEvent& event){event.Skip();}
+void TMenu::OnExport(wxCommandEvent& event){event.Skip();}
+void TMenu::OnPrintSecretKey(wxCommandEvent& event){event.Skip();}
+void TMenu::OnEncrypt(wxCommandEvent& event){event.Skip();}
+void TMenu::OnDecrypt(wxCommandEvent& event){event.Skip();}
+void TMenu::OnCreateCheksumFiles(wxCommandEvent& event){event.Skip();}
+void TMenu::OnVerifyChecksumFiles(wxCommandEvent& event){event.Skip();}
+void TMenu::OnClose(wxCommandEvent& event){event.Skip();}
+void TMenu::OnRefresh(wxCommandEvent& event){event.Skip();}
+void TMenu::OnCertDetails(wxCommandEvent& event){event.Skip();}
+void TMenu::OnCertificates(wxCommandEvent& event){notebook->ChangeSelection(0);event.Skip();}
+void TMenu::OnNotepad(wxCommandEvent& event){notebook->ChangeSelection(1);event.Skip();}
+void TMenu::OnHub(wxCommandEvent& event){notebook->ChangeSelection(2);event.Skip();}
+void TMenu::OnChat(wxCommandEvent& event){event.Skip();}
+void TMenu::OnLogViewer(wxCommandEvent& event){event.Skip();}
+//Done Climport, maybe needs optimization
+void TMenu::OnClImport(wxCommandEvent& event)
+{
+	//Read from clipboard
+	wxTextDataObject data;
+	wxTheClipboard->Open();	
+	wxTheClipboard->GetData(data);
+	wxTheClipboard->Close();
+
+	//move to notepad and import data from clipboard
+	notebook->ChangeSelection(1);
+	notepadTextBox->ChangeValue(data.GetText());
+
+	event.Skip();
+}
+void TMenu::OnClEncrypt(wxCommandEvent& event){event.Skip();}
+void TMenu::OnClDecrypt(wxCommandEvent& event){event.Skip();}
+//after finishing the program, make a self test methd that pops up the message on what went wrong
+void TMenu::OnSelfTest(wxCommandEvent& event){event.Skip();}
+void TMenu::OnAbout_Mirko(wxCommandEvent& event)
+{
+	wxString msg;
+	msg.Printf(wxT("Mirko developed this program for personal use"));
+	wxMessageBox(msg, wxT("About Mirko"), wxOK | wxICON_INFORMATION, this);
+	event.Skip();
+}
+void TMenu::OnAbout_Tesky(wxCommandEvent& event)
 {
 	wxString msg;
 	msg.Printf(wxT("Hello and welcome to Tesky v0.02\n\t-written by Mirko"));
 
 	wxMessageBox(msg, wxT("About Tesky"), wxOK | wxICON_INFORMATION, this);
-	//Event.Skip();
+	event.Skip();
 }
+void TMenu::OnQuit(wxCommandEvent& event){Close();event.Skip();}
 
-void TMenu::OnQuit(wxCommandEvent& event)
-{
-	Close();
-	//Event.Skip();
-}
-
-void TMenu::ClImport(wxCommandEvent& event)
-{
-	wxString msg;
-	msg.Printf(wxT("CLIMPORT :)"));
-	wxMessageBox(msg, wxT("About Tesky"), wxOK | wxICON_INFORMATION, this);
-	//Event.Skip();
-}
+//Notebook methods
+	//Certificates methods
+	void TMenu::OncertNewKey(wxCommandEvent& event){event.Skip();}
+	void TMenu::OncertOK(wxCommandEvent& event){event.Skip();}
+	//Notepad methods
+		//OnNtpdClImport -> OnClImport, isti su :D
+	void TMenu::OnNtpdEncrypt(wxCommandEvent& event){event.Skip();}
+	void TMenu::OnNtpdDecrypt(wxCommandEvent& event){event.Skip();}
+	//Hub methods
+	void TMenu::OnhubStartServer(wxCommandEvent& event){event.Skip();}
+	void TMenu::OnhubShareKeys(wxCommandEvent& event){event.Skip();}
+	void TMenu::OnhubConnectClient(wxCommandEvent& event){event.Skip();}
+	void TMenu::OnhubImportKeys(wxCommandEvent& event){event.Skip();}
+	//Chat methods
+	//Properties methods
+	//MDNetwork methods

@@ -66,37 +66,48 @@ DECLARE_APP(TeskyApp)
 //id brojevi za svaki event koji moze da se dogodi
 enum
 {
-	//MenuBar
-	ID_ClImport = 1,
-	ID_NewKeyPair,
+//MenuBar
+	//File
+	ID_NewKeyPair = 1,
 	ID_Import,
 	ID_Export,
 	ID_PrintSecretKey,
-	ID_Decrypt,
-	ID_Verify,
 	ID_Encrypt,
-	ID_Sign,
+	ID_Decrypt,
 	ID_CreateCheksumFiles,
 	ID_VerifyChecksumFiles,
 	ID_Close,
-	ID_Quit,
-	ID_View,
-	ID_Notepad,
-	ID_Smartcards,
+	//View
+	ID_Refresh,
+	ID_CertDetails,
 	ID_Certificates,
-	ID_Tools,
-	ID_Clipboard,
+	ID_Notepad,
+	ID_Hub,
+	ID_Chat,
+	//Certificates
+	//Tools
+	ID_LogViewer,
+	ID_ClImport,
 	ID_ClEncrypt,
 	ID_ClDecrypt,
-	ID_Settings,
-	ID_Window,
-	ID_Help,
-	ID_About_Tesky,
+	//Settings
+	ID_SelfTest,
+	//Window
+	//Help
 	ID_About_Mirko,
 	//TaskBar-SystemTrayIcon - Icon - Open/SelectCert/ClEncrypt/CleDecrypt/About
 	//PanelCertificates - Import/Export/New Certificates
-	//PanelHub - Server/Client for key downloading
+	ID_certNewKey,	//creates new key pair for user
+	ID_certOK,		//handles file picker input and search bar
 	//PanelNotepad - File or Text encryption
+	ID_ntpdClImport,
+	ID_ntpdEncrypt,
+	ID_ntpdDecrypt,
+	//PanelHub - Server/Client for key downloading
+	ID_hubStartServer,
+	ID_hubShareKeys,
+	ID_hubConnectClient,
+	ID_hubImportKeys,
 	//PanelProperties - Setting properties for program
 	//PanelChat - you can chat with selected certificate :)
 };
@@ -107,19 +118,59 @@ public:
 	//Constructor
 	TMenu(const wxString& title);
 
+	//Variables
+		//Notebook
+		wxNotebook* notebook;
+			//Notepad
+			wxTextCtrl* notepadTextBox;
+
 	//Event Handlers
+	//MenuBar
 		//File
+	void OnNewKeyPair(wxCommandEvent& event);
+	void OnImport(wxCommandEvent& event);
+	void OnExport(wxCommandEvent& event);
+	void OnPrintSecretKey(wxCommandEvent& event);
+	void OnEncrypt(wxCommandEvent& event);
+	void OnDecrypt(wxCommandEvent& event);
+	void OnCreateCheksumFiles(wxCommandEvent& event);
+	void OnVerifyChecksumFiles(wxCommandEvent& event);
+	void OnClose(wxCommandEvent& event);
 	void OnQuit(wxCommandEvent& event);
 		//View
+	void OnRefresh(wxCommandEvent& event);
+	void OnCertDetails(wxCommandEvent& event);
+	void OnCertificates(wxCommandEvent& event);
+	void OnNotepad(wxCommandEvent& event);
+	void OnHub(wxCommandEvent& event);
+	void OnChat(wxCommandEvent& event);
 		//Certificates
 		//Tools
+	void OnLogViewer(wxCommandEvent& event);
+	void OnClImport(wxCommandEvent& event);
+	void OnClEncrypt(wxCommandEvent& event);
+	void OnClDecrypt(wxCommandEvent& event);
 		//Settings
+	void OnSelfTest(wxCommandEvent& event);
 		//Window
 		//Help
-	void OnAboutTesky(wxCommandEvent& event);
-	void OnAboutMirko(wxCommandEvent& event);
-	void ClImport(wxCommandEvent& event);
-
+	void OnAbout_Mirko(wxCommandEvent& event);
+	void OnAbout_Tesky(wxCommandEvent& event);
+	//Notebook
+		//Certificates
+	void OncertNewKey(wxCommandEvent& event);
+	void OncertOK(wxCommandEvent& event);
+		//Notepad
+	void OnNtpdEncrypt(wxCommandEvent& event);
+	void OnNtpdDecrypt(wxCommandEvent& event);
+		//Hub
+	void OnhubStartServer(wxCommandEvent& event);
+	void OnhubShareKeys(wxCommandEvent& event);
+	void OnhubConnectClient(wxCommandEvent& event);
+	void OnhubImportKeys(wxCommandEvent& event);
+		//Chat
+		//Properties
+		//MDNetwork
 	wxTaskBarIcon   *m_taskBarIcon;
 
 
@@ -129,9 +180,53 @@ private:
 
 //static event table
 BEGIN_EVENT_TABLE(TMenu, wxFrame)
-	EVT_MENU(ID_ClImport, TMenu::ClImport)
-	EVT_MENU(wxID_ABOUT, TMenu::OnAboutTesky)
+//MenuBar
+	//File
+	EVT_MENU(ID_NewKeyPair, TMenu::OnNewKeyPair)
+	EVT_MENU(ID_Import, TMenu::OnImport)
+	EVT_MENU(ID_Export, TMenu::OnExport)
+	EVT_MENU(ID_PrintSecretKey, TMenu::OnPrintSecretKey)
+	EVT_MENU(ID_Encrypt, TMenu::OnEncrypt)
+	EVT_MENU(ID_Decrypt, TMenu::OnDecrypt)
+	EVT_MENU(ID_CreateCheksumFiles, TMenu::OnCreateCheksumFiles)
+	EVT_MENU(ID_VerifyChecksumFiles, TMenu::OnVerifyChecksumFiles)
+	EVT_MENU(ID_Close, TMenu::OnClose)
 	EVT_MENU(wxID_EXIT, TMenu::OnQuit)
+	//View
+	EVT_MENU(ID_Refresh, TMenu::OnRefresh)
+	EVT_MENU(ID_CertDetails, TMenu::OnCertDetails)
+	EVT_MENU(ID_Certificates, TMenu::OnCertificates)
+	EVT_MENU(ID_Notepad, TMenu::OnNotepad)
+	EVT_MENU(ID_Hub, TMenu::OnHub)
+	EVT_MENU(ID_Chat, TMenu::OnChat)
+	//Settings
+	//Tools
+	EVT_MENU(ID_LogViewer, TMenu::OnLogViewer)
+	EVT_MENU(ID_ClImport, TMenu::OnClImport)
+	EVT_MENU(ID_ClEncrypt, TMenu::OnClEncrypt)
+	EVT_MENU(ID_ClDecrypt, TMenu::OnClDecrypt)
+	//Settings
+	EVT_MENU(ID_SelfTest, TMenu::OnSelfTest)
+	//Window
+	//Help
+	EVT_MENU(wxID_ABOUT, TMenu::OnAbout_Tesky)
+	EVT_MENU(ID_About_Mirko, TMenu::OnAbout_Mirko)
+//Notebook
+	//Certificates
+		EVT_BUTTON(ID_certNewKey, TMenu::OncertNewKey)
+		EVT_BUTTON(ID_certOK, TMenu::OncertOK)
+	//Notepad
+		EVT_BUTTON(ID_ntpdClImport, TMenu::OnClImport)
+		EVT_BUTTON(ID_ntpdEncrypt, TMenu::OnNtpdEncrypt)
+		EVT_BUTTON(ID_ntpdDecrypt, TMenu::OnNtpdDecrypt)
+	//Hub
+		EVT_BUTTON(ID_hubStartServer, TMenu::OnhubStartServer)
+		EVT_BUTTON(ID_hubShareKeys, TMenu::OnhubShareKeys)
+		EVT_BUTTON(ID_hubConnectClient, TMenu::OnhubConnectClient)
+		EVT_BUTTON(ID_hubImportKeys, TMenu::OnhubImportKeys)
+	//Chat
+	//Properties
+	//MDNetwork
 END_EVENT_TABLE()
 
 #endif

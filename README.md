@@ -8,8 +8,8 @@ GPG key management, encryption/decryption, sign/verify GUI software, based on Op
 
 ### Verzije:
 ---
-Verzija v0.05<br>
-![ ](img/v0.05.gif)
+Verzija v0.06<br>
+![ ](img/v0.06.gif)
 <br>
 Verzija v0.03<br>
 ![ ](img/v0.03.gif)

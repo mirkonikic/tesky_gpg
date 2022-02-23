@@ -76,6 +76,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] making code compileable on windows, *nix and macOS
 - [ ] Chat tab
 - [ ] Drag&Drop file encryption ?tab?
+- [ ] all arguments passed when starting program in terminal
 - [ ] ********VERSION 1.0.0 STABLE RELEASE done:
 - [ ] MDNetwork tab
 - [ ] Redesign of the app for WIN, LIN, MACOS

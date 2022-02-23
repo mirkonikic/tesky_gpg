@@ -17,8 +17,8 @@ Verzija v0.03<br>
 Ideja v0.02.1 - wxformbuilder added za brzi dizajn interfejsa
 ![ ](img/v0.02.1.jpg)
 <br>
-Verzija v0.02
-![ ](img/v0.02.jpg)
+Verzija v0.02.0
+![ ](img/v0.02.0.jpg)
 <br>
 Verzija v0.01
 ![ ](img/v0.01.jpg)

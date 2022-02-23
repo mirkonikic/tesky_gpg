@@ -70,4 +70,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Make .tesky in documents in Windows
 - [ ] Notepad osmisliti kako i da ubacis da moze odmah u clipboard
 - [ ] osmisliti da na pokretanju programa on analizira .tesky i kreira linked listu ili array, pa popuni wxString u notepadu pre wxChoice
-- [ ] popraviti alignment u Hub tabu
+- [x] popraviti alignment u Hub tabu
+- [ ] notepad nek ima real time enkripciju https://youtu.be/BW_B6Zadsj4
+- [ ] program koji pokrenes i kriptuje ti automatski data delove paketa i dekriptuje automatski sa odgovarajucim public keyovima, kliknes dva puta i on krene, mozes da izaberes sta ces da kriptujes i onaj sa druge strane kompa treba da dekriptuje -> kao wireshark samo upoznat sa paketima i kriptuje ono sto moze drugi korisnik da dekr
+- [ ] tesky chat, start - over, kad kliknes over, sacuva se chat sa slikama u folderu posled ji nivo aplikacije bi bio decentralizovani torent, gde bi uneo ip adrese i stvorio mrezu s njima, pa mozete da pristupate jedni drugima

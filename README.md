@@ -76,11 +76,11 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] making code compileable on windows, *nix and macOS
 - [ ] Chat tab
 - [ ] Drag&Drop file encryption ?tab?
-- [ ] ********VERSION 1.0.0 done:
+- [ ] ********VERSION 1.0.0 STABLE RELEASE done:
 - [ ] MDNetwork tab
 - [ ] Redesign of the app for WIN, LIN, MACOS
 - [ ] tested on all popular Operating Systems
-- [ ] ********VERSION 2.0.0 done:
+- [ ] ********VERSION 2.0.0 FEATURE COMPLETE RELEASE done:
 - [ ] PacketEncryptor tab
 - [ ] RansomRev tool try to create
 - [ ] notepad nek ima real time enkripciju https://youtu.be/BW_B6Zadsj4

@@ -265,9 +265,9 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 					wxStaticText* serverLabel = new wxStaticText(hubServerPanel, wxID_ANY, wxT("Server side:"), wxDefaultPosition, wxDefaultSize, 0);
 				wxBoxSizer* serverB2Sizer = new wxBoxSizer(wxHORIZONTAL);
 					wxStaticText* serverAddressLabel = new wxStaticText(hubServerPanel, wxID_ANY, wxT("Server address:"), wxDefaultPosition, wxDefaultSize, 0);
-					wxTextCtrl* serverAddressText = new wxTextCtrl(hubServerPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(170,-1), wxTE_READONLY);
+					wxTextCtrl* serverAddressText = new wxTextCtrl(hubServerPanel, wxID_ANY, wxT(""), wxDefaultPosition, wxSize(150,-1), wxTE_READONLY);
 				wxBoxSizer* serverB3Sizer = new wxBoxSizer(wxHORIZONTAL);
-					wxButton* startServerButton = new wxButton(hubServerPanel, wxID_ANY, wxT("Start Server"), wxDefaultPosition, wxDefaultSize, 0);
+					wxButton* startServerButton = new wxButton(hubServerPanel, wxID_ANY, wxT("Start"), wxDefaultPosition, wxDefaultSize, 0);
 					wxButton* shareSelectedKeysButton = new wxButton(hubServerPanel, wxID_ANY, wxT("Share selected keys"), wxDefaultPosition, wxDefaultSize, 0);
 			wxPanel* hubClientPanel = new wxPanel(tab3, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBORDER_RAISED);
 			hubClientPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNHIGHLIGHT));
@@ -276,7 +276,7 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 					wxStaticText* clientLabel = new wxStaticText(hubClientPanel, wxID_ANY, wxT("Client side:"), wxDefaultPosition, wxDefaultSize, 0);
 				wxBoxSizer* clientB2Sizer = new wxBoxSizer(wxHORIZONTAL);
 					wxStaticText* clientAddressLabel = new wxStaticText(hubClientPanel, wxID_ANY, wxT("Server address:"), wxDefaultPosition, wxDefaultSize, 0);
-					wxTextCtrl* clientConnectAddress = new wxTextCtrl(hubClientPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(170,-1), 0);
+					wxTextCtrl* clientConnectAddress = new wxTextCtrl(hubClientPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(150,-1), 0);
 				wxBoxSizer* clientB3Sizer = new wxBoxSizer(wxHORIZONTAL);
 					wxButton* connectClientButton = new wxButton(hubClientPanel, wxID_ANY, wxT("Connect"), wxDefaultPosition, wxDefaultSize, 0);
 					wxButton* importSelectedKeysButton = new wxButton(hubClientPanel, wxID_ANY, wxT("Import selected keys"), wxDefaultPosition, wxDefaultSize, 0);
@@ -289,36 +289,36 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 //	fix alignment in HUB tab
 //	nesto ne valja :/
 		//server
-		serverB1Sizer->Add(serverLabel, 0, wxLEFT | wxTOP | wxBOTTOM, 5);
-		serverB2Sizer->Add(serverAddressLabel, 0, wxLEFT | wxTOP | wxBOTTOM, 5);
+		serverB1Sizer->Add(serverLabel, 0, wxALL, 5);
+		serverB2Sizer->Add(serverAddressLabel, 0, wxALL, 5);
 		serverB2Sizer->Add(serverAddressText, 0, wxALL, 5);
 		serverB3Sizer->Add(startServerButton, 0, wxALL, 5);
 		serverB3Sizer->Add(shareSelectedKeysButton, 0, wxALL, 5);
-		serverBoxSizer->Add(serverB1Sizer, 0, wxTOP | wxBOTTOM, 2);
-		serverBoxSizer->Add(serverB2Sizer, 0, wxTOP | wxBOTTOM, 2);
-		serverBoxSizer->Add(serverB3Sizer, 0, wxTOP | wxBOTTOM, 2);
+		serverBoxSizer->Add(serverB1Sizer, 0, wxALL, 5);
+		serverBoxSizer->Add(serverB2Sizer, 0, wxALL, 5);
+		serverBoxSizer->Add(serverB3Sizer, 0, wxALL, 5);
 		hubServerPanel->SetSizer(serverBoxSizer);
 		hubServerPanel->Layout();
 		serverBoxSizer->Fit(hubServerPanel);
 		//client
-		clientB1Sizer->Add(clientLabel, 0, wxLEFT | wxTOP | wxBOTTOM, 5);
-		clientB2Sizer->Add(clientAddressLabel, 0, wxLEFT | wxTOP | wxBOTTOM, 5);
-		clientB2Sizer->Add(clientConnectAddress, 0, wxALL, 2);
-		clientB3Sizer->Add(connectClientButton, 0, wxALL, 2);
-		clientB3Sizer->Add(importSelectedKeysButton, 0, wxALL, 2);
-		clientBoxSizer->Add(clientB1Sizer, 0, wxTOP | wxBOTTOM, 5);
-		clientBoxSizer->Add(clientB2Sizer, 0, wxTOP | wxBOTTOM, 5);
-		clientBoxSizer->Add(clientB3Sizer, 0, wxTOP | wxBOTTOM, 5);
+		clientB1Sizer->Add(clientLabel, 0, wxALL, 5);
+		clientB2Sizer->Add(clientAddressLabel, 0, wxALL, 5);
+		clientB2Sizer->Add(clientConnectAddress, 0, wxALL, 5);
+		clientB3Sizer->Add(connectClientButton, 0, wxALL, 5);
+		clientB3Sizer->Add(importSelectedKeysButton, 0, wxALL, 5);
+		clientBoxSizer->Add(clientB1Sizer, 0, wxALL, 5);
+		clientBoxSizer->Add(clientB2Sizer, 0, wxALL, 5);
+		clientBoxSizer->Add(clientB3Sizer, 0, wxALL, 5);
 		hubClientPanel->SetSizer(clientBoxSizer);
 		hubClientPanel->Layout();
 		clientBoxSizer->Fit(hubClientPanel);
 		
-		hubGSizer->Add(hubServerPanel, 0, wxALL, 5);
-		hubGSizer->Add(hubClientPanel, 0, wxALL, 5);
+		hubGSizer->Add(hubServerPanel, 0, wxALL, 2);
+		hubGSizer->Add(hubClientPanel, 0, wxALL, 2);
 
 		hubBSizer->Add(hubCheckListBox, 1, wxALL | wxEXPAND, 0);
 
-		hubSizer->Add(hubGSizer, 0, wxALL, 0);
+		hubSizer->Add(hubGSizer, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 		hubSizer->Add(hubBSizer, 1, wxALL | wxEXPAND, 0);
 		
 		tab3->SetSizer(hubSizer);

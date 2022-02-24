@@ -3,6 +3,8 @@
 </div>
 
 [![Logo](img/banner.png)](https://github.com/mirkonikic/tesky_gpg)
+<img alt="GitHub followers" src="https://img.shields.io/github/followers/mirkonikic?style=social">
+<img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/mirkhoff?style=social">
 <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/mirkonikic/tesky_gpg">
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/mirkonikic/tesky_gpg?style=plastic"> 
 <img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/mirkonikic/tesky_gpg?style=plastic"> 

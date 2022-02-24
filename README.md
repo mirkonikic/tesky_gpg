@@ -5,7 +5,7 @@
 [![Logo](img/banner.png)](https://github.com/mirkonikic/tesky_gpg)
 
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mirkonikic/tesky_gpg">[![GitHub Release](https://img.shields.io/github/v/release/orhun/gpg-tui?style=flat&labelColor=1d1d1d&color=424242&logo=GitHub&logoColor=white)](https://github.com/orhun/gpg-tui/releases)
-<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/mirkonikic/tesky_gpg?style=plastic">
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/mirkonikic/tesky_gpg?style=plastic">
 [![Continuous Integration](https://img.shields.io/github/workflow/status/orhun/gpg-tui/Continuous%20Integration/master?style=flat&labelColor=1d1d1d&color=424242&logo=GitHub%20Actions&logoColor=white)](https://github.com/orhun/gpg-tui/actions?query=workflow%3A%22Continuous+Integration%22)
 [![Continuous Deployment](https://img.shields.io/github/workflow/status/orhun/gpg-tui/Continuous%20Deployment?style=flat&labelColor=1d1d1d&color=424242&logo=GitHub%20Actions&logoColor=white&label=deploy)](https://github.com/orhun/gpg-tui/actions?query=workflow%3A%22Continuous+Deployment%22)
 [![Documentation](https://img.shields.io/docsrs/gpg-tui?style=flat&labelColor=1d1d1d&color=424242&logo=Rust&logoColor=white)](https://docs.rs/gpg-tui/)

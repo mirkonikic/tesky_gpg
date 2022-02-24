@@ -105,6 +105,9 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] ********VERSION 1.0.0 STABLE RELEASE done:
 - [ ] MDNetwork tab
 - [ ] Redesign of the app for WIN, LIN, MACOS
+- [ ] publish on aur
+- [ ] publish on debian and ubuntu
+- [ ] publish on archlinux
 - [ ] ********VERSION 2.0.0 FEATURE COMPLETE RELEASE done:
 - [ ] PacketEncryptor tab
 - [ ] RansomRev tool try to create

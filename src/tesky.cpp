@@ -82,7 +82,7 @@ bool TeskyApp::OnInit()
 	wxMessageBox(data.GetText());
 	wxTheClipboard->Close();
 
-	TMenu *frame = new TMenu(wxT("Tesky v0.07"));
+	TMenu *frame = new TMenu(wxT(" Tesky v0.07 "));
 	frame->Show(true);
 	//SetTopWindow(frame);
 

@@ -6,7 +6,7 @@
 
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/mirkonikic/tesky_gpg?style=plastic">
 <img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/mirkonikic/tesky_gpg?style=plastic">
-<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mirkonikic/tesky_gpg">[![GitHub Release]
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mirkonikic/tesky_gpg">
 
 ## About
 GPG key management, encryption/decryption, sign/verify GUI software, based on OpenPGP standard

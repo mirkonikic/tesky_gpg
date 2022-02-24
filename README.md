@@ -8,16 +8,16 @@ GPG key management, encryption/decryption, sign/verify GUI software, based on Op
 
 ### Verzije:
 ---
-Verzija v0.06<br>
-![ ](img/v0.06.gif)
+Verzija v0.07 - implemented Cross-Platform optimization<br>
+![ ](img/v0.07.gif)
 <br>
-Verzija v0.03<br>
+Verzija v0.03 - fully finished GUI<br>
 ![ ](img/v0.03.gif)
 <br>
 Ideja v0.02.1 - wxformbuilder added za brzi dizajn interfejsa<br>
 ![ ](img/v0.02.1.jpg)
 <br>
-Verzija v0.02.0<br>
+Verzija v0.02.0 - Began GUI and blueprint<br>
 ![ ](img/v0.02.0.jpg)
 <br>
 
@@ -73,7 +73,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] ???????? right click on file encrypt
 - [x] design for alpha version
 - [ ] ********BETA version done:
-- [ ] making code compileable on windows, *nix and macOS
+- [x] making code compileable on windows, *nix and macOS - https://stackoverflow.com/questions/3627127/writing-cross-platform-c-code-windows-linux-and-mac-osx
 - [ ] Chat tab
 - [ ] Drag&Drop file encryption ?tab?
 - [ ] all arguments passed when starting program in terminal

@@ -7,9 +7,9 @@
 #define __TESKY_H__
 
 //[1] INCLUDES:
+#include "common_lib.h"	//CROSS-PLATFORM HEADERS
 
 #include <ostream>
-
 #include <gpgme.h>	//interface to gnupg
 
 // For compilers that support precompilation, includes "wx/wx.h".
@@ -24,10 +24,6 @@
 #include <wx/filepicker.h>
 #include <wx/srchctrl.h>
 #include <wx/textctrl.h>
-
-#include "icon.xpm"
-//include classes	
-//#include "tmenu.h"	//main menu when application opens
 
 //[3] VARIABLES:
 //globalna varijabla za izabran kljuc sa kojim poslujemo
@@ -111,6 +107,9 @@ enum
 	//PanelProperties - Setting properties for program
 	//PanelChat - you can chat with selected certificate :)
 };
+
+bool checkDotFiles(char *pathname);
+char dotfiles_lin[] = {'~', '/', '.', 't', 'e', 's', 'k', 'y', '\0'};
 
 class TMenu : public wxFrame
 {

@@ -12,19 +12,49 @@ IMPLEMENT_APP(TeskyApp)
 //[MAIN:]
 bool TeskyApp::OnInit()
 {
-	//Check if the .tesky directory exists, if it does not, create one
-	//If it does, import all the keys stored inside of the directory and continue from than on
+//TODO:
+//	Add debug/verbose flag, koja daje visak informacija u terminalu
+
+	testAarch();	//print name of platform
+	if(directoryExists(".tesky"))	//check for dir in user home directory
+		printf("%s exists in user home directory\n", ".tesky");
+		//import all keys as linked list i guess
+		//or store somewhere all names of keys with some ID
+		//or find a way to keep track of keys
+	else
+	{
+		//create new directory in home user dir
+	}
+
+//DONE:
+//	Na kraju uredi kod za razlicite arhitekture:
+//include/probe.h - include-uje jednu od sledecih implementacija funkcija, ostatak se nalazi u main.cpp
+//	src/arch/win32/probe.cpp
+//	src/arch/linux/probe.cpp
+//	src/arch/mac/probe.cpp
+//DONE:
+//	Check if the .tesky directory exists, if it does not, create one
+//	If it does, import all the keys stored inside of the directory and continue from than on
+//TODO:
+//	Ako postoji, izvuci sve kljuceve iznutra i ubaci u linked listu, tako je najlakse
+//	Nek postoje dve linked liste, priv i pub keys
+//	Nek postoji selected_priv pokazivac na priv key koji smo selektovali i pub na key koji smo selektovali
+//	kad to zavrsis ucitao si kljuceve, pripremio podatke nad kojima radis i mozemo da krenemo
+//TODO:
+//	podesi da izbor kljuca bude pored tabova, lakse je
+//	Sada, u Certificates, na klik New Key, kreiramo nov fajl i pozivamo odgovarajucu gpgme funkciju, otvaramo nov prozor :)
+//	Import keys i Search Bar su ez bas
+//	U Notepadu, izabrati kome pisemo, pa Encrypt poziva odgovarajucu gpgme funkciju uz odgovarajuci public kljuc
+//	Decrypt poziva odgovarajucu gpgme funkciju uz selektovani prvi kljuc
+//	Hub moras da implementiras vec mrezu i jednostavni file sharing, stim sto NAT predstavlja problem
+//	Jos Redesign
+//	SADA TESKY ULAZI U ALPHA VERZIJU :)
+//	System Tray Icon
+
 
 	//Test TaskBarIcon
-	if ( !wxTaskBarIcon::IsAvailable() )
-    {
-        wxMessageBox
-        (
-            "There appears to be no system tray support in your current environment. This sample may not behave as expected.",
-            "Warning",
-            wxOK | wxICON_EXCLAMATION
-        );
-    }
+	//if (!wxTaskBarIcon::IsAvailable())
+    //    wxMessageBox("There appears to be no system tray support in your current environment. This sample may not behave as expected.", "Warning", wxOK | wxICON_EXCLAMATION);
 
 	//Write mirko to clipboard
 	//wxTheClipboard->Open();
@@ -38,7 +68,7 @@ bool TeskyApp::OnInit()
 	wxMessageBox(data.GetText());
 	wxTheClipboard->Close();
 
-	TMenu *frame = new TMenu(wxT("Tesky v0.05"));
+	TMenu *frame = new TMenu(wxT("Tesky v0.07"));
 	frame->Show(true);
 	//SetTopWindow(frame);
 
@@ -64,7 +94,7 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 	wxMenu *settMenu = new wxMenu;
 	wxMenu *wndwMenu = new wxMenu;
 	wxMenu *helpMenu = new wxMenu;
-	wxMenu *clipMenu = new wxMenu;
+	//wxMenu *clipMenu = new wxMenu;
 
 
 
@@ -373,9 +403,6 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
     SetSizerAndFit(topSizer);
 
 	//Create taskbar icon
-	m_taskBarIcon = new wxTaskBarIcon();
-	if(!m_taskBarIcon->SetIcon(wxIcon(smile_xpm), wxT("wxTaskBarIcon Sample")))
-		wxMessageBox(wxT("Could not set the icon!"));
 
 	//Enable gpgme.h library
 	//Add functionalities to buttons
@@ -445,26 +472,25 @@ void TMenu::OnAbout_Mirko(wxCommandEvent& event)
 void TMenu::OnAbout_Tesky(wxCommandEvent& event)
 {
 	wxString msg;
-	msg.Printf(wxT("Hello and welcome to Tesky v0.02\n\t-written by Mirko"));
+	msg.Printf(wxT("Welcome to Tesky v0.07 GPG encryption tool\n\t\tDeveloped by Mirko Nikic :D\n"));
 
 	wxMessageBox(msg, wxT("About Tesky"), wxOK | wxICON_INFORMATION, this);
 	event.Skip();
 }
 void TMenu::OnQuit(wxCommandEvent& event){Close();event.Skip();}
-
 //Notebook methods
-	//Certificates methods
-	void TMenu::OncertNewKey(wxCommandEvent& event){event.Skip();}
-	void TMenu::OncertOK(wxCommandEvent& event){event.Skip();}
-	//Notepad methods
-		//OnNtpdClImport -> OnClImport, isti su :D
-	void TMenu::OnNtpdEncrypt(wxCommandEvent& event){event.Skip();}
-	void TMenu::OnNtpdDecrypt(wxCommandEvent& event){event.Skip();}
-	//Hub methods
-	void TMenu::OnhubStartServer(wxCommandEvent& event){event.Skip();}
-	void TMenu::OnhubShareKeys(wxCommandEvent& event){event.Skip();}
-	void TMenu::OnhubConnectClient(wxCommandEvent& event){event.Skip();}
-	void TMenu::OnhubImportKeys(wxCommandEvent& event){event.Skip();}
-	//Chat methods
-	//Properties methods
-	//MDNetwork methods
+//Certificates methods
+void TMenu::OncertNewKey(wxCommandEvent& event){event.Skip();}
+void TMenu::OncertOK(wxCommandEvent& event){event.Skip();}
+//Notepad methods
+	//OnNtpdClImport -> OnClImport, isti su :D
+void TMenu::OnNtpdEncrypt(wxCommandEvent& event){event.Skip();}
+void TMenu::OnNtpdDecrypt(wxCommandEvent& event){event.Skip();}
+//Hub methods
+void TMenu::OnhubStartServer(wxCommandEvent& event){event.Skip();}
+void TMenu::OnhubShareKeys(wxCommandEvent& event){event.Skip();}
+void TMenu::OnhubConnectClient(wxCommandEvent& event){event.Skip();}
+void TMenu::OnhubImportKeys(wxCommandEvent& event){event.Skip();}
+//Chat methods
+//Properties methods
+//MDNetwork methods

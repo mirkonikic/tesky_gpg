@@ -53,8 +53,10 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] menu with apropriate tabs
 - [x] fix sizer alignment in Hub tab
 - [x] blueprint for GUI
-- [ ] clipboard manipulation
+- [ ] Fix code structure -> Header -> aarch.h <- aarch.cpp PROBLEM
+- [x] clipboard manipulation
 - [ ] gpgme.h implementation
+- [ ] Napravi linked listu za kljuceve
 - [ ] certificate creation and management
 - [x] Enable gpgme.h library
 - [ ] Add functionalities to all buttons
@@ -65,6 +67,10 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Make .tesky in documents in Windows
 - [ ] Notepad osmisliti kako i da ubacis da moze odmah u clipboard (dugme za back to clipboard ili encrypt clipboard...)
 - [ ] osmisliti da na pokretanju programa on analizira .tesky i kreira linked listu ili array, pa popuni wxString u notepadu pre wxChoice
+- [ ] Properties -> add ASCII ARMOR checkbox
+- [ ] Properties -> add Crypto choice list
+- [ ] Properties -> add HASH choice list
+- [ ] Fix color problem na linuxu kad promene system theme
 - [ ] ********ALPHA version done:
 - [ ] Certificates tab
 - [ ] Notepad tab
@@ -77,10 +83,10 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Chat tab
 - [ ] Drag&Drop file encryption ?tab?
 - [ ] all arguments passed when starting program in terminal
+- [ ] tested on Windows10-ja-pera, Windows11-pera, Windows7-ja, MacOS-zl, ArchLin-ja, Fedora-ja, Ubuntu-ja, Debian-ja, PopOS-ja, BSD-ja, Manjaro-ja, Mint-ja, Kali-ja, OpenSUSE-ja
 - [ ] ********VERSION 1.0.0 STABLE RELEASE done:
 - [ ] MDNetwork tab
 - [ ] Redesign of the app for WIN, LIN, MACOS
-- [ ] tested on all popular Operating Systems
 - [ ] ********VERSION 2.0.0 FEATURE COMPLETE RELEASE done:
 - [ ] PacketEncryptor tab
 - [ ] RansomRev tool try to create

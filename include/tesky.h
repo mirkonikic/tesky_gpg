@@ -1,16 +1,19 @@
 // Name:	tesky App
 // Purpose:	GPG encryption tool with advanced options
 // Author:	Mirko Nikic
+// Requirements: gpgme 1.14.0-unknown; wx-config 3.0.5
 // Credits: 
 
 #ifndef __TESKY_H__
 #define __TESKY_H__
 
 //[1] INCLUDES:
+//PROBLEM JER common_lib -> aarch.h
+//PROBLEM JER aarch.cpp  -> aarch.h
+//ZATO SU GLOBAL VARIABLES FROWNED UPON
 #include "common_lib.h"	//CROSS-PLATFORM HEADERS
 
 #include <ostream>
-#include <gpgme.h>	//interface to gnupg
 
 // For compilers that support precompilation, includes "wx/wx.h".
 #include <wx/wxprec.h>
@@ -107,9 +110,6 @@ enum
 	//PanelProperties - Setting properties for program
 	//PanelChat - you can chat with selected certificate :)
 };
-
-bool checkDotFiles(char *pathname);
-char dotfiles_lin[] = {'~', '/', '.', 't', 'e', 's', 'k', 'y', '\0'};
 
 class TMenu : public wxFrame
 {

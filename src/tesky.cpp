@@ -15,9 +15,9 @@ bool TeskyApp::OnInit()
 //TODO:
 //	Add debug/verbose flag, koja daje visak informacija u terminalu
 
-	testAarch();	//print name of platform
-	if(directoryExists(".tesky"))	//check for dir in user home directory
-		printf("%s exists in user home directory\n", ".tesky");
+	aarch_info();	//print name of platform
+	if(directory_exists((char *)".tesky"))	//check for dir in user home directory
+		printf(".tesky data directory exists: %s\n", ".tesky");
 		//import all keys as linked list i guess
 		//or store somewhere all names of keys with some ID
 		//or find a way to keep track of keys
@@ -25,6 +25,20 @@ bool TeskyApp::OnInit()
 	{
 		//create new directory in home user dir
 	}
+
+	//initialization of gpgme library
+	init_gpgme();
+	init_data();
+	//initialize engine
+	//gpgme_engine_info_t engine_info;
+	//GPGME_MD_SHA512
+	//GPGME_PK_RSA_E - encryption and decryption
+	//GPGME_PK_RSA_S - sign and verify
+	//GPGME_PROTOCOL_OpenPGP - encryption
+	//if(err = gpgme_set_engine_info(GPGME_PROTOCOL_OpenPGP, NULL, NULL))
+	//	return 0;
+	//printf("engine set to: %s", gpgme_get_protocol_name(GPGME_PROTOCOL_OpenPGP));
+
 
 //DONE:
 //	Na kraju uredi kod za razlicite arhitekture:

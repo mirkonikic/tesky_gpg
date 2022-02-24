@@ -90,6 +90,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] ********VERSION 2.0.0 FEATURE COMPLETE RELEASE done:
 - [ ] PacketEncryptor tab
 - [ ] RansomRev tool try to create
+- [ ] NAT Traversal - https://bford.info/pub/net/p2pnat/ - https://www.it.lut.fi/wiki/lib/exe/fetch.php/courses/ct30a6900/p2p_over_nat.pdf - https://en.wikipedia.org/wiki/NAT_traversal
 - [ ] notepad nek ima real time enkripciju https://youtu.be/BW_B6Zadsj4
 - [ ] program koji pokrenes i kriptuje ti automatski data delove paketa i dekriptuje automatski sa odgovarajucim public keyovima, kliknes dva puta i on krene, mozes da izaberes sta ces da kriptujes i onaj sa druge strane kompa treba da dekriptuje -> kao wireshark samo upoznat sa paketima i kriptuje ono sto moze drugi korisnik da dekr
 - [ ] tesky chat, start - over, kad kliknes over, sacuva se chat sa slikama u folderu posled ji nivo aplikacije bi bio decentralizovani torent, gde bi uneo ip adrese i stvorio mrezu s njima, pa mozete da pristupate jedni drugima

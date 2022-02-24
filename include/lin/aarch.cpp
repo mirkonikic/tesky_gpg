@@ -1,6 +1,10 @@
 #if defined(__linux__)
 #include "aarch.h"
 
+gpgme_pubkey_algo_t algorithm;
+gpgme_hash_algo_t hash;
+gpgme_protocol_t protocol;
+
 void aarch_info(){printf("Operating system is: Linux :)\n");}
 bool directory_exists(char *pathname)
 {
@@ -26,6 +30,11 @@ void init_gpgme()
 	printf("engine version: %d\n", gpgme_engine_check_version(GPGME_PROTOCOL_OpenPGP));
 	printf("rsa value: %s\n", gpgme_pubkey_algo_name (GPGME_PK_RSA_E));
 	printf("hash value: %s\n", gpgme_hash_algo_name (GPGME_MD_SHA512));
+
+	//Setting up default data
+	protocol = GPGME_PROTOCOL_OpenPGP; //default protocol OpenPGP
+	hash = GPGME_MD_SHA512;	//default hash
+	algorithm = GPGME_PK_RSA;	//default algorithm
 }
 void init_data(){printf("Ucitavam keys iz foldera\n");}
 

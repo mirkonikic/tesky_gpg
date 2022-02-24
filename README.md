@@ -2,6 +2,22 @@
 GPG key management, encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 <br>finish this!
 
+[![Logo](img/banner.png)](https://github.com/orhun/gpg-tui)
+
+[![GitHub Release](https://img.shields.io/github/v/release/orhun/gpg-tui?style=flat&labelColor=1d1d1d&color=424242&logo=GitHub&logoColor=white)](https://github.com/orhun/gpg-tui/releases)
+[![Crate Release](https://img.shields.io/crates/v/gpg-tui?style=flat&labelColor=1d1d1d&color=424242&logo=Rust&logoColor=white)](https://crates.io/crates/gpg-tui/)
+[![Coverage](https://img.shields.io/codecov/c/gh/orhun/gpg-tui?style=flat&labelColor=1d1d1d&color=424242&logo=Codecov&logoColor=white)](https://codecov.io/gh/orhun/gpg-tui)
+[![Continuous Integration](https://img.shields.io/github/workflow/status/orhun/gpg-tui/Continuous%20Integration/master?style=flat&labelColor=1d1d1d&color=424242&logo=GitHub%20Actions&logoColor=white)](https://github.com/orhun/gpg-tui/actions?query=workflow%3A%22Continuous+Integration%22)
+[![Continuous Deployment](https://img.shields.io/github/workflow/status/orhun/gpg-tui/Continuous%20Deployment?style=flat&labelColor=1d1d1d&color=424242&logo=GitHub%20Actions&logoColor=white&label=deploy)](https://github.com/orhun/gpg-tui/actions?query=workflow%3A%22Continuous+Deployment%22)
+[![Docker Builds](https://img.shields.io/docker/cloud/build/orhunp/gpg-tui?style=flat&labelColor=1d1d1d&color=424242&label=docker&logo=Docker&logoColor=white)](https://hub.docker.com/r/orhunp/gpg-tui)
+[![Documentation](https://img.shields.io/docsrs/gpg-tui?style=flat&labelColor=1d1d1d&color=424242&logo=Rust&logoColor=white)](https://docs.rs/gpg-tui/)
+
+## About
+
+**gpg-tui** is a [Terminal User Interface](https://en.wikipedia.org/wiki/Text-based_user_interface) for [GnuPG](https://gnupg.org/).
+
+It aims to ease the key management operations such as listing/exporting/signing by providing an interface along with the command-line fallback for more complex operations. It is not trying to be a full-fledged interface for _all_ the features that [gpg](https://linux.die.net/man/1/gpg) provides but it tries to bring a more interactive approach to key management.
+
 <br>
 <br>tesky gpgme zavrsi - ed->grep - EFI programming - LinuxKernelNewbies - customArch - learnChroot - golang/erlang - Haskell - pogledaj Onura Mutlua
 <br>UEFI beyond bios - LiveLinuxCD books - Kernel - xv6 - Cryptography in C - RHCSA->RHCE->RHCA cert
@@ -81,6 +97,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] ********BETA version done:
 - [x] making code compileable on windows, *nix and macOS - https://stackoverflow.com/questions/3627127/writing-cross-platform-c-code-windows-linux-and-mac-osx
 - [ ] razmisli da za windows predjes na c# i wpf ili ostanes na c++
+- [ ] ako odlucis za windows wpf, mozes sve za wx da prebacis u lin dir ili da napravis dva odvojena source code-a
 - [ ] razmisli za macOS kako ces, moras da testiras u VM
 - [ ] Chat tab
 - [ ] Drag&Drop file encryption ?tab?

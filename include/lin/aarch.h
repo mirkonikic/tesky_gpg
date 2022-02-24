@@ -17,7 +17,9 @@
     //gpgme_off_t file_size;
     //gpgme_key_t pub_key;
     //gpgme_key_t priv_key;
-
+    extern gpgme_pubkey_algo_t algorithm;
+    extern gpgme_hash_algo_t hash;
+    extern gpgme_protocol_t protocol;   //default protocol is OpenPGP
 //function declarations
 void aarch_info();
 bool directory_exists(char* pathname);

@@ -4,9 +4,9 @@
 
 [![Logo](img/banner.png)](https://github.com/mirkonikic/tesky_gpg)
 
-<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mirkonikic/tesky_gpg">[![GitHub Release](https://img.shields.io/github/v/release/orhun/gpg-tui?style=flat&labelColor=1d1d1d&color=424242&logo=GitHub&logoColor=white)](https://github.com/orhun/gpg-tui/releases)
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/mirkonikic/tesky_gpg?style=plastic">
 <img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/mirkonikic/tesky_gpg?style=plastic">
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mirkonikic/tesky_gpg">[![GitHub Release]
 
 ## About
 GPG key management, encryption/decryption, sign/verify GUI software, based on OpenPGP standard

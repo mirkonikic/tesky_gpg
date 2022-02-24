@@ -80,6 +80,8 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] design for alpha version
 - [ ] ********BETA version done:
 - [x] making code compileable on windows, *nix and macOS - https://stackoverflow.com/questions/3627127/writing-cross-platform-c-code-windows-linux-and-mac-osx
+- [ ] razmisli da za windows predjes na c# i wpf ili ostanes na c++
+- [ ] razmisli za macOS kako ces, moras da testiras u VM
 - [ ] Chat tab
 - [ ] Drag&Drop file encryption ?tab?
 - [ ] all arguments passed when starting program in terminal

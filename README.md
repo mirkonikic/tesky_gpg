@@ -1,9 +1,8 @@
 <div align="center">
 <h1>tesky v0.07</h1>
-</div>
 
-[![Logo](img/banner.png)](https://github.com/mirkonikic/tesky_gpg)
 
+[![Logo](img/banner.png)](https://github.com/mirkonikic/tesky_gpg)<br>
 <img alt="GitHub followers" src="https://img.shields.io/github/followers/mirkonikic?style=social">
 <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/mirkhoff?style=social">
 <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/mirkonikic/tesky_gpg">
@@ -11,7 +10,8 @@
 <img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/mirkonikic/tesky_gpg?style=plastic"> 
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mirkonikic/tesky_gpg">
 <img alt="GitHub" src="https://img.shields.io/github/license/mirkonikic/tesky_gpg">
-
+</div>
+  
 ## About
 GPG key management, encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 <br>finish this!

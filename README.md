@@ -73,6 +73,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] blueprint for GUI
 - [ ] Fix code structure -> Header -> aarch.h <- aarch.cpp PROBLEM
 - [ ] BIG PROBLEM ^^^
+- [ ] add dark and light theme not related to system, also store that info somewhere
 - [x] clipboard manipulation
 - [ ] gpgme.h implementation
 - [ ] Napravi linked listu za kljuceve
@@ -89,6 +90,9 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Properties -> add ASCII ARMOR checkbox
 - [ ] Properties -> add Crypto choice list
 - [ ] Properties -> add HASH choice list
+- [ ] Properties -> add Protocol choice list
+- [ ] Properties -> Tracker or NAT traversal radio list
+- [ ] Properties -> change theme
 - [ ] Fix color problem na linuxu kad promene system theme
 - [ ] ********ALPHA version done:
 - [ ] Certificates tab: New key, Import keys, OnInit load all keys from .tesky, 

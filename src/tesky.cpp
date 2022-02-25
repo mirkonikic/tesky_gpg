@@ -198,9 +198,13 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 	notebook = new wxNotebook(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNB_BOTTOM);
 
 	//setup notebook
-	notebook->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
-	notebook->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_BACKGROUND ) );
-	
+	//notebook->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
+	//notebook->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_BACKGROUND ) );
+	notebook->SetForegroundColour(wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ));//wxColour(255, 255, 255));
+	notebook->SetBackgroundColour(wxSystemSettings::GetColour( wxSYS_COLOUR_BACKGROUND ));//wxColour(44, 44, 44));
+	//wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT )
+	//wxSystemSettings::GetColour( wxSYS_COLOUR_BACKGROUND )
+
 	//Create tabs for notebook
 	wxPanel* tab1 = new wxPanel(notebook, wxID_ANY);
     wxPanel* tab2 = new wxPanel(notebook, wxID_ANY);

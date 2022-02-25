@@ -12,8 +12,9 @@
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mirkonikic/tesky_gpg">
 </div>
   
-## About
+## About<br>
 <img alt="GitHub repo size" src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
+<img alt="GitHub repo size" src="https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white">
 
 **Tesky** - [GPG key management](https://en.wikipedia.org/wiki/GNU_Privacy_Guard), encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 <br>finish this!

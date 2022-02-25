@@ -36,8 +36,13 @@
     typedef struct public_key
     {
         int id;
-        char *file_name;
-        char *user_name;
+        //char *uid;
+        //char *user_name;
+        //char *email;
+        std::string uid;
+        std::string user_name;
+        std::string email;
+        gpgme_protocol_t protocol;
         //char *data;
         struct public_key *next;
         struct public_key *last;
@@ -45,8 +50,10 @@
     typedef struct private_key
     {
         int id;
-        char *file_name;
+        char *uid;
         char *user_name;
+        char *email;
+        gpgme_protocol_t protocol;
         //char *data;
         struct private_key *next;
         struct private_key *last;
@@ -59,7 +66,6 @@
     extern privkey *priv_curr_key;      //holds selected private key
     extern gpgme_error_t err;  //err = funkc => if(err == GPGME_ERR...)
     extern gpgme_engine_info_t tesky_engine_info;
-    //gpgme_data_t eng_data;  //user -> data -> engine
     extern gpgme_ctx_t tesky_ctx;    //configuration, status and result 
     extern int tesky_armored;
     //gpgme_off_t file_size;
@@ -82,8 +88,8 @@ void tesky_end_ctx();
 
 //linkedlists manipulation
 void tesky_init_keylists();
-void tesky_add_to_pubkeylist(char *file_name, char *user_name);
-void tesky_add_to_privkeylist(char *file_name, char *user_name);
+void tesky_add_to_pubkeylist(char *uid, char *user_name, char *email, gpgme_protocol_t protocol);
+void tesky_add_to_privkeylist(char *uid, char *user_name, char *email, gpgme_protocol_t protocol);
 void tesky_delete_from_pubkeylist();
 void tesky_delete_from_privkeylist();
 void tesky_print_publistkey();
@@ -91,7 +97,7 @@ void tesky_print_privlistkey();
 
 
 //finish
-void tesky_init_data(); //import all keys from directory
+void tesky_init_data(); //JOS NE ZNAM
 void tesky_read_data(tesky_data data_passed);   //nisam sig tacno o.o
 //  + inicijalizujes engine
 //  + pokrenes ctx
@@ -110,8 +116,8 @@ void tesky_read_data(tesky_data data_passed);   //nisam sig tacno o.o
 //      + odluci dal ces ucitati sve u linked listu ili samo filename pa load
 //      + mozda samo ucitaj selektovane, pa kad promenimo prepisi
 //  - mozes i da kreiras novi pub priv key genkey()
-//  - podesis privkey
-//  - podesis pubkey
+//  + podesis privkey
+//  + podesis pubkey
 //  - enkriptujes char* sa pubkeyom
 //  - dekriptujes char* sa privkeyom
 //  - enkriptujes fajl sa pubkeyom

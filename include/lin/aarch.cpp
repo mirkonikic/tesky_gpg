@@ -51,6 +51,8 @@ void tesky_init_gpgme()
 	tesky_algorithm = TESKY_DEFAULT_ALGO;		//default algorithm
 	tesky_armored = TESKY_DEFAULT_ARMORED;		//ASCII ARMORED JE PO DEFAULTU
 }
+
+//CTX methods
 //void tesky_init_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, gpgme_hash_algo_t hash_passed=TESKY_DEFAULT_HASH, gpgme_pubkey_algo_t algo_passed=TESKY_DEFAULT_ALGO)
 void tesky_init_ctx(gpgme_protocol_t protocol_passed, int armored_passed, gpgme_hash_algo_t hash_passed, gpgme_pubkey_algo_t algo_passed)
 {
@@ -70,12 +72,34 @@ void tesky_init_ctx(gpgme_protocol_t protocol_passed, int armored_passed, gpgme_
 	//set engine
 	exit_if_err(gpgme_ctx_set_engine_info(tesky_ctx, tesky_protocol, tesky_engine_info->file_name, tesky_engine_info->home_dir));
 	
-	exit_if_err(gpgme_get_engine_info(&tesky_engine_info));
-	printf("file=%s, home=%s\n", tesky_engine_info->file_name, tesky_engine_info->home_dir);
+	//initialize engine
+	err = gpgme_get_engine_info(&tesky_engine_info);
+	
+	//data container
+		//gpgme_data_t
 
-	//default je armored ascii
-	gpgme_set_armor(tesky_ctx, tesky_armored);
+	//creating data buffer:
+	//	1. Memory Based Data Buffers
+		//gpgme_data_new(gpgme_data_t *dh)
+	//	2. File Based Data Buffers
+		//gpgme_data_new_from_fd(gpgme_data_t *dh, int FD)
+	//	3. Callback Based Data Buffers
+	
+	//destroying data buffers:
+		//gpgme_data_release(gpgme_data_t)
 
+	//I/O with data buffers
+		//read from dh to buffer size length
+			//gpgme_data_read(gpgme_data_t dh, void *buffer, size_t length)
+		//write from buffer to dh, size length
+			//gpgme_data_write(gpgme_data_t dh, void *buffer, size_t length)
+
+	//change cursor position in data_t
+		//gpgme_data_seek(gpgme_data_t dh, off_t offset, int whence);
+		//int whence -> SEEK_SET, SEEK_CUR, SEEK_END
+
+	
+	
 
 	//destroy new ctx
 	//gpgme_release(tesky_ctx);
@@ -90,14 +114,41 @@ void tesky_update_ctx(gpgme_protocol_t protocol_passed, gpgme_hash_algo_t hash_p
 	//change protocol of context
 	exit_if_err(gpgme_set_protocol(tesky_ctx, tesky_protocol));
 
-	exit_if_err(gpgme_ctx_set_engine_info(tesky_ctx, tesky_protocol, "tesky v0.07", NULL));
+	exit_if_err(gpgme_ctx_set_engine_info(tesky_ctx, tesky_protocol, tesky_engine_info->file_name, NULL));
 }
 void tesky_end_ctx()
 {
 	gpgme_release(tesky_ctx);
 }
 std::string tesky_ctx_get_protocol(){return gpgme_get_protocol_name(gpgme_get_protocol(tesky_ctx));}
+
+//JOS NE ZNAM
 void tesky_init_data(){printf("Ucitavam keys iz foldera\n");}
+
+//TODO:
+//Generate new key pair
+void tesky_new_keypair()
+{
+	//gpgme_genkey_result_t result;
+	//gpgme_key_t key;
+
+	//ZA OVO CE MI TREBATI NOV wxFRAME
+	//mozda bolje prvo da probam enkr i dekr sa postojecim kljucevima :)
+}
+
+//TODO:
+//In Encryption add a new key -> encrypt -> release new key
+//Nemoj da ubacujes kljuc u memoriju dok ne kliknu encrypt
+void sign_and_encrypt(const char *data, const char *public_key_fingerprint, const char *path, const char *file_name)
+{
+	//gpgme_key_t public_key;
+	
+	//LOAD KEYS INTO GPGME
+	//use the key
+
+}
+
+//LinkedList methods
 void tesky_init_keylists()
 {
 	pub_head_node = nullptr;
@@ -108,38 +159,52 @@ void tesky_init_keylists()
 	n_privkey = 0;
 	n_pubkey = 0;
 
-	//proveri da li postoji .tesky i popuni liste
-	//ako ne postoji ostavi praznu listu
-	//napisi init_gui, koja zavisno od n kljuceva apdejtuje liste
-	if(tesky_directory_exists((char *)".tesky")){	//check for dir in user home directory
-		printf(".tesky data directory exists: %s\n", ".tesky");
-		tesky_add_to_pubkeylist((char *)"pubkey1", (char *)"user1");
-		tesky_add_to_pubkeylist((char *)"pubkey2", (char *)"user2");
-		tesky_add_to_pubkeylist((char *)"pubkey3", (char *)"user3");
-		tesky_add_to_pubkeylist((char *)"pubkey4", (char *)"user4");
-		tesky_add_to_privkeylist((char *)"privkey5", (char *)"user5");
-		tesky_add_to_privkeylist((char *)"privkey6", (char *)"user6");
-		//import all keys as linked list i guess
-		//or store somewhere all names of keys with some ID
-		//or find a way to keep track of keys
-	}
-	else
-	{
-		//create new directory in home user dir
-	}
+	//load all keys from gpg to linked list :D
+	//when you need the key, search for it with UID
+	err = (gpgme_op_keylist_start(tesky_ctx, NULL, 0));
+	gpgme_key_t key;
+    while (!err)
+    {
+        err = gpgme_op_keylist_next (tesky_ctx, &key);
+        if (err)
+          break;
+        	printf("%s\n", key->subkeys->keyid);
+        if (key->uids && key->uids->name)
+			printf("%s\n", key->uids->name);
+        if (key->uids && key->uids->email)
+        	printf("%s\n", key->uids->email);
+        putchar ('\n');
+
+		//add to linked list :)
+		if(key->secret == 0)
+			tesky_add_to_pubkeylist(key->subkeys->keyid, key->uids->name, key->uids->email, key->protocol);
+		//else if(key->secret == 1)
+		//	tesky_add_to_privkeylist(key_data[0], key_data[1], key_data[2], key->protocol);
+
+        gpgme_key_release (key);
+    }
+
+	gpgme_op_keylist_end(tesky_ctx);
+
+	tesky_print_publistkey();
+	//tesky_print_privlistkey();
 }
-void tesky_add_to_pubkeylist(char *file_name, char *user_name)
+void tesky_add_to_pubkeylist(char *uid, char *user_name, char *email, gpgme_protocol_t protocol)
 {
+	printf("aa");
 	pubkey *p = (pubkey *)malloc(sizeof(pubkey));	//either way ill need a new node
 	if(n_pubkey == 0)	//if theres no head node
 	{
+		printf("aa");
 		p->id = n_pubkey++;		//adding first element to list of pubkeys
-		p->user_name = file_name;
-		p->file_name = user_name;
+		p->uid = uid;
+		p->user_name = user_name;
+		p->email = email;
+		p->protocol = protocol;
 		p->last = nullptr;
 		p->next = nullptr;
 		pub_head_node = p;
-		printf("LL: added head to public key list: id: %d, fn: %s, un: %s\n", p->id, p->file_name, p->user_name);
+		printf("LL: added head to public key list: id: %d, uid: %s, un: %s\n", p->id, p->uid, p->user_name);
 		//free(p);
 		return;
 	}
@@ -152,27 +217,31 @@ void tesky_add_to_pubkeylist(char *file_name, char *user_name)
 	}
 
 	p->id = n_pubkey++;		//adding another element to list of pub keys from 0, because wxWidgets counts from 0, but n_pubkey will grow accordingly since ++ is on right side :D
-	p->user_name = file_name;
-	p->file_name = user_name;
+	p->uid = uid;
+	p->user_name = user_name;
+	p->email = email;
+	p->protocol = protocol;
 	p->last = pcurr;
 	p->next = nullptr;
 	pcurr->next = p;
-	printf("LL: added new node: %d to public key list: id: %d, fn: %s, un: %s\n", n_pubkey, p->id, p->file_name, p->user_name);
+	printf("LL: added node to public key list: id: %d, uid: %s, un: %s\n", p->id, p->uid, p->user_name);
 	//free(p);
 	return;
 }
-void tesky_add_to_privkeylist(char *file_name, char *user_name)
+void tesky_add_to_privkeylist(char *uid, char *user_name, char *email, gpgme_protocol_t protocol)
 {
 	privkey *p = (privkey *)malloc(sizeof(privkey));	//either way ill need a new node
 	if(n_privkey == 0)	//if theres no head node
 	{
 		p->id = n_privkey++;		//adding first element to list of pubkeys
-		p->user_name = file_name;
-		p->file_name = user_name;
+		p->uid = uid;
+		p->user_name = user_name;
+		p->email = email;
+		p->protocol = protocol;
 		p->last = nullptr;
 		p->next = nullptr;
 		priv_head_node = p;
-		printf("LL: added head to public key list: id: %d, fn: %s, un: %s\n", p->id, p->file_name, p->user_name);
+		printf("LL: added head to private key list: id: %d, uid: %s, un: %s\n", p->id, p->uid, p->user_name);
 		//free(p);
 		return;
 	}
@@ -185,33 +254,39 @@ void tesky_add_to_privkeylist(char *file_name, char *user_name)
 	}
 
 	p->id = n_privkey++;		//adding another element to list of pub keys from 0, because wxWidgets counts from 0, but n_pubkey will grow accordingly since ++ is on right side :D
-	p->user_name = file_name;
-	p->file_name = user_name;
+	p->uid = uid;
+	p->user_name = user_name;
+	p->email = email;
+	p->protocol = protocol;
 	p->last = pcurr;
 	p->next = nullptr;
 	pcurr->next = p;
-	printf("LL: added new node: %d to public key list: id: %d, fn: %s, un: %s\n", n_pubkey, p->id, p->file_name, p->user_name);
+	printf("LL: added head to private key list: id: %d, uid: %s, un: %s\n", p->id, p->uid, p->user_name);
 	//free(p);
 	return;
 }
+//TODO: delete key from list methods
 void tesky_delete_from_pubkeylist();
 void tesky_delete_from_privkeylist();
+//^^
 void tesky_print_publistkey()
 {
+	printf("PUBLIC LIST:\n");
 	pubkey *pcurr = pub_head_node;
 	while(pcurr!=nullptr)		//searching the end of the list
 	{
-		printf("node %d: un: %s\n", pcurr->id, pcurr->user_name);
+		printf("node %d: uid: %s un: %s em: %s proto: %s\n", pcurr->id, pcurr->uid, pcurr->user_name, pcurr->email, gpgme_get_protocol_name(pcurr->protocol));
 		pcurr = pcurr->next;
 	}
 	return;
 }
 void tesky_print_privlistkey()
 {
+	printf("PRIVATE LIST:\n");
 	privkey *pcurr = priv_head_node;
 	while(pcurr!=nullptr)		//searching the end of the list
 	{
-		printf("node %d: un: %s\n", pcurr->id, pcurr->user_name);
+		printf("node %d: uid: %s un: %s em: %s proto: %s\n", pcurr->id, pcurr->uid, pcurr->user_name, pcurr->email, gpgme_get_protocol_name(pcurr->protocol));
 		pcurr = pcurr->next;
 	}
 	return;

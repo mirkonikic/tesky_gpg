@@ -24,7 +24,6 @@ bool TeskyApp::OnInit()
 	//ako nije, ostavi listu praznu
 	//na kraju inicijalizacije programa, pozivas update GUI
 	//	update listbox, choicebox, koji sadrze kljuceve
-
 //DONE:
 //	Na kraju uredi kod za razlicite arhitekture:
 //include/probe.h - include-uje jednu od sledecih implementacija funkcija, ostatak se nalazi u main.cpp
@@ -66,11 +65,10 @@ bool TeskyApp::OnInit()
 	wxTheClipboard->GetData(data);
 	wxMessageBox(data.GetText());
 	wxTheClipboard->Close();
-
+	
 	TMenu *frame = new TMenu(wxT(" Tesky v0.07 "));
 	frame->Show(true);
 	//SetTopWindow(frame);
-
 	//succesfull initialization
 	return true;
 }
@@ -80,7 +78,6 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 {
 	//Set the frame icon
 	SetIcon(wxIcon());
-
 //[MENU]
 	//Create a menu bar
 	wxMenuBar *menuBar = new wxMenuBar();
@@ -550,6 +547,7 @@ void TMenu::OnPubKeysListSelect(wxCommandEvent& event)
 void TMenu::OncertNewKey(wxCommandEvent& event)
 {
 	printf("newkey pressed\n");
+	tesky_print_publistkey();
 	//UVEK KAD POZIVAS ADD ILI DELETE, POZIVAS I UPDATE GUI
 	//tesky_add_to_pubkeylist("pubkey7", "user8");
 	//UpdateGUI();
@@ -628,8 +626,8 @@ void TMenu::UpdateGUI()
 		{
 			if((p1->id+1) > n_pubList)				//posto je id manji za jedan od broja tog elementa, dodajemo +1
 			{
-				choiceList->Append(p1->file_name);	//dodajemo u choice list
-				pubKeysList->Append(p1->file_name);	//dodajemo u pub keys list
+				choiceList->Append(p1->uid);	//dodajemo u choice list
+				pubKeysList->Append(p1->uid);	//dodajemo u pub keys list
 			}
 			p1 = p1->next;		//sledeci element liste proveravamo
 		}
@@ -644,7 +642,7 @@ void TMenu::UpdateGUI()
 		{
 			if((p2->id+1) > n_privList)
 			{
-				privKeysList->Append(p2->file_name);
+				privKeysList->Append(p2->uid);
 			}
 			p2 = p2->next;
 		}
@@ -663,15 +661,15 @@ void TMenu::init_GUI()
 	//public keys list -> choiceList.append() & pubKeysList->append()
 	while(p1!=nullptr)
 	{
-		choiceList->Append(p1->file_name);
-		pubKeysList->Append(p1->file_name);
+		choiceList->Append(p1->uid);
+		pubKeysList->Append(p1->uid);
 		p1 = p1->next;
 	}
 	//private keys list -> //PrivChoiceList.append() & privKeysList->append()
 	while(p2!=nullptr)
 	{
 		//PrivChoiceList->Append
-		privKeysList->Append(p2->file_name);
+		privKeysList->Append(p2->uid);
 		p2 = p2->next;
 	}
 

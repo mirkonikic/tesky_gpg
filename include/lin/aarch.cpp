@@ -121,7 +121,10 @@ void tesky_init_keylists()
 		//create new directory in home user dir
 	}
 }
-void tesky_add_to_pubkeylist();
+void tesky_add_to_pubkeylist()
+{
+	
+}
 void tesky_add_to_privkeylist();
 void tesky_delete_from_pubkeylist();
 void tesky_delete_from_privkeylist();

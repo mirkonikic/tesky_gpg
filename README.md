@@ -10,8 +10,8 @@
 <img alt="GitHub" src="https://img.shields.io/github/license/mirkonikic/tesky_gpg">
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/mirkonikic/tesky_gpg?style=plastic"> 
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mirkonikic/tesky_gpg">
+<img alt="GitHub repo size" src="https://tokei.rs/b1/github/mirkonikic/tesky_gpg">
 </div>
-![](https://tokei.rs/b1/github/mirkonikic/tesky_gpg)
   
 ## About
 <br>

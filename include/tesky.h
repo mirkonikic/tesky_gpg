@@ -98,7 +98,11 @@ enum
 	//PanelCertificates - Import/Export/New Certificates
 	ID_certNewKey,	//creates new key pair for user
 	ID_certOK,		//handles file picker input and search bar
+	ID_certPrivKeysList,
+	ID_certPubKeysList,
 	//PanelNotepad - File or Text encryption
+	ID_ntpdPubKeysChoice,
+	ID_ntpdPrivKeysChoice,
 	ID_ntpdClImport,
 	ID_ntpdEncrypt,
 	ID_ntpdDecrypt,
@@ -122,6 +126,13 @@ public:
 		wxNotebook* notebook;
 			//Notepad
 			wxTextCtrl* notepadTextBox;
+			//Certificates
+			wxListBox* privKeysList;
+			wxListBox* pubKeysList;
+			//Notepad
+			wxChoice* choiceList;
+			//SystemTray
+			wxTaskBarIcon   *m_taskBarIcon;
 
 	//Event Handlers
 	//MenuBar
@@ -157,9 +168,13 @@ public:
 	void OnAbout_Tesky(wxCommandEvent& event);
 	//Notebook
 		//Certificates
+	void OnPrivKeysListSelect(wxCommandEvent& event);
+	void OnPubKeysListSelect(wxCommandEvent& event);
 	void OncertNewKey(wxCommandEvent& event);
 	void OncertOK(wxCommandEvent& event);
 		//Notepad
+	void OnPubKeysChoiceSelect(wxCommandEvent& event);
+	void OnPrivKeysChoiceSelect(wxCommandEvent& event);
 	void OnNtpdEncrypt(wxCommandEvent& event);
 	void OnNtpdDecrypt(wxCommandEvent& event);
 		//Hub
@@ -170,7 +185,6 @@ public:
 		//Chat
 		//Properties
 		//MDNetwork
-	wxTaskBarIcon   *m_taskBarIcon;
 
 
 private:
@@ -214,7 +228,11 @@ BEGIN_EVENT_TABLE(TMenu, wxFrame)
 	//Certificates
 		EVT_BUTTON(ID_certNewKey, TMenu::OncertNewKey)
 		EVT_BUTTON(ID_certOK, TMenu::OncertOK)
+		EVT_LISTBOX(ID_certPrivKeysList, TMenu::OnPrivKeysListSelect)
+		EVT_LISTBOX(ID_certPubKeysList, TMenu::OnPubKeysListSelect)
 	//Notepad
+		EVT_CHOICE(ID_ntpdPubKeysChoice, TMenu::OnPubKeysChoiceSelect)
+		//EVT_CHOICE(ID_ntpdPrivKeysChoice, TMenu::OnPrivKeysChoiceSelect)
 		EVT_BUTTON(ID_ntpdClImport, TMenu::OnClImport)
 		EVT_BUTTON(ID_ntpdEncrypt, TMenu::OnNtpdEncrypt)
 		EVT_BUTTON(ID_ntpdDecrypt, TMenu::OnNtpdDecrypt)

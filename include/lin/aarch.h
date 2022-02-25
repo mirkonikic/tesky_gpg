@@ -1,3 +1,5 @@
+#ifndef __AARCH_H__
+#define __AARCH_H__
 #if defined(__linux__)
 
 //inclusions
@@ -10,21 +12,80 @@
 #include <locale.h>
     //gpg library
 #include <gpgme.h>	//interface to gnupg
+
+//macros
+#define exit_if_err(err) \
+	do { \
+		if(err != GPG_ERR_NO_ERROR) { \
+			fprintf(stderr, "%s:%d: %s: %s\n", __FILE__, \
+				__LINE__, gpgme_strsource(err), gpgme_strerror(err)); \
+			exit(1); \
+		} \
+	} while(0) \
+
+#define TESKY_DEFAULT_PROTOCOL GPGME_PROTOCOL_OpenPGP
+#define TESKY_DEFAULT_HASH GPGME_MD_SHA512
+#define TESKY_DEFAULT_ALGO GPGME_PK_RSA_E
+#define TESKY_DEFAULT_ARMORED 1
+#define BUF_SIZE 256
 //variables
-    //gpgme_error_t err;  //err = funkc => if(err == GPGME_ERR...)
+    typedef gpgme_data_t tesky_data;
+    typedef gpgme_genkey_result_t tesky_new_key_result;
+    typedef gpgme_encrypt_result_t tesky_encrypt_result;
+    typedef gpgme_decrypt_result_t tesky_decrypt_result;
+
+    extern gpgme_error_t err;  //err = funkc => if(err == GPGME_ERR...)
     //gpgme_data_t eng_data;  //user -> data -> engine
-    //gpgme_ctx_t eng_ctx;    //configuration, status and result 
+    extern gpgme_ctx_t tesky_ctx;    //configuration, status and result 
+    extern int tesky_armored;
     //gpgme_off_t file_size;
     //gpgme_key_t pub_key;
     //gpgme_key_t priv_key;
-    extern gpgme_pubkey_algo_t algorithm;
-    extern gpgme_hash_algo_t hash;
-    extern gpgme_protocol_t protocol;   //default protocol is OpenPGP
+    extern gpgme_pubkey_algo_t tesky_algorithm;
+    extern gpgme_hash_algo_t tesky_hash;
+    extern gpgme_protocol_t tesky_protocol;   //default protocol is OpenPGP
 //function declarations
-void aarch_info();
-bool directory_exists(char* pathname);
-void init_gpgme();
-void init_data();
+void tesky_aarch_info();
+bool tesky_directory_exists(char* pathname);
+void tesky_init_gpgme();
+void tesky_init_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, int armored_passed=TESKY_DEFAULT_ARMORED, gpgme_hash_algo_t hash_passed=TESKY_DEFAULT_HASH, gpgme_pubkey_algo_t algo_passed=TESKY_DEFAULT_ALGO);
+void tesky_update_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, gpgme_hash_algo_t hash_passed=TESKY_DEFAULT_HASH, gpgme_pubkey_algo_t algo_passed=TESKY_DEFAULT_ALGO);
+void tesky_end_ctx();
+
+
+
+//finish
+void tesky_init_data(); //import all keys from directory
+void tesky_read_data(tesky_data data_passed);   //nisam sig tacno o.o
+
+//  + pokrenes ctx
+//  + inicijalizujes engine
+//  + postavis protokol, algo i hash
+//  - potrazis i ucitas u [:OPCIJA:] sve kljuceve iz .tesky
+//      - odluci dal je OPCIJA -> 1. LINKEDLIST ili 2. STRING
+//      - 1) ucitamo svaki kao node, sa ID-jem, filename, key_t ucitan...
+//      - 2) samo ucitamo imena fajlova u string -> std::string += ":ime_pubkey_3"
+//          - posle splitBy(":") i upisati u pub key listu
+//          - problem jer necu znati kako da odaberem fajl koji je selektovan
+//          - mozda moze da se dobije id selektovanog elementa -> for(i=0; i<id; i++)
+//      - initialize linked list
+//      - add to linked list
+//      - delete from linked list sa ID
+//      - delete from linked list sa STRING NAME
+//      - odluci dal ces ucitati sve u linked listu ili samo filename pa load
+//      - mozda samo ucitaj selektovane, pa kad promenimo prepisi
+//  - mozes i da kreiras novi pub priv key genkey()
+//  - podesis privkey
+//  - podesis pubkey
+//  - enkriptujes char* sa pubkeyom
+//  - dekriptujes char* sa privkeyom
+//  - enkriptujes fajl sa pubkeyom
+//  - dekriptujes fajl sa privkeyom
+
+
+
+
+
 #endif
 
 /* ENCRYPTION
@@ -113,3 +174,4 @@ GPG_ERR_UNSUPPORTED_ALGORITHM
 GPG_ERR_BAD_SIGNATURE
 GPG_ERR_NO_PUBKEY
 */
+#endif

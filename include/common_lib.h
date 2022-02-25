@@ -1,7 +1,6 @@
-/**
- * Determination a platform of an operation system
- * Fully supported supported only GNU GCC/G++, partially on Clang/LLVM
- */
+/*
+    Cross-platform brancher
+*/
 
 #if defined(_WIN32)
     #define PLATFORM_NAME "windows" // Windows
@@ -42,8 +41,3 @@
 #else
     #define PLATFORM_NAME NULL
 #endif
-
-// Return a name of platform, if determined, otherwise - an empty string
-//const char *get_platform_name() {
-//    return (PLATFORM_NAME == NULL) ? "" : PLATFORM_NAME;
-//}

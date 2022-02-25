@@ -72,6 +72,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] fix sizer alignment in Hub tab
 - [x] blueprint for GUI
 - [ ] Fix code structure -> Header -> aarch.h <- aarch.cpp PROBLEM
+- [ ] BIG PROBLEM ^^^
 - [x] clipboard manipulation
 - [ ] gpgme.h implementation
 - [ ] Napravi linked listu za kljuceve
@@ -90,9 +91,8 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Properties -> add HASH choice list
 - [ ] Fix color problem na linuxu kad promene system theme
 - [ ] ********ALPHA version done:
-- [ ] Certificates tab
-- [ ] Notepad tab
-- [ ] Hub tab
+- [ ] Certificates tab: New key, Import keys, OnInit load all keys from .tesky, 
+- [ ] Notepad tab: Enc, Dec, Drag&DropFromFile, to clpbrd, to file, from clpbrd, To:[:SELEKTOVANI PUBKEY:], From:[:SELEKTOvANI PRVIKEY:], onda ti i ne treba drag&drop tab
 - [ ] system tray icon taskbar - NOT WORKING
 - [ ] ???????? right click on file encrypt
 - [x] design for alpha version
@@ -101,19 +101,24 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] razmisli da za windows predjes na c# i wpf ili ostanes na c++
 - [ ] ako odlucis za windows wpf, mozes sve za wx da prebacis u lin dir ili da napravis dva odvojena source code-a
 - [ ] razmisli za macOS kako ces, moras da testiras u VM
-- [ ] Chat tab
-- [ ] Drag&Drop file encryption ?tab?
 - [ ] all arguments passed when starting program in terminal
 - [ ] tested on Windows10-ja-pera, Windows11-pera, Windows7-ja, MacOS-zl, ArchLin-ja, Fedora-ja, Ubuntu-ja, Debian-ja, PopOS-ja, BSD-ja, Manjaro-ja, Mint-ja, Kali-ja, OpenSUSE-ja
 - [ ] ********VERSION 1.0.0 STABLE RELEASE done:
-- [ ] MDNetwork tab
 - [ ] Redesign of the app for WIN, LIN, MACOS
 - [ ] publish on aur
 - [ ] publish on debian and ubuntu
 - [ ] publish on archlinux
 - [ ] ********VERSION 2.0.0 FEATURE COMPLETE RELEASE done:
-- [ ] PacketEncryptor tab
+- [ ] Wireshark PacketEncryptor tab - npr za skype bi sve enkriptova
+- [ ] MDNetwork tab - ima slika grafa sa belim cvorovima, pa klikom ih povezujes
+- [ ] File Drag and Drop tab
+- [ ] Hub tab - Server-Client key sharing tab
+- [ ] Chat tab
+- [ ] MDNetwork_node.exe/elf - console (Port forwarding knowledge needed)
+- [ ] ^ bolje tracker.exe/elf pa biras da li si za MDNetwork ili Hub, svako kad instalira dobije tracker ip ili ima u properties gde upise IP adresu trackera itd...
 - [ ] RansomRev tool try to create
+- [ ] Properties: ARMORED ascii, protokol, hash, algoritam, da li zelis trackera ili da probas NAT traversal p2p
+- [ ] iscitaj BitTorrent protokol za ovo sve
 - [ ] NAT Traversal - https://bford.info/pub/net/p2pnat/ - https://www.it.lut.fi/wiki/lib/exe/fetch.php/courses/ct30a6900/p2p_over_nat.pdf - https://en.wikipedia.org/wiki/NAT_traversal
 - [ ] notepad nek ima real time enkripciju https://youtu.be/BW_B6Zadsj4
 - [ ] program koji pokrenes i kriptuje ti automatski data delove paketa i dekriptuje automatski sa odgovarajucim public keyovima, kliknes dva puta i on krene, mozes da izaberes sta ces da kriptujes i onaj sa druge strane kompa treba da dekriptuje -> kao wireshark samo upoznat sa paketima i kriptuje ono sto moze drugi korisnik da dekr

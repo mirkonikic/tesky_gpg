@@ -15,8 +15,8 @@ bool TeskyApp::OnInit()
 //TODO:
 //	Add debug/verbose flag, koja daje visak informacija u terminalu
 
-	aarch_info();	//print name of platform
-	if(directory_exists((char *)".tesky"))	//check for dir in user home directory
+	tesky_aarch_info();	//print name of platform
+	if(tesky_directory_exists((char *)".tesky"))	//check for dir in user home directory
 		printf(".tesky data directory exists: %s\n", ".tesky");
 		//import all keys as linked list i guess
 		//or store somewhere all names of keys with some ID
@@ -27,8 +27,9 @@ bool TeskyApp::OnInit()
 	}
 
 	//initialization of gpgme library
-	init_gpgme();
-	init_data();
+	tesky_init_gpgme();
+	tesky_init_ctx();
+	tesky_init_data();
 	//initialize engine
 	//gpgme_engine_info_t engine_info;
 	//GPGME_MD_SHA512
@@ -243,10 +244,18 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 			wxGridSizer* certGridSizer = new wxGridSizer(2, 0, 0, 0);
 				wxBoxSizer* certGridB1Sizer = new wxBoxSizer(wxVERTICAL);
 					wxStaticText* privKeysLabel = new wxStaticText(tab1, wxID_ANY, wxT("Private keys:"), wxDefaultPosition, wxDefaultSize, 0);
-					wxListBox* privKeysList = new wxListBox(tab1, wxID_ANY, wxDefaultPosition, wxSize( 620,200 ), 0, NULL, 0);
+					privKeysList = new wxListBox(tab1, ID_certPrivKeysList, wxDefaultPosition, wxSize( 620,200 ), 0, NULL, 0);
 				wxBoxSizer* certGridB2Sizer = new wxBoxSizer(wxVERTICAL);
 					wxStaticText* pubKeysLabel = new wxStaticText(tab1, wxID_ANY, wxT("Public keys:"), wxDefaultPosition, wxDefaultSize, 0);
-					wxListBox* pubKeysList = new wxListBox(tab1, wxID_ANY, wxDefaultPosition, wxSize( 620,200 ), 0, NULL, 0);
+					pubKeysList = new wxListBox(tab1, ID_certPubKeysList, wxDefaultPosition, wxSize( 620,200 ), 0, NULL, 0);
+
+			privKeysList->Append( wxT("priv_key1") );
+			privKeysList->Append( wxT("priv_key2") );
+
+			pubKeysList->Append( wxT("priv_key1") );
+			pubKeysList->Append( wxT("priv_key2") );
+			pubKeysList->Append( wxT("priv_key3") );
+			pubKeysList->Append( wxT("priv_key4") );
 
 			//CertBoxSizer
 			certBoxSizer->SetMinSize(wxSize(-1, 40));
@@ -291,9 +300,9 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 //	popuniti wxString sa izborima preko for petlje
 //	koliko kljuceva ima toliko izbora
 //	i postaviti na onaj koji smo selektovali u certificates
-			wxString pub_key_choices[] = {wxT("Mirko"), wxT("dimi"), wxT("rope")};
+			wxString pub_key_choices[] = {wxT("public_key1"), wxT("public_key2"), wxT("public_key3"), wxT("public_key4")};
 			int pub_key_n_choices = sizeof(pub_key_choices) / sizeof(wxString);
-			wxChoice* choiceList = new wxChoice(tab2, wxID_ANY, wxDefaultPosition, wxSize( 220,-1 ), pub_key_n_choices, pub_key_choices, 0);
+			choiceList = new wxChoice(tab2, ID_ntpdPubKeysChoice, wxDefaultPosition, wxSize( 220,-1 ), pub_key_n_choices, pub_key_choices, 0);
 			choiceList->SetSelection(1);
 
 //TODO:
@@ -494,10 +503,28 @@ void TMenu::OnAbout_Tesky(wxCommandEvent& event)
 void TMenu::OnQuit(wxCommandEvent& event){Close();event.Skip();}
 //Notebook methods
 //Certificates methods
+void TMenu::OnPrivKeysListSelect(wxCommandEvent& event)
+{
+	//wxNOT_FOUND je -1
+	//choiceList->SetSelection(privKeysList->GetSelection());
+}
+void TMenu::OnPubKeysListSelect(wxCommandEvent& event)
+{
+	//wxNOT_FOUND je -1
+	choiceList->SetSelection(pubKeysList->GetSelection());
+}
 void TMenu::OncertNewKey(wxCommandEvent& event){event.Skip();}
 void TMenu::OncertOK(wxCommandEvent& event){event.Skip();}
 //Notepad methods
-	//OnNtpdClImport -> OnClImport, isti su :D
+//OnNtpdClImport -> OnClImport, isti su :D
+void TMenu::OnPrivKeysChoiceSelect(wxCommandEvent& event)
+{
+	//privKeysList->SetSelection(choiceList->GetSelection());
+}
+void TMenu::OnPubKeysChoiceSelect(wxCommandEvent& event)
+{
+	pubKeysList->SetSelection(choiceList->GetSelection());
+}
 void TMenu::OnNtpdEncrypt(wxCommandEvent& event){event.Skip();}
 void TMenu::OnNtpdDecrypt(wxCommandEvent& event){event.Skip();}
 //Hub methods

@@ -92,8 +92,10 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Properties -> add HASH choice list
 - [ ] Properties -> add Protocol choice list
 - [ ] Properties -> Tracker or NAT traversal radio list
-- [ ] Properties -> change theme
-- [ ] Fix color problem na linuxu kad promene system theme
+- [ ] Properties -> change theme -> prvo dark/light theme
+- [ ] Optimize whole code
+- [ ] Comment whole code
+- [x] Fix color problem na linuxu kad promene system theme
 - [ ] ********ALPHA version done:
 - [ ] Certificates tab: New key, Import keys, OnInit load all keys from .tesky, 
 - [ ] Notepad tab: Enc, Dec, Drag&DropFromFile, to clpbrd, to file, from clpbrd, To:[:SELEKTOVANI PUBKEY:], From:[:SELEKTOvANI PRVIKEY:], onda ti i ne treba drag&drop tab

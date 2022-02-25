@@ -33,8 +33,32 @@
     typedef gpgme_genkey_result_t tesky_new_key_result;
     typedef gpgme_encrypt_result_t tesky_encrypt_result;
     typedef gpgme_decrypt_result_t tesky_decrypt_result;
-
+    typedef struct public_key
+    {
+        int id;
+        std::string file_name;
+        std::string user_name;
+        //char *data;
+        struct public_key *next;
+        struct public_key *last;
+    }pubkey;
+    typedef struct private_key
+    {
+        int id;
+        std::string file_name;
+        std::string user_name;
+        //char *data;
+        struct private_key *next;
+        struct private_key *last;
+    }privkey;
+    extern int n_pubkey;
+    extern int n_privkey;
+    extern pubkey *pub_head_node;
+    extern privkey *priv_head_node;
+    extern pubkey *pub_curr_key;
+    extern privkey *priv_curr_key;
     extern gpgme_error_t err;  //err = funkc => if(err == GPGME_ERR...)
+    extern gpgme_engine_info_t tesky_engine_info;
     //gpgme_data_t eng_data;  //user -> data -> engine
     extern gpgme_ctx_t tesky_ctx;    //configuration, status and result 
     extern int tesky_armored;
@@ -51,16 +75,16 @@ void tesky_init_gpgme();
 void tesky_init_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, int armored_passed=TESKY_DEFAULT_ARMORED, gpgme_hash_algo_t hash_passed=TESKY_DEFAULT_HASH, gpgme_pubkey_algo_t algo_passed=TESKY_DEFAULT_ALGO);
 void tesky_update_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, gpgme_hash_algo_t hash_passed=TESKY_DEFAULT_HASH, gpgme_pubkey_algo_t algo_passed=TESKY_DEFAULT_ALGO);
 void tesky_end_ctx();
-
+void tesky_init_keylists();
 
 
 //finish
 void tesky_init_data(); //import all keys from directory
 void tesky_read_data(tesky_data data_passed);   //nisam sig tacno o.o
-
-//  + pokrenes ctx
 //  + inicijalizujes engine
+//  + pokrenes ctx
 //  + postavis protokol, algo i hash
+//  - napravis buffer za podatke
 //  - potrazis i ucitas u [:OPCIJA:] sve kljuceve iz .tesky
 //      - odluci dal je OPCIJA -> 1. LINKEDLIST ili 2. STRING
 //      - 1) ucitamo svaki kao node, sa ID-jem, filename, key_t ucitan...

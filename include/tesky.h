@@ -185,7 +185,13 @@ public:
 		//Chat
 		//Properties
 		//MDNetwork
-
+		//Public/Private key methods
+	void OnPublicKeyChangeUpdateGUI();
+	void OnPrivateKeyChangeUpdateGUI();
+	void OnPublicResetGUI();
+	void OnPrivateResetGUI();
+	void init_GUI();
+	void UpdateGUI();
 
 private:
 	DECLARE_EVENT_TABLE()

@@ -100,10 +100,10 @@ std::string tesky_ctx_get_protocol(){return gpgme_get_protocol_name(gpgme_get_pr
 void tesky_init_data(){printf("Ucitavam keys iz foldera\n");}
 void tesky_init_keylists()
 {
-	pub_head_node = (pubkey *)malloc(sizeof(pubkey));
-	pub_curr_key = nullptr;		//postaviti na pub head node, kad je popunimo
-	priv_head_node = (privkey *)malloc(sizeof(privkey));
-	priv_curr_key = nullptr;	//postaviti na priv head node, kad je popunimo
+	pub_head_node = nullptr;
+	pub_curr_key = pub_head_node;		//postaviti na pub head node, kad je popunimo
+	priv_head_node = nullptr;
+	priv_curr_key = priv_head_node;	//postaviti na priv head node, kad je popunimo
 
 	n_privkey = 0;
 	n_pubkey = 0;
@@ -111,22 +111,110 @@ void tesky_init_keylists()
 	//proveri da li postoji .tesky i popuni liste
 	//ako ne postoji ostavi praznu listu
 	//napisi init_gui, koja zavisno od n kljuceva apdejtuje liste
-	if(tesky_directory_exists((char *)".tesky"))	//check for dir in user home directory
+	if(tesky_directory_exists((char *)".tesky")){	//check for dir in user home directory
 		printf(".tesky data directory exists: %s\n", ".tesky");
+		tesky_add_to_pubkeylist((char *)"pubkey1", (char *)"user1");
+		tesky_add_to_pubkeylist((char *)"pubkey2", (char *)"user2");
+		tesky_add_to_pubkeylist((char *)"pubkey3", (char *)"user3");
+		tesky_add_to_pubkeylist((char *)"pubkey4", (char *)"user4");
+		tesky_add_to_privkeylist((char *)"privkey5", (char *)"user5");
+		tesky_add_to_privkeylist((char *)"privkey6", (char *)"user6");
 		//import all keys as linked list i guess
 		//or store somewhere all names of keys with some ID
 		//or find a way to keep track of keys
+	}
 	else
 	{
 		//create new directory in home user dir
 	}
 }
-void tesky_add_to_pubkeylist()
+void tesky_add_to_pubkeylist(char *file_name, char *user_name)
 {
-	
+	pubkey *p = (pubkey *)malloc(sizeof(pubkey));	//either way ill need a new node
+	if(n_pubkey == 0)	//if theres no head node
+	{
+		p->id = n_pubkey++;		//adding first element to list of pubkeys
+		p->user_name = file_name;
+		p->file_name = user_name;
+		p->last = nullptr;
+		p->next = nullptr;
+		pub_head_node = p;
+		printf("LL: added head to public key list: id: %d, fn: %s, un: %s\n", p->id, p->file_name, p->user_name);
+		//free(p);
+		return;
+	}
+
+	//you can also do this with one node, pcurr->next->next->last = pcurr->next;..
+	pubkey *pcurr = pub_head_node;
+	while(pcurr->next!=nullptr)		//searching the end of the list
+	{
+		pcurr = pcurr->next;
+	}
+
+	p->id = n_pubkey++;		//adding another element to list of pub keys from 0, because wxWidgets counts from 0, but n_pubkey will grow accordingly since ++ is on right side :D
+	p->user_name = file_name;
+	p->file_name = user_name;
+	p->last = pcurr;
+	p->next = nullptr;
+	pcurr->next = p;
+	printf("LL: added new node: %d to public key list: id: %d, fn: %s, un: %s\n", n_pubkey, p->id, p->file_name, p->user_name);
+	//free(p);
+	return;
 }
-void tesky_add_to_privkeylist();
+void tesky_add_to_privkeylist(char *file_name, char *user_name)
+{
+	privkey *p = (privkey *)malloc(sizeof(privkey));	//either way ill need a new node
+	if(n_privkey == 0)	//if theres no head node
+	{
+		p->id = n_privkey++;		//adding first element to list of pubkeys
+		p->user_name = file_name;
+		p->file_name = user_name;
+		p->last = nullptr;
+		p->next = nullptr;
+		priv_head_node = p;
+		printf("LL: added head to public key list: id: %d, fn: %s, un: %s\n", p->id, p->file_name, p->user_name);
+		//free(p);
+		return;
+	}
+
+	//you can also do this with one node, pcurr->next->next->last = pcurr->next;..
+	privkey *pcurr = priv_head_node;
+	while(pcurr->next!=nullptr)		//searching the end of the list
+	{
+		pcurr = pcurr->next;
+	}
+
+	p->id = n_privkey++;		//adding another element to list of pub keys from 0, because wxWidgets counts from 0, but n_pubkey will grow accordingly since ++ is on right side :D
+	p->user_name = file_name;
+	p->file_name = user_name;
+	p->last = pcurr;
+	p->next = nullptr;
+	pcurr->next = p;
+	printf("LL: added new node: %d to public key list: id: %d, fn: %s, un: %s\n", n_pubkey, p->id, p->file_name, p->user_name);
+	//free(p);
+	return;
+}
 void tesky_delete_from_pubkeylist();
 void tesky_delete_from_privkeylist();
+void tesky_print_publistkey()
+{
+	pubkey *pcurr = pub_head_node;
+	while(pcurr!=nullptr)		//searching the end of the list
+	{
+		printf("node %d: un: %s\n", pcurr->id, pcurr->user_name);
+		pcurr = pcurr->next;
+	}
+	return;
+}
+void tesky_print_privlistkey()
+{
+	privkey *pcurr = priv_head_node;
+	while(pcurr!=nullptr)		//searching the end of the list
+	{
+		printf("node %d: un: %s\n", pcurr->id, pcurr->user_name);
+		pcurr = pcurr->next;
+	}
+	return;
+}
 
 #endif

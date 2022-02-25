@@ -36,8 +36,8 @@
     typedef struct public_key
     {
         int id;
-        std::string file_name;
-        std::string user_name;
+        char *file_name;
+        char *user_name;
         //char *data;
         struct public_key *next;
         struct public_key *last;
@@ -45,18 +45,18 @@
     typedef struct private_key
     {
         int id;
-        std::string file_name;
-        std::string user_name;
+        char *file_name;
+        char *user_name;
         //char *data;
         struct private_key *next;
         struct private_key *last;
     }privkey;
-    extern int n_pubkey;
-    extern int n_privkey;
-    extern pubkey *pub_head_node;
-    extern privkey *priv_head_node;
-    extern pubkey *pub_curr_key;
-    extern privkey *priv_curr_key;
+    extern int n_pubkey;           //number of nodes in pubkey linked list
+    extern int n_privkey;           //number of nodes in privkey linked list
+    extern pubkey *pub_head_node;       //beginning of the pubkey linked list
+    extern privkey *priv_head_node;     //beginning of the privkey linked list
+    extern pubkey *pub_curr_key;        //holds selected public key
+    extern privkey *priv_curr_key;      //holds selected private key
     extern gpgme_error_t err;  //err = funkc => if(err == GPGME_ERR...)
     extern gpgme_engine_info_t tesky_engine_info;
     //gpgme_data_t eng_data;  //user -> data -> engine
@@ -69,13 +69,25 @@
     extern gpgme_hash_algo_t tesky_hash;
     extern gpgme_protocol_t tesky_protocol;   //default protocol is OpenPGP
 //function declarations
+//information about platform
 void tesky_aarch_info();
+//check if the directory exists
 bool tesky_directory_exists(char* pathname);
+//initialize gpgme library
 void tesky_init_gpgme();
+//ctx
 void tesky_init_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, int armored_passed=TESKY_DEFAULT_ARMORED, gpgme_hash_algo_t hash_passed=TESKY_DEFAULT_HASH, gpgme_pubkey_algo_t algo_passed=TESKY_DEFAULT_ALGO);
 void tesky_update_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, gpgme_hash_algo_t hash_passed=TESKY_DEFAULT_HASH, gpgme_pubkey_algo_t algo_passed=TESKY_DEFAULT_ALGO);
 void tesky_end_ctx();
+
+//linkedlists manipulation
 void tesky_init_keylists();
+void tesky_add_to_pubkeylist(char *file_name, char *user_name);
+void tesky_add_to_privkeylist(char *file_name, char *user_name);
+void tesky_delete_from_pubkeylist();
+void tesky_delete_from_privkeylist();
+void tesky_print_publistkey();
+void tesky_print_privlistkey();
 
 
 //finish
@@ -86,18 +98,17 @@ void tesky_read_data(tesky_data data_passed);   //nisam sig tacno o.o
 //  + postavis protokol, algo i hash
 //  - napravis buffer za podatke
 //  - potrazis i ucitas u [:OPCIJA:] sve kljuceve iz .tesky
-//      - odluci dal je OPCIJA -> 1. LINKEDLIST ili 2. STRING
-//      - 1) ucitamo svaki kao node, sa ID-jem, filename, key_t ucitan...
+//      + odluci dal je OPCIJA -> 1. LINKEDLIST ili 2. STRING
+//      + 1) ucitamo svaki kao node, sa ID-jem, filename, key_t ucitan...
 //      - 2) samo ucitamo imena fajlova u string -> std::string += ":ime_pubkey_3"
 //          - posle splitBy(":") i upisati u pub key listu
 //          - problem jer necu znati kako da odaberem fajl koji je selektovan
 //          - mozda moze da se dobije id selektovanog elementa -> for(i=0; i<id; i++)
-//      - initialize linked list
-//      - add to linked list
-//      - delete from linked list sa ID
-//      - delete from linked list sa STRING NAME
-//      - odluci dal ces ucitati sve u linked listu ili samo filename pa load
-//      - mozda samo ucitaj selektovane, pa kad promenimo prepisi
+//      + initialize linked list
+//      + add to linked list
+//      + delete from linked list sa ID
+//      + odluci dal ces ucitati sve u linked listu ili samo filename pa load
+//      + mozda samo ucitaj selektovane, pa kad promenimo prepisi
 //  - mozes i da kreiras novi pub priv key genkey()
 //  - podesis privkey
 //  - podesis pubkey

@@ -14,7 +14,6 @@
   
 ## About
 <img alt="GitHub repo size" src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
-<img alt="GitHub repo size" src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
 
 **Tesky** - [GPG key management](https://en.wikipedia.org/wiki/GNU_Privacy_Guard), encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 <br>finish this!
@@ -70,12 +69,11 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] menu with apropriate tabs
 - [x] fix sizer alignment in Hub tab
 - [x] blueprint for GUI
-- [ ] Fix code structure -> Header -> aarch.h <- aarch.cpp PROBLEM
-- [ ] BIG PROBLEM ^^^
+- [x] Fix code structure -> Header -> aarch.h <- aarch.cpp PROBLEM, extern in .h, decl in .cpp
 - [ ] add dark and light theme not related to system, also store that info somewhere
 - [x] clipboard manipulation
 - [ ] gpgme.h implementation
-- [ ] Napravi linked listu za kljuceve
+- [x] Napravi linked listu za kljuceve
 - [ ] certificate creation and management
 - [x] Enable gpgme.h library
 - [ ] Add functionalities to all buttons
@@ -86,6 +84,8 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Make .tesky in documents in Windows
 - [ ] Notepad osmisliti kako i da ubacis da moze odmah u clipboard (dugme za back to clipboard ili encrypt clipboard...)
 - [ ] osmisliti da na pokretanju programa on analizira .tesky i kreira linked listu ili array, pa popuni wxString u notepadu pre wxChoice
+- [ ] Certification tab -> delete key
+- [ ] Notepad tab -> more functionalities
 - [ ] Properties -> add ASCII ARMOR checkbox
 - [ ] Properties -> add Crypto choice list
 - [ ] Properties -> add HASH choice list
@@ -94,6 +94,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Properties -> change theme -> prvo dark/light theme
 - [ ] Optimize whole code
 - [ ] Comment whole code
+- [ ] take care of all exceptions
 - [x] Fix color problem na linuxu kad promene system theme
 - [ ] ********ALPHA version done:
 - [ ] Certificates tab: New key, Import keys, OnInit load all keys from .tesky, 
@@ -119,6 +120,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] File Drag and Drop tab
 - [ ] Hub tab - Server-Client key sharing tab
 - [ ] Chat tab
+- [ ] U PROPERTIESU ima opcija i za Logger tab -> console info se ispisuje tu sa vremenom, ima export dugme
 - [ ] MDNetwork_node.exe/elf - console (Port forwarding knowledge needed)
 - [ ] ^ bolje tracker.exe/elf pa biras da li si za MDNetwork ili Hub, svako kad instalira dobije tracker ip ili ima u properties gde upise IP adresu trackera itd...
 - [ ] RansomRev tool try to create

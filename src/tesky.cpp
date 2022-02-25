@@ -19,11 +19,12 @@ bool TeskyApp::OnInit()
 	tesky_init_gpgme();		//initialize engine and gpgme lib
 	tesky_init_ctx();		//create and initialize context
 	tesky_init_keylists();	//initialize linked list, if .tesky, fill the lists
+	tesky_print_publistkey();	//Print out public key linked list
 	//ako je postojao fajl .tesky, pretrazi pub i priv foldere i popuni linked listu
 	//ako nije, ostavi listu praznu
 	//na kraju inicijalizacije programa, pozivas update GUI
 	//	update listbox, choicebox, koji sadrze kljuceve
-	
+
 //DONE:
 //	Na kraju uredi kod za razlicite arhitekture:
 //include/probe.h - include-uje jednu od sledecih implementacija funkcija, ostatak se nalazi u main.cpp
@@ -220,12 +221,12 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 		//Certificates - Import Create Certificates, Select to which you are talking to
 		wxBoxSizer* certSizer = new wxBoxSizer(wxVERTICAL);
 			wxBoxSizer* certBoxSizer = new wxBoxSizer(wxHORIZONTAL);
-				wxButton* newKeyButton = new wxButton(tab1, wxID_ANY, wxT("New key"), wxDefaultPosition, wxDefaultSize, 0);
+				wxButton* newKeyButton = new wxButton(tab1, ID_certNewKey, wxT("New key"), wxDefaultPosition, wxDefaultSize, 0);
 				wxStaticText* importKeysLabel = new wxStaticText(tab1, wxID_ANY, wxT("Import keys:"), wxDefaultPosition, wxDefaultSize, 0);
 				wxFilePickerCtrl* importKeysFile = new wxFilePickerCtrl(tab1, wxID_ANY, wxEmptyString, wxT("Import keys"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_DEFAULT_STYLE);
 				wxStaticText* searchLabel = new wxStaticText(tab1, wxID_ANY, wxT("Search:"), wxDefaultPosition, wxDefaultSize, 0);
 				wxSearchCtrl* searchCtrl = new wxSearchCtrl(tab1, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
-				wxButton* searchOkButton = new wxButton(tab1, wxID_ANY, wxT("OK"), wxDefaultPosition, wxSize( 40,-1 ), 0);
+				wxButton* searchOkButton = new wxButton(tab1, ID_certOK, wxT("OK"), wxDefaultPosition, wxSize( 40,-1 ), 0);
 			wxGridSizer* certGridSizer = new wxGridSizer(2, 0, 0, 0);
 				wxBoxSizer* certGridB1Sizer = new wxBoxSizer(wxVERTICAL);
 					wxStaticText* privKeysLabel = new wxStaticText(tab1, wxID_ANY, wxT("Private keys:"), wxDefaultPosition, wxDefaultSize, 0);
@@ -234,13 +235,18 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 					wxStaticText* pubKeysLabel = new wxStaticText(tab1, wxID_ANY, wxT("Public keys:"), wxDefaultPosition, wxDefaultSize, 0);
 					pubKeysList = new wxListBox(tab1, ID_certPubKeysList, wxDefaultPosition, wxSize( 620,200 ), 0, NULL, 0);
 
+//TODO:
+//	popuniti preko for loop-a iz publistkey
+			//OSMISLI KAKO DA UBACIM ADDED STVARI U GUI
+/* TEST
 			privKeysList->Append( wxT("priv_key1") );
 			privKeysList->Append( wxT("priv_key2") );
 
 			pubKeysList->Append( wxT("priv_key1") );
 			pubKeysList->Append( wxT("priv_key2") );
 			pubKeysList->Append( wxT("priv_key3") );
-			pubKeysList->Append( wxT("priv_key4") );
+			pubKeysList->Append( wxT("priv_key4") );		
+*/
 
 			//CertBoxSizer
 			certBoxSizer->SetMinSize(wxSize(-1, 40));
@@ -285,9 +291,16 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 //	popuniti wxString sa izborima preko for petlje
 //	koliko kljuceva ima toliko izbora
 //	i postaviti na onaj koji smo selektovali u certificates
-			wxString pub_key_choices[] = {wxT("public_key1"), wxT("public_key2"), wxT("public_key3"), wxT("public_key4")};
-			int pub_key_n_choices = sizeof(pub_key_choices) / sizeof(wxString);
+//	KAKO DA MODIFIKUJEM CHOICES
+			//wxString pub_key_choices[] = {wxT("public_key1"), wxT("public_key2"), wxT("public_key3"), wxT("public_key4")};
+			//int pub_key_n_choices = sizeof(pub_key_choices) / sizeof(wxString);
+			wxString pub_key_choices[] = {};
+			int pub_key_n_choices = 0;
 			choiceList = new wxChoice(tab2, ID_ntpdPubKeysChoice, wxDefaultPosition, wxSize( 220,-1 ), pub_key_n_choices, pub_key_choices, 0);
+			
+//TODO:
+//	ZASTO NE RADI pub_curr_key->id
+
 			choiceList->SetSelection(1);
 
 //TODO:
@@ -410,6 +423,15 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
     topSizer->Add(panel, 1, wxEXPAND);
     SetSizerAndFit(topSizer);
 
+	//Update GUI
+	//E sada imam nekoliko opcija
+	//1. nadji nacin da pozivas append za chojs i list iz aarch.c
+	//2. napravi updateGUI koji ce da appenduje od broja el, do broja linkdlist
+	//3. dve metode 1. init_gui(); 2. update_gui()
+	//		1. add all elements from list on beginning
+	//		2. append or delete a key
+	init_GUI();
+
 	//Create taskbar icon
 
 	//Enable gpgme.h library
@@ -490,26 +512,176 @@ void TMenu::OnQuit(wxCommandEvent& event){Close();event.Skip();}
 //Certificates methods
 void TMenu::OnPrivKeysListSelect(wxCommandEvent& event)
 {
-	//wxNOT_FOUND je -1
-	//choiceList->SetSelection(privKeysList->GetSelection());
+	//prolazim kroz kljuceve da nadjem onaj sa id-om kliknutog kljuca
+	privkey *pcurr = priv_head_node;
+	int selected_n = privKeysList->GetSelection();
+	while(pcurr->next!=nullptr && (pcurr->id)<selected_n)
+	{
+		pcurr = pcurr->next;
+	}
+	
+	//uporedjujem jer je mozda zbog nullptra prekinut while
+	if(pcurr->id != selected_n)
+		printf("Nisam nasao choiceList id..");
+
+	priv_curr_key = pcurr;
+	OnPrivateKeyChangeUpdateGUI();
+	event.Skip();
 }
 void TMenu::OnPubKeysListSelect(wxCommandEvent& event)
 {
-	//wxNOT_FOUND je -1
-	choiceList->SetSelection(pubKeysList->GetSelection());
+	//prolazim kroz kljuceve da nadjem onaj sa id-om kliknutog kljuca
+	pubkey *pcurr = pub_head_node;
+	int selected_n = pubKeysList->GetSelection();
+	while(pcurr->next!=nullptr && (pcurr->id)<selected_n)
+	{
+		printf("LISTBOX: curr %d next %d search %d\n", pcurr->id, pcurr->next->id, selected_n);
+		pcurr = pcurr->next;
+	}
+	
+	//uporedjujem jer je mozda zbog nullptra prekinut while
+	if(pcurr->id != selected_n)
+		printf("Nisam nasao choiceList id..");
+
+	pub_curr_key = pcurr;
+	OnPublicKeyChangeUpdateGUI();
+	event.Skip();	
 }
-void TMenu::OncertNewKey(wxCommandEvent& event){event.Skip();}
+void TMenu::OncertNewKey(wxCommandEvent& event)
+{
+	printf("newkey pressed\n");
+	//UVEK KAD POZIVAS ADD ILI DELETE, POZIVAS I UPDATE GUI
+	//tesky_add_to_pubkeylist("pubkey7", "user8");
+	//UpdateGUI();
+	event.Skip();
+}
 void TMenu::OncertOK(wxCommandEvent& event){event.Skip();}
 //Notepad methods
 //OnNtpdClImport -> OnClImport, isti su :D
+//Moved OnPrivKeyChoiceSelect to OnCurrentPublicKeyChange
+	//So that all elements change when one gets changed
 void TMenu::OnPrivKeysChoiceSelect(wxCommandEvent& event)
 {
-	//privKeysList->SetSelection(choiceList->GetSelection());
+	/* NEMAM PRIV KEY CHOICE LIST JOS
+	//prolazim kroz kljuceve da nadjem onaj sa id-om kliknutog kljuca
+	privkey *pcurr = (privkey *)malloc(sizeof(privkey));
+	int selected_n = privKeysList->GetSelection();
+	while(pcurr->next!=nullptr && (pcurr->id)<selected_n)
+	{
+		pcurr = pcurr->next;
+	}
+	
+	//uporedjujem jer je mozda zbog nullptra prekinut while
+	if(pcurr->id != selected_n)
+		printf("Nisam nasao choiceList id..");
+
+	priv_curr_key = pcurr;
+	OnPrivateKeyChangeUpdateGUI();	
+	*/
+	event.Skip();
 }
 void TMenu::OnPubKeysChoiceSelect(wxCommandEvent& event)
 {
-	pubKeysList->SetSelection(choiceList->GetSelection());
+	//prolazim kroz kljuceve da nadjem onaj sa id-om kliknutog kljuca
+	pubkey *pcurr = pub_head_node;
+	int selected_n = choiceList->GetSelection();
+	printf("%d trazim\n", selected_n);
+	while(pcurr->next!=nullptr && (pcurr->id)<selected_n)
+	{
+		printf("CHOICE: curr %d next %d search %d\n", pcurr->id, pcurr->next->id, selected_n);
+		pcurr = pcurr->next;
+	}
+
+	//uporedjujem jer je mozda zbog nullptra prekinut while
+	if(pcurr->id != selected_n)
+		printf("Nisam nasao choiceList id.. %d != %d\n", pcurr->id, selected_n);
+
+	pub_curr_key = pcurr;
+	OnPublicKeyChangeUpdateGUI();
+	event.Skip();
 }
+void TMenu::OnPublicKeyChangeUpdateGUI()
+{
+	//update all elements that keep track of public keys
+	pubKeysList->SetSelection(pub_curr_key->id);
+	choiceList->SetSelection(pub_curr_key->id);
+}
+void TMenu::OnPrivateKeyChangeUpdateGUI()
+{
+	//update all elements that keep track of private keys
+	privKeysList->SetSelection(priv_curr_key->id);
+	//PrivateChoiceList->SetSelection(priv_curr_key->id);
+}
+void TMenu::UpdateGUI()
+{
+//TODO:
+//	Ne smes da castujes unsigned int u (int) jer moze da nastane buffer overflow vuln
+//	Bolje prevedi oba u long? tamo nijedan ni drugi nece preteci
+	//append when new element is added to list
+	int n_pubList = pubKeysList->GetCount();
+	int n_privList = privKeysList->GetCount();
+	if(n_pubList < n_pubkey)		//ima vise elemenata u kljucevima nego GUI
+	{
+		printf("UPDATE: vise elemenata ima List:%d < pub: %d\n", pubKeysList->GetCount(), n_pubkey);
+		pubkey *p1 = pub_head_node;					//krecemo od pocetnog el. liste jer ne znamo za koliko je veci broj elemenata liste od GUI-a
+		while(p1!=nullptr)
+		{
+			if((p1->id+1) > n_pubList)				//posto je id manji za jedan od broja tog elementa, dodajemo +1
+			{
+				choiceList->Append(p1->file_name);	//dodajemo u choice list
+				pubKeysList->Append(p1->file_name);	//dodajemo u pub keys list
+			}
+			p1 = p1->next;		//sledeci element liste proveravamo
+		}
+	}
+		
+	//delete when some element is deleted from list
+	if(n_privList < n_privkey)		//ima vise elemenata u kljucevima nego GUI
+	{
+		printf("UPDATE: vise elemenata ima List:%d < pub: %d\n", privKeysList->GetCount(), n_privkey);
+		privkey *p2 = priv_head_node;
+		while(p2!=nullptr)
+		{
+			if((p2->id+1) > n_privList)
+			{
+				privKeysList->Append(p2->file_name);
+			}
+			p2 = p2->next;
+		}
+	}
+}
+void TMenu::init_GUI()
+{
+	//populate GUI elements with elements from public/priv linkedlist elements
+	//check if there are any elements
+	if(n_pubkey == 0 && n_privkey == 0)
+		return;
+	
+	pubkey *p1 = pub_head_node;
+	privkey *p2 = priv_head_node;
+
+	//public keys list -> choiceList.append() & pubKeysList->append()
+	while(p1!=nullptr)
+	{
+		choiceList->Append(p1->file_name);
+		pubKeysList->Append(p1->file_name);
+		p1 = p1->next;
+	}
+	//private keys list -> //PrivChoiceList.append() & privKeysList->append()
+	while(p2!=nullptr)
+	{
+		//PrivChoiceList->Append
+		privKeysList->Append(p2->file_name);
+		p2 = p2->next;
+	}
+
+	//set selections in choiceList
+	if(pub_curr_key != nullptr)
+		OnPublicKeyChangeUpdateGUI();
+	if(priv_curr_key != nullptr)
+		OnPrivateKeyChangeUpdateGUI();
+}
+
 void TMenu::OnNtpdEncrypt(wxCommandEvent& event){event.Skip();}
 void TMenu::OnNtpdDecrypt(wxCommandEvent& event){event.Skip();}
 //Hub methods

@@ -10,12 +10,16 @@
 <img alt="GitHub" src="https://img.shields.io/github/license/mirkonikic/tesky_gpg">
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/mirkonikic/tesky_gpg?style=plastic"> 
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mirkonikic/tesky_gpg">
-<img alt="GitHub repo size" src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
 </div>
   
 ## About
 GPG key management, encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 <br>finish this!
+
+<br>Tested on: 
+<img alt="GitHub repo size" src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
+<img alt="GitHub repo size" src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
+
 
 **gpg-tui** is a [Terminal User Interface](https://en.wikipedia.org/wiki/Text-based_user_interface) for [GnuPG](https://gnupg.org/).
 

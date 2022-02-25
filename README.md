@@ -25,6 +25,7 @@
 
 ### Verzije:
 ---
+Verzija v0.12 - finished linked list for keys<br>
 Verzija v0.07 - implemented Cross-Platform optimization<br>
 ![ ](img/v0.07.gif)
 <br>
@@ -71,9 +72,8 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] fix sizer alignment in Hub tab
 - [x] blueprint for GUI
 - [x] Fix code structure -> Header -> aarch.h <- aarch.cpp PROBLEM, extern in .h, decl in .cpp
-- [ ] add dark and light theme not related to system, also store that info somewhere
 - [x] clipboard manipulation
-- [ ] gpgme.h implementation
+- [x] gpgme.h implementation
 - [x] Napravi linked listu za kljuceve
 - [ ] certificate creation and management
 - [x] Enable gpgme.h library
@@ -133,3 +133,4 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] tesky chat, start - over, kad kliknes over, sacuva se chat sa slikama u folderu posled ji nivo aplikacije bi bio decentralizovani torent, gde bi uneo ip adrese i stvorio mrezu s njima, pa mozete da pristupate jedni drugima
 - [ ] Drag&Drop file encryptor and decryptor
 - [ ] probaj da osmislis ransomware reversing tool
+- [ ] add dark and light theme not related to system, also store that info somewhere

@@ -17,13 +17,9 @@ bool TeskyApp::OnInit()
 
 	tesky_aarch_info();		//print name of platform
 	tesky_init_gpgme();		//initialize engine and gpgme lib
-	tesky_init_ctx();		//create and initialize context
 	tesky_init_keylists();	//initialize linked list, if .tesky, fill the lists
-	tesky_print_publistkey();	//Print out public key linked list
-	//ako je postojao fajl .tesky, pretrazi pub i priv foldere i popuni linked listu
-	//ako nije, ostavi listu praznu
-	//na kraju inicijalizacije programa, pozivas update GUI
-	//	update listbox, choicebox, koji sadrze kljuceve
+	
+	
 //DONE:
 //	Na kraju uredi kod za razlicite arhitekture:
 //include/probe.h - include-uje jednu od sledecih implementacija funkcija, ostatak se nalazi u main.cpp
@@ -60,13 +56,15 @@ bool TeskyApp::OnInit()
 	//wxTheClipboard->Close();
 
 	//Read from clipboard
+	/*
 	wxTextDataObject data;
 	wxTheClipboard->Open();	
 	wxTheClipboard->GetData(data);
 	wxMessageBox(data.GetText());
 	wxTheClipboard->Close();
-	
-	TMenu *frame = new TMenu(wxT(" Tesky v0.07 "));
+	*/
+
+	TMenu *frame = new TMenu(wxT(" Tesky v0.12 "));
 	frame->Show(true);
 	//SetTopWindow(frame);
 	//succesfull initialization
@@ -547,7 +545,6 @@ void TMenu::OnPubKeysListSelect(wxCommandEvent& event)
 void TMenu::OncertNewKey(wxCommandEvent& event)
 {
 	printf("newkey pressed\n");
-	tesky_print_publistkey();
 	//UVEK KAD POZIVAS ADD ILI DELETE, POZIVAS I UPDATE GUI
 	//tesky_add_to_pubkeylist("pubkey7", "user8");
 	//UpdateGUI();
@@ -615,6 +612,10 @@ void TMenu::UpdateGUI()
 //TODO:
 //	Ne smes da castujes unsigned int u (int) jer moze da nastane buffer overflow vuln
 //	Bolje prevedi oba u long? tamo nijedan ni drugi nece preteci
+	
+//TODO:
+//	Imaju 50 slova za ime, ostatak za mejl, da bi bilo uredno
+//	to cu preko for petlje uraditi :)	
 	//append when new element is added to list
 	int n_pubList = pubKeysList->GetCount();
 	int n_privList = privKeysList->GetCount();
@@ -625,9 +626,16 @@ void TMenu::UpdateGUI()
 		while(p1!=nullptr)
 		{
 			if((p1->id+1) > n_pubList)				//posto je id manji za jedan od broja tog elementa, dodajemo +1
-			{
-				choiceList->Append(p1->uid);	//dodajemo u choice list
-				pubKeysList->Append(p1->uid);	//dodajemo u pub keys list
+			{	
+				std::string buf(p1->user_name);
+				long unsigned int n = buf.length();
+				for(long unsigned int i=0; i<(40-n); i++)
+				{
+					buf.append("..");
+				}
+				buf.append(p1->email);
+				choiceList->Append(p1->user_name);	//dodajemo u choice list
+				pubKeysList->Append(buf);	//dodajemo u pub keys list
 			}
 			p1 = p1->next;		//sledeci element liste proveravamo
 		}
@@ -642,7 +650,14 @@ void TMenu::UpdateGUI()
 		{
 			if((p2->id+1) > n_privList)
 			{
-				privKeysList->Append(p2->uid);
+				std::string buf2(p2->user_name);
+				long unsigned int n = buf2.length();
+				for(long unsigned int i=0; i<(40-n); i++)
+				{
+					buf2.append("..");
+				}
+				buf2.append(p2->email);
+				privKeysList->Append(buf2);
 			}
 			p2 = p2->next;
 		}
@@ -661,15 +676,29 @@ void TMenu::init_GUI()
 	//public keys list -> choiceList.append() & pubKeysList->append()
 	while(p1!=nullptr)
 	{
-		choiceList->Append(p1->uid);
-		pubKeysList->Append(p1->uid);
+		std::string buf(p1->user_name);
+		long unsigned int n = buf.length();
+		for(long unsigned int i=0; i<(40-n); i++)
+		{
+			buf.append("..");
+		}
+		buf.append(p1->email);
+		choiceList->Append(p1->user_name);
+		pubKeysList->Append(buf);
 		p1 = p1->next;
 	}
 	//private keys list -> //PrivChoiceList.append() & privKeysList->append()
 	while(p2!=nullptr)
 	{
+		std::string buf2(p2->user_name);
+		long unsigned int n = buf2.length();
+		for(long unsigned int i=0; i<(40-n); i++)
+		{
+			buf2.append("..");
+		}
+		buf2.append(p2->email);
 		//PrivChoiceList->Append
-		privKeysList->Append(p2->uid);
+		privKeysList->Append(buf2);
 		p2 = p2->next;
 	}
 

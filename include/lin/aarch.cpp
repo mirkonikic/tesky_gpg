@@ -16,6 +16,8 @@ gpgme_hash_algo_t tesky_hash;
 gpgme_protocol_t tesky_protocol;
 
 void tesky_aarch_info(){printf("Operating system is: Linux :)\n");}
+
+/*	Vise mi ne treba
 bool tesky_directory_exists(char *pathname)
 {
     std::string HOME = getenv("HOME");
@@ -26,6 +28,8 @@ bool tesky_directory_exists(char *pathname)
     //else if (ENOENT == errno) //its surely false
     return false;
 }
+*/
+
 void tesky_init_gpgme()
 {
     printf("gpgme version: %s\n", gpgme_check_version(NULL));
@@ -75,35 +79,6 @@ void tesky_init_ctx(gpgme_protocol_t protocol_passed, int armored_passed, gpgme_
 	//initialize engine
 	err = gpgme_get_engine_info(&tesky_engine_info);
 	
-	//data container
-		//gpgme_data_t
-
-	//creating data buffer:
-	//	1. Memory Based Data Buffers
-		//gpgme_data_new(gpgme_data_t *dh)
-	//	2. File Based Data Buffers
-		//gpgme_data_new_from_fd(gpgme_data_t *dh, int FD)
-	//	3. Callback Based Data Buffers
-	
-	//destroying data buffers:
-		//gpgme_data_release(gpgme_data_t)
-
-	//I/O with data buffers
-		//read from dh to buffer size length
-			//gpgme_data_read(gpgme_data_t dh, void *buffer, size_t length)
-		//write from buffer to dh, size length
-			//gpgme_data_write(gpgme_data_t dh, void *buffer, size_t length)
-
-	//change cursor position in data_t
-		//gpgme_data_seek(gpgme_data_t dh, off_t offset, int whence);
-		//int whence -> SEEK_SET, SEEK_CUR, SEEK_END
-
-	
-	
-
-	//destroy new ctx
-	//gpgme_release(tesky_ctx);
-
 }
 void tesky_update_ctx(gpgme_protocol_t protocol_passed, gpgme_hash_algo_t hash_passed, gpgme_pubkey_algo_t algo_passed)
 {
@@ -159,8 +134,20 @@ void tesky_init_keylists()
 	n_privkey = 0;
 	n_pubkey = 0;
 
+//TODO:
+//	PROBLEM OKO CUVANJA VREDNOSTI KLJUCA U NODE
+//	JER NESTANU KAD IZADJU IZ MEMORIJE
+//	NZM KAKO DA IH STOREUJEM
+
 	//load all keys from gpg to linked list :D
 	//when you need the key, search for it with UID
+	
+	//tesky_populate_priv_list()			- koristi gpgme_set_keylist_mode(tesky_ctx, GPGME_KEYLIST_MODE_WITH_SECRET); 
+	//tesky_populate_public_list()			- napravi nov ctx
+	
+	//import private keys
+	tesky_init_ctx();
+	gpgme_set_keylist_mode(tesky_ctx, GPGME_KEYLIST_MODE_WITH_SECRET);
 	err = (gpgme_op_keylist_start(tesky_ctx, NULL, 0));
 	gpgme_key_t key;
     while (!err)
@@ -168,38 +155,71 @@ void tesky_init_keylists()
         err = gpgme_op_keylist_next (tesky_ctx, &key);
         if (err)
           break;
-        	printf("%s\n", key->subkeys->keyid);
+        	//printf("%s\n", key->subkeys->keyid);
         if (key->uids && key->uids->name)
-			printf("%s\n", key->uids->name);
+			//printf("%s\n", key->uids->name);
         if (key->uids && key->uids->email)
-        	printf("%s\n", key->uids->email);
+        	//printf("%s\n", key->uids->email);
         putchar ('\n');
 
 		//add to linked list :)
-		if(key->secret == 0)
-			tesky_add_to_pubkeylist(key->subkeys->keyid, key->uids->name, key->uids->email, key->protocol);
-		//else if(key->secret == 1)
-		//	tesky_add_to_privkeylist(key_data[0], key_data[1], key_data[2], key->protocol);
+		//if(key->secret == 0)
+		//	tesky_add_to_pubkeylist(key->subkeys->keyid, key->uids->name, key->uids->email, key->protocol);
+		if(key->secret == 1)
+			tesky_add_to_privkeylist(key->subkeys->keyid, key->uids->name, key->uids->email, key->protocol);
 
         gpgme_key_release (key);
     }
 
 	gpgme_op_keylist_end(tesky_ctx);
+	gpgme_release(tesky_ctx);
+
+
+
+	//import public keys
+	tesky_init_ctx();
+	err = (gpgme_op_keylist_start(tesky_ctx, NULL, 0));
+	gpgme_key_t key2;
+    while (!err)
+    {
+        err = gpgme_op_keylist_next (tesky_ctx, &key2);
+        if (err)
+          break;
+        	//printf("%s\n", key->subkeys->keyid);
+        if (key2->uids && key2->uids->name)
+			//printf("%s\n", key->uids->name);
+        if (key2->uids && key2->uids->email)
+        	//printf("%s\n", key->uids->email);
+        putchar ('\n');
+
+		//add to linked list :)
+		if(key2->secret == 0)
+			tesky_add_to_pubkeylist(key2->subkeys->keyid, key2->uids->name, key2->uids->email, key2->protocol);
+		//if(key->secret == 1)
+		//	tesky_add_to_privkeylist(key->subkeys->keyid, key->uids->name, key->uids->email, key->protocol);
+
+        gpgme_key_release (key2);
+    }
+
+	gpgme_op_keylist_end(tesky_ctx);
+	gpgme_release(tesky_ctx);
+
+
+
+
 
 	tesky_print_publistkey();
-	//tesky_print_privlistkey();
+	tesky_print_privlistkey();
 }
 void tesky_add_to_pubkeylist(char *uid, char *user_name, char *email, gpgme_protocol_t protocol)
 {
-	printf("aa");
 	pubkey *p = (pubkey *)malloc(sizeof(pubkey));	//either way ill need a new node
 	if(n_pubkey == 0)	//if theres no head node
 	{
-		printf("aa");
 		p->id = n_pubkey++;		//adding first element to list of pubkeys
-		p->uid = uid;
-		p->user_name = user_name;
-		p->email = email;
+		p->uid = strdup(uid);
+		p->user_name = strdup(user_name);
+		p->email = strdup(email);
 		p->protocol = protocol;
 		p->last = nullptr;
 		p->next = nullptr;
@@ -217,9 +237,9 @@ void tesky_add_to_pubkeylist(char *uid, char *user_name, char *email, gpgme_prot
 	}
 
 	p->id = n_pubkey++;		//adding another element to list of pub keys from 0, because wxWidgets counts from 0, but n_pubkey will grow accordingly since ++ is on right side :D
-	p->uid = uid;
-	p->user_name = user_name;
-	p->email = email;
+	p->uid = strdup(uid);
+	p->user_name = strdup(user_name);
+	p->email = strdup(email);
 	p->protocol = protocol;
 	p->last = pcurr;
 	p->next = nullptr;
@@ -234,9 +254,9 @@ void tesky_add_to_privkeylist(char *uid, char *user_name, char *email, gpgme_pro
 	if(n_privkey == 0)	//if theres no head node
 	{
 		p->id = n_privkey++;		//adding first element to list of pubkeys
-		p->uid = uid;
-		p->user_name = user_name;
-		p->email = email;
+		p->uid = strdup(uid);
+		p->user_name = strdup(user_name);
+		p->email = strdup(email);
 		p->protocol = protocol;
 		p->last = nullptr;
 		p->next = nullptr;
@@ -254,9 +274,9 @@ void tesky_add_to_privkeylist(char *uid, char *user_name, char *email, gpgme_pro
 	}
 
 	p->id = n_privkey++;		//adding another element to list of pub keys from 0, because wxWidgets counts from 0, but n_pubkey will grow accordingly since ++ is on right side :D
-	p->uid = uid;
-	p->user_name = user_name;
-	p->email = email;
+	p->uid = strdup(uid);
+	p->user_name = strdup(user_name);
+	p->email = strdup(email);
 	p->protocol = protocol;
 	p->last = pcurr;
 	p->next = nullptr;

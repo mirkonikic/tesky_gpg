@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
     //gpg library
 #include <gpgme.h>	//interface to gnupg
 
@@ -36,12 +37,9 @@
     typedef struct public_key
     {
         int id;
-        //char *uid;
-        //char *user_name;
-        //char *email;
-        std::string uid;
-        std::string user_name;
-        std::string email;
+        char *uid;
+        char *user_name;
+        char *email;
         gpgme_protocol_t protocol;
         //char *data;
         struct public_key *next;

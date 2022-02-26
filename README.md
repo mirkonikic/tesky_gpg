@@ -20,6 +20,18 @@
 **Tesky** - [GPG key management](https://en.wikipedia.org/wiki/GNU_Privacy_Guard), encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 <br>finish this!
 
+<br>http://www.philzimmermann.com/EN/background/index.html
+<br>https://www.ietf.org/rfc/rfc2440.txt
+<br>P. Zimmerman: PGP: Source Code and Internals
+<br>https://datatracker.ietf.org/doc/html/rfc4880
+<br>P. Zimmerman: Modern Computer Arithmetic
+<br>https://math.stackexchange.com/questions/1120989/what-books-do-you-recommend-on-mathematics-behind-cryptography
+<br>Neal Koblitz: A Course in Number Theory and Cryptography
+<br>Steven Galbraith: Mathematics of Public Key Cryptography
+<br>https://github.com/calccrypto/OpenPGP
+<br>RFC: 1991, 2440, 4880, 5581
+
+
 <br>
 <br>tesky gpgme zavrsi - ed->grep - EFI programming - LinuxKernelNewbies - customArch - learnChroot - golang/erlang - Haskell - pogledaj Onura Mutlua
 <br>UEFI beyond bios - LiveLinuxCD books - Kernel - xv6 - Cryptography in C - RHCSA->RHCE->RHCA cert

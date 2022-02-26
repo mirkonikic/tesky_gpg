@@ -1,5 +1,5 @@
 <div align="center">
-<h1>tesky v0.12</h1>
+<h1>tesky v0.46</h1>
 
 
 [![Logo](img/banner.png)](https://github.com/mirkonikic/tesky_gpg)<br>

@@ -64,7 +64,7 @@ bool TeskyApp::OnInit()
 	wxTheClipboard->Close();
 	*/
 
-	TMenu *frame = new TMenu(wxT(" Tesky v0.12 "));
+	TMenu *frame = new TMenu(wxT(" Tesky v0.46 "));
 	frame->Show(true);
 	//SetTopWindow(frame);
 	//succesfull initialization
@@ -709,8 +709,27 @@ void TMenu::init_GUI()
 		OnPrivateKeyChangeUpdateGUI();
 }
 
-void TMenu::OnNtpdEncrypt(wxCommandEvent& event){event.Skip();}
-void TMenu::OnNtpdDecrypt(wxCommandEvent& event){event.Skip();}
+void TMenu::OnNtpdEncrypt(wxCommandEvent& event)
+{
+	const char *arg = strdup(notepadTextBox->GetValue().mb_str().data());
+	std::string result = tesky_encrypt_data(arg, strlen(arg));
+	
+	//assign result to gui
+	printf("AAAAA\n%s\n", result.c_str());
+	notepadTextBox->ChangeValue(result.c_str());
+
+	event.Skip();
+}
+void TMenu::OnNtpdDecrypt(wxCommandEvent& event)
+{
+	const char *arg = strdup(notepadTextBox->GetValue().mb_str().data());
+	std::string result = tesky_decrypt_data(arg, strlen(arg));
+
+	printf("AAAAA\n%s\n", result.c_str());
+	notepadTextBox->ChangeValue(result.c_str());
+
+	event.Skip();
+}
 //Hub methods
 void TMenu::OnhubStartServer(wxCommandEvent& event){event.Skip();}
 void TMenu::OnhubShareKeys(wxCommandEvent& event){event.Skip();}

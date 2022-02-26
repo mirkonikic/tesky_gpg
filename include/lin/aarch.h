@@ -28,12 +28,9 @@
 #define TESKY_DEFAULT_HASH GPGME_MD_SHA512
 #define TESKY_DEFAULT_ALGO GPGME_PK_RSA_E
 #define TESKY_DEFAULT_ARMORED 1
-#define BUF_SIZE 256
+#define BUF_SIZE 512
 //variables
-    typedef gpgme_data_t tesky_data;
-    typedef gpgme_genkey_result_t tesky_new_key_result;
-    typedef gpgme_encrypt_result_t tesky_encrypt_result;
-    typedef gpgme_decrypt_result_t tesky_decrypt_result;
+    typedef gpgme_data_t tesky_data;                    //za prenos podataka
     typedef struct public_key
     {
         int id;
@@ -64,6 +61,10 @@
     extern privkey *priv_curr_key;      //holds selected private key
     extern gpgme_error_t err;  //err = funkc => if(err == GPGME_ERR...)
     extern gpgme_engine_info_t tesky_engine_info;
+    extern gpgme_data_t ciphertext_for_dec;
+    extern gpgme_data_t plaintext_for_enc;
+    extern gpgme_key_t selected_pubkey;
+    extern gpgme_key_t selected_privkey;
     extern gpgme_ctx_t tesky_ctx;    //configuration, status and result 
     extern int tesky_armored;
     //gpgme_off_t file_size;
@@ -93,9 +94,16 @@ void tesky_delete_from_privkeylist();
 void tesky_print_publistkey();
 void tesky_print_privlistkey();
 
+//encrypt/decrypt
+std::string tesky_encrypt_data(const char *buffer, size_t size);
+std::string tesky_decrypt_data(const char *buffer, size_t size);
+void tesky_load_pubkey();
+void tesky_load_privkey();
+std::string print_data(gpgme_data_t dh);
+//mozda razdvoj na tekst i file metode
 
 //finish
-void tesky_init_data(); //JOS NE ZNAM
+ //JOS NE ZNAM
 void tesky_read_data(tesky_data data_passed);   //nisam sig tacno o.o
 //  + inicijalizujes engine
 //  + pokrenes ctx

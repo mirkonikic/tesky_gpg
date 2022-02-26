@@ -11,6 +11,10 @@ pubkey *pub_head_node = nullptr;
 privkey *priv_head_node = nullptr;
 pubkey *pub_curr_key = nullptr;
 privkey *priv_curr_key = nullptr;
+gpgme_data_t ciphertext_for_dec;
+gpgme_data_t plaintext_for_enc;
+gpgme_key_t selected_pubkey;
+gpgme_key_t selected_privkey;
 gpgme_pubkey_algo_t tesky_algorithm;
 gpgme_hash_algo_t tesky_hash;
 gpgme_protocol_t tesky_protocol;
@@ -73,6 +77,9 @@ void tesky_init_ctx(gpgme_protocol_t protocol_passed, int armored_passed, gpgme_
 	//start engine
 	exit_if_err(gpgme_engine_check_version(tesky_protocol));
 
+	//armor ascii
+	gpgme_set_armor(tesky_ctx, 1);
+	
 	//set engine
 	exit_if_err(gpgme_ctx_set_engine_info(tesky_ctx, tesky_protocol, tesky_engine_info->file_name, tesky_engine_info->home_dir));
 	
@@ -114,13 +121,147 @@ void tesky_new_keypair()
 //TODO:
 //In Encryption add a new key -> encrypt -> release new key
 //Nemoj da ubacujes kljuc u memoriju dok ne kliknu encrypt
-void sign_and_encrypt(const char *data, const char *public_key_fingerprint, const char *path, const char *file_name)
+std::string tesky_encrypt_data(const char *buffer, size_t size)
 {
-	//gpgme_key_t public_key;
-	
-	//LOAD KEYS INTO GPGME
-	//use the key
+	std::string result_ciphertext;
+	//printf("%s\n", buffer); //:) radi
+	//decyprtion je ciphertext for dec
+	//initialize plaintext and fill with passed data
+	gpgme_data_new_from_mem(&plaintext_for_enc, buffer, strlen(buffer), 0);
+	//initialize ciphertext for result of encryption
+	gpgme_data_new(&ciphertext_for_dec);
 
+//TODO:	
+//	PROVERI DAL JE CURR PUBKEY NULL
+	tesky_load_pubkey();
+	//tesky_load_privkey()
+	tesky_init_ctx();
+	gpgme_op_encrypt(tesky_ctx, &selected_pubkey, GPGME_ENCRYPT_ALWAYS_TRUST, plaintext_for_enc, ciphertext_for_dec);
+
+	gpgme_encrypt_result_t result = gpgme_op_encrypt_result(tesky_ctx);
+	if (result->invalid_recipients)
+    {
+      fprintf (stderr, "Invalid recipient encountered: %s\n",
+	       result->invalid_recipients->fpr);
+      exit (1);
+    }
+
+	result_ciphertext = print_data(ciphertext_for_dec);
+	//print_data(plaintext_for_enc);
+	//gpgme_data_read(ciphertext_for_dec, result_ciphertext, );
+	free(selected_pubkey);
+	gpgme_data_release(plaintext_for_enc);
+	gpgme_data_release(ciphertext_for_dec);
+	gpgme_release(tesky_ctx);
+
+	//err = gpgme_op_encrypt_start(tesky_ctx, &selected_pubkey, GPGME_ENCRYPT_ALWAYS_TRUST, plaintext_for_enc, ciphertext_for_dec);
+	//gpgme_wait(tesky_ctx, &err, true);
+
+
+	//printf("%s\n", ciphertext_for_dec);
+	//gpgme_data_read (ciphertext_for_dec, void *buffer, );
+
+	//promeni u char *
+	printf("LOG: Encryption done :)\n");
+	return result_ciphertext;
+}
+std::string tesky_decrypt_data(const char *buffer, size_t size)
+{
+	std::string result_plaintext;
+	//printf("%s\n", buffer); //:) radi
+	//decyprtion je ciphertext for dec
+	//initialize plaintext and fill with passed data
+	gpgme_data_new_from_mem(&ciphertext_for_dec, buffer, strlen(buffer), 0);
+	//initialize ciphertext for result of encryption
+	gpgme_data_new(&plaintext_for_enc);
+
+//TODO:	
+//	PROVERI DAL JE CURR PUBKEY NULL
+	//tesky_load_privkey();
+	//tesky_load_privkey()
+	tesky_init_ctx();
+	gpgme_op_decrypt(tesky_ctx, ciphertext_for_dec, plaintext_for_enc);
+
+	gpgme_decrypt_result_t result = gpgme_op_decrypt_result(tesky_ctx);
+
+	if (result->unsupported_algorithm)
+    {
+      fprintf (stderr, "%s:%i: unsupported algorithm: %s\n",
+	       __FILE__, __LINE__, result->unsupported_algorithm);
+      exit (1);
+    }
+
+	//print_data(ciphertext_for_dec);
+	result_plaintext =  print_data(plaintext_for_enc);
+	//gpgme_data_read(ciphertext_for_dec, result_ciphertext, );
+	gpgme_data_release(plaintext_for_enc);
+	gpgme_data_release(ciphertext_for_dec);
+	gpgme_release(tesky_ctx);
+
+	//err = gpgme_op_encrypt_start(tesky_ctx, &selected_pubkey, GPGME_ENCRYPT_ALWAYS_TRUST, plaintext_for_enc, ciphertext_for_dec);
+	//gpgme_wait(tesky_ctx, &err, true);
+
+
+	//printf("%s\n", ciphertext_for_dec);
+	//gpgme_data_read (ciphertext_for_dec, void *buffer, );
+
+	//promeni u char *
+	printf("LOG: Decryption done :)\n");
+	return result_plaintext;
+}
+void tesky_load_pubkey()
+{
+	tesky_init_ctx();
+	err = (gpgme_op_keylist_start(tesky_ctx, NULL, 0));
+	gpgme_key_t key;
+    while (!err)
+    {
+        err = gpgme_op_keylist_next (tesky_ctx, &key);
+        if (err)
+          break;
+        	//printf("%s\n", key->subkeys->keyid);
+        if (key->uids && key->uids->name)
+			//printf("%s\n", key->uids->name);
+        if (key->uids && key->uids->email)
+        	//printf("%s\n", key->uids->email);
+        putchar ('\n');
+
+		if(strcmp(pub_curr_key->uid, key->subkeys->keyid) == 0)
+		{
+			printf("LOG: found the curr_pubkey \n");
+			selected_pubkey = key;
+			printf("LOG: selected pubkey: %s %s\n", pub_curr_key->uid, selected_pubkey->subkeys->keyid);
+			return;
+		}	
+
+        gpgme_key_release (key);
+    }
+
+	gpgme_op_keylist_end(tesky_ctx);
+	gpgme_release(tesky_ctx);
+}
+//tesky_load_privkey()
+
+std::string print_data(gpgme_data_t dh)
+{
+	std::string data;
+	char buf[BUF_SIZE+1];
+	int ret;
+
+	ret = gpgme_data_seek(dh, 0, SEEK_SET);
+	if(ret)	
+		exit_if_err(gpgme_err_code_from_errno (errno));
+	while((ret = gpgme_data_read (dh, buf, BUF_SIZE)) > 0){
+		//fwrite(buf, ret, 1, stdout);
+		std::string bufs(buf, ret);
+		data += bufs;
+	}
+	if(ret < 0)
+		exit_if_err(gpgme_err_code_from_errno (errno));
+
+	ret = gpgme_data_seek(dh, 0, SEEK_SET);
+
+	return data;
 }
 
 //LinkedList methods
@@ -160,7 +301,7 @@ void tesky_init_keylists()
 			//printf("%s\n", key->uids->name);
         if (key->uids && key->uids->email)
         	//printf("%s\n", key->uids->email);
-        putchar ('\n');
+        //putchar ('\n');
 
 		//add to linked list :)
 		//if(key->secret == 0)
@@ -190,7 +331,7 @@ void tesky_init_keylists()
 			//printf("%s\n", key->uids->name);
         if (key2->uids && key2->uids->email)
         	//printf("%s\n", key->uids->email);
-        putchar ('\n');
+        //putchar ('\n');
 
 		//add to linked list :)
 		if(key2->secret == 0)

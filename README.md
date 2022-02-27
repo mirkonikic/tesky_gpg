@@ -152,3 +152,4 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Drag&Drop file encryptor and decryptor
 - [ ] probaj da osmislis ransomware reversing tool
 - [ ] add dark and light theme not related to system, also store that info somewhere
+- [ ] installation script: https://stackoverflow.com/questions/29946416/how-do-i-include-shared-library-dependencies-with-my-binary-w-o-using-a-deb-or

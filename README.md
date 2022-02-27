@@ -14,8 +14,8 @@
 </div>
   
 ## About
-<br>
 <div align="center">
+  <h4>Supported Operating systems:</h4>
 <img alt="Supported OS: Ubuntu" src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
 <img alt="Supported OS: Debian" src="https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white">
 <img alt="Supported OS: Pop_OS!" src="https://img.shields.io/badge/Pop!_OS-48B9C7?style=for-the-badge&logo=Pop!_OS&logoColor=white">

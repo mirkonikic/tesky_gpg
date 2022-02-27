@@ -19,6 +19,23 @@ gpgme_pubkey_algo_t tesky_algorithm;
 gpgme_hash_algo_t tesky_hash;
 gpgme_protocol_t tesky_protocol;
 
+
+
+/*	Potrebno za kjluceve, al za svaki slucaj cuvam ovde
+const char key_info[] = "<GnupgKeyParms format=\"internal\">\n"
+						"Key-Type: default\n"
+						"Subkey-Type: default\n"
+						"Name-Real: Joe Tester\n"
+						"Name-Comment: with stupid passphrase\n"
+						"Name-Email: joe@foo.bar\n"
+						"Expire-Date: 0\n"
+						"Passphrase: abc\n"
+						"</GnupgKeyParms>\n";
+*/
+
+
+
+
 void tesky_aarch_info(){printf("Operating system is: Linux :)\n");}
 
 /*	Vise mi ne treba

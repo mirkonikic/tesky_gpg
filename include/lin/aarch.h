@@ -85,6 +85,12 @@ void tesky_init_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, int
 void tesky_update_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, gpgme_hash_algo_t hash_passed=TESKY_DEFAULT_HASH, gpgme_pubkey_algo_t algo_passed=TESKY_DEFAULT_ALGO);
 void tesky_end_ctx();
 
+//Key manipulation
+void tesky_generate_new_keypair();
+void tesky_import_key(const char *pathname);
+//void tesky_export_key();
+//void delete_key();
+
 //linkedlists manipulation
 void tesky_init_keylists();
 void tesky_add_to_pubkeylist(char *uid, char *user_name, char *email, gpgme_protocol_t protocol);
@@ -103,8 +109,6 @@ std::string print_data(gpgme_data_t dh);
 //mozda razdvoj na tekst i file metode
 
 //finish
- //JOS NE ZNAM
-void tesky_read_data(tesky_data data_passed);   //nisam sig tacno o.o
 //  + inicijalizujes engine
 //  + pokrenes ctx
 //  + postavis protokol, algo i hash

@@ -218,7 +218,7 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 			wxBoxSizer* certBoxSizer = new wxBoxSizer(wxHORIZONTAL);
 				wxButton* newKeyButton = new wxButton(tab1, ID_certNewKey, wxT("New key"), wxDefaultPosition, wxDefaultSize, 0);
 				wxStaticText* importKeysLabel = new wxStaticText(tab1, wxID_ANY, wxT("Import keys:"), wxDefaultPosition, wxDefaultSize, 0);
-				wxFilePickerCtrl* importKeysFile = new wxFilePickerCtrl(tab1, wxID_ANY, wxEmptyString, wxT("Import keys"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_DEFAULT_STYLE);
+				importKeysFile = new wxFilePickerCtrl(tab1, ID_certImportKeysFile, wxEmptyString, wxT("Import keys"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_DEFAULT_STYLE);
 				wxStaticText* searchLabel = new wxStaticText(tab1, wxID_ANY, wxT("Search:"), wxDefaultPosition, wxDefaultSize, 0);
 				wxSearchCtrl* searchCtrl = new wxSearchCtrl(tab1, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
 				wxButton* searchOkButton = new wxButton(tab1, ID_certOK, wxT("OK"), wxDefaultPosition, wxSize( 40,-1 ), 0);
@@ -505,6 +505,14 @@ void TMenu::OnAbout_Tesky(wxCommandEvent& event)
 void TMenu::OnQuit(wxCommandEvent& event){Close();event.Skip();}
 //Notebook methods
 //Certificates methods
+void TMenu::OncertImportKeysFile(wxFileDirPickerEvent& event)
+{
+	const char *path = strdup(importKeysFile->GetPath().mb_str().data());
+	//printf("%s\n", path);
+	tesky_import_key(path);
+	UpdateGUI();
+	event.Skip();
+}
 void TMenu::OnPrivKeysListSelect(wxCommandEvent& event)
 {
 	//prolazim kroz kljuceve da nadjem onaj sa id-om kliknutog kljuca
@@ -708,14 +716,12 @@ void TMenu::init_GUI()
 	if(priv_curr_key != nullptr)
 		OnPrivateKeyChangeUpdateGUI();
 }
-
 void TMenu::OnNtpdEncrypt(wxCommandEvent& event)
 {
 	const char *arg = strdup(notepadTextBox->GetValue().mb_str().data());
 	std::string result = tesky_encrypt_data(arg, strlen(arg));
 	
 	//assign result to gui
-	printf("AAAAA\n%s\n", result.c_str());
 	notepadTextBox->ChangeValue(result.c_str());
 
 	event.Skip();
@@ -725,7 +731,6 @@ void TMenu::OnNtpdDecrypt(wxCommandEvent& event)
 	const char *arg = strdup(notepadTextBox->GetValue().mb_str().data());
 	std::string result = tesky_decrypt_data(arg, strlen(arg));
 
-	printf("AAAAA\n%s\n", result.c_str());
 	notepadTextBox->ChangeValue(result.c_str());
 
 	event.Skip();

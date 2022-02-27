@@ -100,6 +100,7 @@ enum
 	ID_certOK,		//handles file picker input and search bar
 	ID_certPrivKeysList,
 	ID_certPubKeysList,
+	ID_certImportKeysFile,
 	//PanelNotepad - File or Text encryption
 	ID_ntpdPubKeysChoice,
 	ID_ntpdPrivKeysChoice,
@@ -127,6 +128,7 @@ public:
 			//Notepad
 			wxTextCtrl* notepadTextBox;
 			//Certificates
+			wxFilePickerCtrl* importKeysFile;
 			wxListBox* privKeysList;
 			wxListBox* pubKeysList;
 			//Notepad
@@ -172,6 +174,7 @@ public:
 	void OnPubKeysListSelect(wxCommandEvent& event);
 	void OncertNewKey(wxCommandEvent& event);
 	void OncertOK(wxCommandEvent& event);
+	void OncertImportKeysFile(wxFileDirPickerEvent& event);
 		//Notepad
 	void OnPubKeysChoiceSelect(wxCommandEvent& event);
 	void OnPrivKeysChoiceSelect(wxCommandEvent& event);
@@ -236,6 +239,7 @@ BEGIN_EVENT_TABLE(TMenu, wxFrame)
 		EVT_BUTTON(ID_certOK, TMenu::OncertOK)
 		EVT_LISTBOX(ID_certPrivKeysList, TMenu::OnPrivKeysListSelect)
 		EVT_LISTBOX(ID_certPubKeysList, TMenu::OnPubKeysListSelect)
+		EVT_FILEPICKER_CHANGED(ID_certImportKeysFile, TMenu::OncertImportKeysFile)
 	//Notepad
 		EVT_CHOICE(ID_ntpdPubKeysChoice, TMenu::OnPubKeysChoiceSelect)
 		//EVT_CHOICE(ID_ntpdPrivKeysChoice, TMenu::OnPrivKeysChoiceSelect)

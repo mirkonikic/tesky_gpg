@@ -89,15 +89,13 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] gpgme.h implementation
 - [x] Napravi linked listu za kljuceve
 - [ ] certificate creation and management
+- [x] Encryption & Decryption
 - [x] Enable gpgme.h library
 - [ ] Add functionalities to all buttons
 - [x] Enable Clipboard
 - [ ] Enable system tray icon, na desni klik clipboard en/dec
 - [ ] Right Click enc/dec files ili ako je txt file samo dec to clipbrd
-- [ ] Make .tesky in ~/.tesky directory path linux
-- [ ] Make .tesky in documents in Windows
 - [ ] Notepad osmisliti kako i da ubacis da moze odmah u clipboard (dugme za back to clipboard ili encrypt clipboard...)
-- [ ] osmisliti da na pokretanju programa on analizira .tesky i kreira linked listu ili array, pa popuni wxString u notepadu pre wxChoice
 - [ ] Certification tab -> delete key
 - [ ] Notepad tab -> more functionalities
 - [ ] Properties -> add ASCII ARMOR checkbox
@@ -119,12 +117,16 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] ********BETA version done:
 - [x] making code compileable on windows, *nix and macOS - https://stackoverflow.com/questions/3627127/writing-cross-platform-c-code-windows-linux-and-mac-osx
 - [ ] razmisli da za windows predjes na c# i wpf ili ostanes na c++
+- [ ] Dodaj opciju da moze screenshot da se enkriptuje kao slika i kada se dekriptuje prikaze se preko nekog image viewer programa, ili postoji tab za skrinshot i u njemu deo koji prikazuje slike
 - [ ] ako odlucis za windows wpf, mozes sve za wx da prebacis u lin dir ili da napravis dva odvojena source code-a
 - [ ] razmisli za macOS kako ces, moras da testiras u VM
 - [ ] all arguments passed when starting program in terminal
+- [ ] add multiple recipients option - mozda promeni u checkbox list umesto listbox
 - [ ] tested on Windows10-ja-pera, Windows11-pera, Windows7-ja, MacOS-zl, ArchLin-ja, Fedora-ja, Ubuntu-ja, Debian-ja, PopOS-ja, BSD-ja, Manjaro-ja, Mint-ja, Kali-ja, OpenSUSE-ja
 - [ ] ********VERSION 1.0.0 STABLE RELEASE done:
-- [ ] Redesign of the app for WIN, LIN, MACOS
+- [ ] Redesign of the app for WIN, LIN, MACOS - more space for more functionality
+- [ ] AUR SUBMISSION https://wiki.archlinux.org/title/AUR_submission_guidelines
+- [ ] DEB+UBUNTU repo submission
 - [ ] publish on aur
 - [ ] publish on debian and ubuntu
 - [ ] publish on archlinux
@@ -134,6 +136,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] File Drag and Drop tab
 - [ ] Hub tab - Server-Client key sharing tab
 - [ ] Chat tab
+- [ ] Screenshot encryption tab
 - [ ] U PROPERTIESU ima opcija i za Logger tab -> console info se ispisuje tu sa vremenom, ima export dugme
 - [ ] MDNetwork_node.exe/elf - console (Port forwarding knowledge needed)
 - [ ] ^ bolje tracker.exe/elf pa biras da li si za MDNetwork ili Hub, svako kad instalira dobije tracker ip ili ima u properties gde upise IP adresu trackera itd...

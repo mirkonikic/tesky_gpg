@@ -104,12 +104,44 @@ void tesky_end_ctx()
 }
 std::string tesky_ctx_get_protocol(){return gpgme_get_protocol_name(gpgme_get_protocol(tesky_ctx));}
 
-//JOS NE ZNAM
-void tesky_init_data(){printf("Ucitavam keys iz foldera\n");}
+//Key Manipulation methods
+void tesky_import_key(const char *pathname)
+{
+	printf("IMPORT: path: %s\n", pathname);
+	//otvori file sa imenom pathname
+	FILE *fp;
+	gpgme_data_t key_data;
+	gpgme_key_t key_imp;
 
+	fp = fopen(pathname, "r");
+	//prosledi file descriptor metodi ispod
+	//al prvo proveri da li je moguce da bude kljuc
+	tesky_init_ctx();
+	
+	gpgme_data_new_from_fd (&key_data, fileno(fp));
+	
+	gpgme_op_import (tesky_ctx, key_data);
+	
+	gpgme_import_result_t import_result = gpgme_op_import_result (tesky_ctx);
+	if(import_result->imported == 0)
+		printf("Nije hteo da importuje\n");
+	else
+	{
+		if(import_result->secret_imported == 0){
+			gpgme_get_key (tesky_ctx, import_result->imports->fpr, &key_imp, 0);
+			tesky_add_to_pubkeylist(key_imp->subkeys->keyid, key_imp->uids->name, key_imp->uids->email, key_imp->protocol);
+		}
+		else{
+			gpgme_get_key (tesky_ctx, import_result->imports->fpr, &key_imp, 1);
+			tesky_add_to_privkeylist(key_imp->subkeys->keyid, key_imp->uids->name, key_imp->uids->email, key_imp->protocol);
+		}
+	}
+	//release tesky_ctx
+	gpgme_release(tesky_ctx);
+}
 //TODO:
 //Generate new key pair
-void tesky_new_keypair()
+void tesky_generate_new_keypair()
 {
 	//gpgme_genkey_result_t result;
 	//gpgme_key_t key;

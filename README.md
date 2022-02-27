@@ -100,6 +100,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Notepad osmisliti kako i da ubacis da moze odmah u clipboard (dugme za back to clipboard ili encrypt clipboard...)
 - [ ] Certification tab -> delete key
 - [ ] Notepad tab -> more functionalities
+- [ ] Properties -> Disable and Enable tabs, only need File encryption -> Filepad
 - [ ] Properties -> add ASCII ARMOR checkbox
 - [ ] Properties -> add Crypto choice list
 - [ ] Properties -> add HASH choice list

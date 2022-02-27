@@ -553,6 +553,8 @@ void TMenu::OnPubKeysListSelect(wxCommandEvent& event)
 void TMenu::OncertNewKey(wxCommandEvent& event)
 {
 	printf("newkey pressed\n");
+	wxDialog *dialog = new wxDialog(this, wxID_ANY, "Key Generation Menu", wxDefaultPosition, wxSize(480, 320));
+	dialog->ShowWindowModal();
 	//UVEK KAD POZIVAS ADD ILI DELETE, POZIVAS I UPDATE GUI
 	//tesky_add_to_pubkeylist("pubkey7", "user8");
 	//UpdateGUI();

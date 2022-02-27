@@ -15,7 +15,9 @@
   
 ## About
 <br>
-<img alt="Supported OS: Ubuntu 21.10" src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
+<img alt="Supported OS: Ubuntu" src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
+<img alt="Supported OS: Kali linux" src="https://img.shields.io/badge/Kali_Linux-557C94?style=for-the-badge&logo=kali-linux&logoColor=white">
+<br>
 
 **Tesky** - [GPG key management](https://en.wikipedia.org/wiki/GNU_Privacy_Guard), encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 <br>finish this!

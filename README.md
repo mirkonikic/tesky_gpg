@@ -31,6 +31,7 @@
 <br>https://github.com/calccrypto/OpenPGP
 <br>RFC: 1991, 2440, 4880, 5581
 <br>https://gnupg.org/documentation/manuals/gpgme.pdf
+<br>https://gcc.gnu.org/onlinedocs/cpp.pdf
 
 
 <br>

@@ -55,7 +55,7 @@
 <br>BitTorrent spec. v2: http://bittorrent.org/beps/bep_0052.html
 <br>DHT kademilia: https://en.wikipedia.org/wiki/Kademlia
 <br>DHT draft: https://wiki.theory.org/BitTorrentDraftDHTProtocol
-
+<br>HeartBleed: https://en.wikipedia.org/wiki/Heartbleed
 
 
 

@@ -34,10 +34,19 @@
 <br>https://math.stackexchange.com/questions/1120989/what-books-do-you-recommend-on-mathematics-behind-cryptography
 <br>Neal Koblitz: A Course in Number Theory and Cryptography
 <br>Steven Galbraith: Mathematics of Public Key Cryptography
-<br>https://github.com/calccrypto/OpenPGP
-<br>RFC: 1991, 2440, 4880, 5581
-<br>https://gnupg.org/documentation/manuals/gpgme.pdf
-<br>https://gcc.gnu.org/onlinedocs/cpp.pdf
+<br>OpenPGP: https://github.com/calccrypto/OpenPGP
+<br>OpenPGP RFC: 1991, 2440, 4880, 5581
+<br>GPGME manual: https://gnupg.org/documentation/manuals/gpgme.pdf
+<br>CPP preprocessor: https://gcc.gnu.org/onlinedocs/cpp.pdf
+<br>TOR 2: https://arstechnica.com/information-technology/2016/08/building-a-new-tor-that-withstands-next-generation-state-surveillance/
+<br>TOR: https://2019.www.torproject.org/projects/torbrowser/design/
+<br>https://web.archive.org/web/20160409103456/https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-kwon.pdf
+<br>ZMAP: https://web.archive.org/web/20140404105039/https://zmap.io/paper.pdf
+<br>SOCKS 5: https://datatracker.ietf.org/doc/html/rfc1928
+<br>Onion services: https://nymity.ch/onion-services/pdf/sec18-onion-services.pdf
+<br>Tor Forensics: https://www.netresec.com/?page=Blog&month=2018-12&post=TorPCAP---Tor-Network-Forensics
+<br>Network Forensics: https://www.enisa.europa.eu/topics/trainings-for-cybersecurity-specialists/online-training-material/documents/introduction-to-network-forensics-handbook.pdf
+<br>Selected papers in anonimity: https://www.freehaven.net/anonbib/#2014
 
 
 <br>

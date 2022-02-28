@@ -47,6 +47,15 @@
 <br>Tor Forensics: https://www.netresec.com/?page=Blog&month=2018-12&post=TorPCAP---Tor-Network-Forensics
 <br>Network Forensics: https://www.enisa.europa.eu/topics/trainings-for-cybersecurity-specialists/online-training-material/documents/introduction-to-network-forensics-handbook.pdf
 <br>Selected papers in anonimity: https://www.freehaven.net/anonbib/#2014
+<br>BitTorrent spec.: https://www.bittorrent.org/beps/bep_0003.html
+<br>SOCKS: https://www.usenix.org/legacy/publications/library/proceedings/sec92/full_papers/koblas.pdf
+<br>BitTorrent basics: http://web.cs.ucla.edu/classes/cs217/05BitTorrent.pdf
+<br>Distributed Networks: http://web.cs.ucla.edu/classes/cs217/Baran64.pdf
+<br>https://wiki.theory.org/index.php/BitTorrentSpecification
+<br>BitTorrent spec. v2: http://bittorrent.org/beps/bep_0052.html
+
+
+
 
 
 <br>

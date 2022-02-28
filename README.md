@@ -53,7 +53,8 @@
 <br>Distributed Networks: http://web.cs.ucla.edu/classes/cs217/Baran64.pdf
 <br>https://wiki.theory.org/index.php/BitTorrentSpecification
 <br>BitTorrent spec. v2: http://bittorrent.org/beps/bep_0052.html
-
+<br>DHT kademilia: https://en.wikipedia.org/wiki/Kademlia
+<br>DHT draft: https://wiki.theory.org/BitTorrentDraftDHTProtocol
 
 
 

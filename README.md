@@ -134,9 +134,10 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Properties -> change theme -> prvo dark/light theme
 - [ ] Optimize whole code
 - [ ] Comment whole code
+- [ ] Promeni Notepad tab u nekoliko choiceBoxova -> Encrypt/Decrypt  To/From/The  Clipboard/Notepad/File
 - [ ] take care of all exceptions
 - [x] Fix color problem na linuxu kad promene system theme
-- [ ] Napravi tesky biblbioteku - gpgme wrapper + 
+- [ ] Napravi tesky biblbioteku - gpgme wrapper + WxWidgets
 - [ ] Omoguce da se tesky programira u vidu tabova, uzmu tesky biblioteku i samo programiraju svoj tab
 - [ ] ********ALPHA version done:
 - [ ] Certificates tab: New key, Import keys, OnInit load all keys from .tesky, 

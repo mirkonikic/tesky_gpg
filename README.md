@@ -116,6 +116,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] gpgme.h implementation
 - [x] Napravi linked listu za kljuceve
 - [ ] certificate creation and management
+- [ ] Redesign Notepad/Lab taba, na novi dizajn samo dodati dugme kao lanac sto npr width i height na slikama zakljuca, tako da zakljuca opcije za enc/dec. U smislu da ako stavimo Notepad Clipboard, da enkriptuje u clipboard, a dekriotuje u Notepad, a kada se raskine lanac, onda su oba ista, npr dekriptuje u notepad iz klipobrda i enkriptuje u notepad iz klipborda
 - [x] Encryption & Decryption
 - [x] Enable gpgme.h library
 - [ ] Add functionalities to all buttons

@@ -166,8 +166,8 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] MDNetwork tab - ima slika grafa sa belim cvorovima, pa klikom ih povezujes
 - [ ] File Drag and Drop tab
 - [ ] Hub tab - Server-Client key sharing tab
-- [ ] Chat tab
 - [ ] Screenshot encryption tab
+- [ ] Tor network + GPG chat
 - [ ] U PROPERTIESU ima opcija i za Logger tab -> console info se ispisuje tu sa vremenom, ima export dugme
 - [ ] MDNetwork_node.exe/elf - console (Port forwarding knowledge needed)
 - [ ] ^ bolje tracker.exe/elf pa biras da li si za MDNetwork ili Hub, svako kad instalira dobije tracker ip ili ima u properties gde upise IP adresu trackera itd...

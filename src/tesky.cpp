@@ -281,7 +281,7 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 		wxBoxSizer* ntpdB2Sizer = new wxBoxSizer(wxHORIZONTAL);
 			wxButton* encryptButton = new wxButton(tab2, ID_ntpdEncrypt, wxT("Encrypt"), wxDefaultPosition, wxDefaultSize, 0);
 			wxButton* decryptButton = new wxButton(tab2, ID_ntpdDecrypt, wxT("Decrypt"), wxDefaultPosition, wxDefaultSize, 0);
-			wxButton* loadFromClipboardButton = new wxButton(tab2, ID_ntpdClImport, wxT("Load from clipboard"), wxDefaultPosition, wxDefaultSize, 0);
+			//wxButton* loadFromClipboardButton = new wxButton(tab2, ID_ntpdClImport, wxT("Load from clipboard"), wxDefaultPosition, wxDefaultSize, 0);
 //TODO:
 //	popuniti wxString sa izborima preko for petlje
 //	koliko kljuceva ima toliko izbora
@@ -289,22 +289,49 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 //	KAKO DA MODIFIKUJEM CHOICES
 			//wxString pub_key_choices[] = {wxT("public_key1"), wxT("public_key2"), wxT("public_key3"), wxT("public_key4")};
 			//int pub_key_n_choices = sizeof(pub_key_choices) / sizeof(wxString);
-			wxString pub_key_choices[] = {};
-			int pub_key_n_choices = 0;
-			choiceList = new wxChoice(tab2, ID_ntpdPubKeysChoice, wxDefaultPosition, wxSize( 220,-1 ), pub_key_n_choices, pub_key_choices, 0);
+			wxString from_choices[] = {wxT("Clipboard"), wxT("File"), wxT("Notepad")};
+			wxString to_choices[] = {wxT("Clipboard"), wxT("File"), wxT("Notepad")};
+			int from_to_n_choices = 3;
+			//choiceList = new wxChoice(tab2, ID_ntpdPubKeysChoice, wxDefaultPosition, wxSize( 220,-1 ), pub_key_n_choices, pub_key_choices, 0);
+			fromChoices = new wxChoice(tab2, ID_ntpdPubKeysChoice, wxDefaultPosition, wxDefaultSize, from_to_n_choices, from_choices, 0);
+			toChoices = new wxChoice(tab2, ID_ntpdPubKeysChoice, wxDefaultPosition, wxDefaultSize, from_to_n_choices, to_choices, 0);
+
+			//label /
+			wxStaticText* label_slash = new wxStaticText(tab2, wxID_ANY, wxT("/"), wxDefaultPosition, wxDefaultSize, 0 );
+			label_slash->Wrap( -1 );
+			//label from
+			wxStaticText* label_from = new wxStaticText(tab2, wxID_ANY, wxT("from:"), wxDefaultPosition, wxDefaultSize, 0 );
+			label_from->Wrap( -1 );
+			//label to
+			wxStaticText* label_to = new wxStaticText(tab2, wxID_ANY, wxT("to:"), wxDefaultPosition, wxDefaultSize, 0 );
+			label_to->Wrap( -1 );
 			
+			chainEncryption = new wxBitmapButton(tab2, ID_ntpdChainButton, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|0 );
+			chainEncryption->SetBitmap( wxBitmap(wxT("img/tesky_broken_link.png"), wxBITMAP_TYPE_ANY));
+
 //TODO:
 //	ZASTO NE RADI pub_curr_key->id
 
-			choiceList->SetSelection(1);
+			//choiceList->SetSelection(1);
+			toChoices->SetSelection(1);
+			fromChoices->SetSelection(1);
 
 //TODO:
 //	Dodaj treci box sizer za output, ili dugmice za encrypt to clipboard..
 		ntpdB1Sizer->Add(notepadTextBox, 1, wxALL, 5);
 		ntpdB2Sizer->Add(encryptButton, 0, wxALL, 5);
+		//   /
+		ntpdB2Sizer->Add(label_slash, 0, wxALIGN_CENTER|wxALL, 5 );
 		ntpdB2Sizer->Add(decryptButton, 0, wxALL, 5);
-		ntpdB2Sizer->Add(loadFromClipboardButton, 0, wxALL, 5);
-		ntpdB2Sizer->Add(choiceList, 0, wxALL, 5);
+		//    from
+		ntpdB2Sizer->Add(label_from, 0, wxALIGN_CENTER|wxALL, 5 );
+		ntpdB2Sizer->Add(fromChoices, 0, wxALL, 5 );
+		//ntpdB2Sizer->Add(loadFromClipboardButton, 0, wxALL, 5);
+		//    to
+		ntpdB2Sizer->Add(label_to, 0, wxALIGN_CENTER|wxALL, 5 );
+		ntpdB2Sizer->Add(toChoices, 0, wxALL, 5 );
+		//ntpdB2Sizer->Add(choiceList, 0, wxALL, 5);
+		ntpdB2Sizer->Add(chainEncryption, 0, wxALL, 5);
 
 		ntpdSizer->Add(ntpdB1Sizer, 1, wxALIGN_CENTER_HORIZONTAL, 5);
 		ntpdSizer->Add(ntpdB2Sizer, 0, wxALIGN_CENTER_HORIZONTAL, 5);
@@ -402,8 +429,8 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 		propSizer->Fit(tab4);
 
 	//Add tabs to notebook
-	notebook->AddPage(tab1, L"Certificates");
-    notebook->AddPage(tab2, L"Notepad");
+	notebook->AddPage(tab1, L"Certificates");	//could be Keys
+    notebook->AddPage(tab2, L"Notepad");		//could be Lab	
 	notebook->AddPage(tab3, L"Hub");
 	notebook->AddPage(tab4, L"Properties");
 
@@ -562,6 +589,19 @@ void TMenu::OncertNewKey(wxCommandEvent& event)
 }
 void TMenu::OncertOK(wxCommandEvent& event){event.Skip();}
 //Notepad methods
+void TMenu::OnNtpdChainClick(wxCommandEvent& event)
+{
+	//check if the chain_enabled is true
+	//set icon of the button and chain_enabled :)
+	
+	if(chain_enabled)
+		chainEncryption->SetBitmap(wxBitmap(wxT("img/tesky_broken_link.png"), wxBITMAP_TYPE_ANY));
+	else {chainEncryption->SetBitmap(wxBitmap(wxT("img/tesky_link.png"), wxBITMAP_TYPE_ANY));}
+		chain_enabled = !chain_enabled;
+	
+	//na osnovu ovoga ce se pmenjati nacin enkripcije
+	event.Skip();
+}
 //OnNtpdClImport -> OnClImport, isti su :D
 //Moved OnPrivKeyChoiceSelect to OnCurrentPublicKeyChange
 	//So that all elements change when one gets changed
@@ -588,6 +628,7 @@ void TMenu::OnPrivKeysChoiceSelect(wxCommandEvent& event)
 void TMenu::OnPubKeysChoiceSelect(wxCommandEvent& event)
 {
 	//prolazim kroz kljuceve da nadjem onaj sa id-om kliknutog kljuca
+/*
 	pubkey *pcurr = pub_head_node;
 	int selected_n = choiceList->GetSelection();
 	printf("%d trazim\n", selected_n);
@@ -604,12 +645,13 @@ void TMenu::OnPubKeysChoiceSelect(wxCommandEvent& event)
 	pub_curr_key = pcurr;
 	OnPublicKeyChangeUpdateGUI();
 	event.Skip();
+*/
 }
 void TMenu::OnPublicKeyChangeUpdateGUI()
 {
 	//update all elements that keep track of public keys
 	pubKeysList->SetSelection(pub_curr_key->id);
-	choiceList->SetSelection(pub_curr_key->id);
+	//choiceList->SetSelection(pub_curr_key->id);
 }
 void TMenu::OnPrivateKeyChangeUpdateGUI()
 {
@@ -644,7 +686,7 @@ void TMenu::UpdateGUI()
 					buf.append("..");
 				}
 				buf.append(p1->email);
-				choiceList->Append(p1->user_name);	//dodajemo u choice list
+				//choiceList->Append(p1->user_name);	//dodajemo u choice list
 				pubKeysList->Append(buf);	//dodajemo u pub keys list
 			}
 			p1 = p1->next;		//sledeci element liste proveravamo
@@ -693,7 +735,7 @@ void TMenu::init_GUI()
 			buf.append("..");
 		}
 		buf.append(p1->email);
-		choiceList->Append(p1->user_name);
+		//choiceList->Append(p1->user_name);
 		pubKeysList->Append(buf);
 		p1 = p1->next;
 	}

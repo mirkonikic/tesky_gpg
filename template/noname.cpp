@@ -212,13 +212,11 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	bSizer4 = new wxBoxSizer( wxVERTICAL );
 
 	wxBoxSizer* bSizer7;
-	bSizer7 = new wxBoxSizer( wxVERTICAL );
+	bSizer7 = new wxBoxSizer( wxHORIZONTAL );
 
 	bSizer7->SetMinSize( wxSize( -1,310 ) );
-	m_richText2 = new wxRichTextCtrl( m_panel5, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
-	m_richText2->SetFont( wxFont( 12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString ) );
-
-	bSizer7->Add( m_richText2, 1, wxEXPAND | wxALL, 5 );
+	m_textCtrl4 = new wxTextCtrl( m_panel5, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 620,300 ), wxTE_MULTILINE );
+	bSizer7->Add( m_textCtrl4, 0, wxALL, 5 );
 
 
 	bSizer4->Add( bSizer7, 1, wxEXPAND, 5 );
@@ -227,20 +225,35 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	bSizer8 = new wxBoxSizer( wxHORIZONTAL );
 
 	bSizer8->SetMinSize( wxSize( -1,15 ) );
-	m_button1 = new wxButton( m_panel5, wxID_ANY, wxT("Encrypt"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer8->Add( m_button1, 0, wxALL, 5 );
+	m_button11 = new wxButton( m_panel5, wxID_ANY, wxT("Encrypt"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer8->Add( m_button11, 0, wxALL, 5 );
 
-	m_button2 = new wxButton( m_panel5, wxID_ANY, wxT("Decrypt"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer8->Add( m_button2, 0, wxALL, 5 );
+	m_staticText14 = new wxStaticText( m_panel5, wxID_ANY, wxT("/"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText14->Wrap( -1 );
+	bSizer8->Add( m_staticText14, 0, wxALIGN_CENTER|wxALL, 5 );
 
-	m_button3 = new wxButton( m_panel5, wxID_ANY, wxT("Load from clipboard"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer8->Add( m_button3, 0, wxALL, 5 );
+	m_button12 = new wxButton( m_panel5, wxID_ANY, wxT("Decrypt"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer8->Add( m_button12, 0, wxALL, 5 );
 
-	wxString m_choice1Choices[] = { wxT("Mirko"), wxT("dimi"), wxT("rope") };
-	int m_choice1NChoices = sizeof( m_choice1Choices ) / sizeof( wxString );
-	m_choice1 = new wxChoice( m_panel5, wxID_ANY, wxDefaultPosition, wxSize( 220,-1 ), m_choice1NChoices, m_choice1Choices, 0 );
-	m_choice1->SetSelection( 1 );
-	bSizer8->Add( m_choice1, 0, wxALL, 5 );
+	m_staticText12 = new wxStaticText( m_panel5, wxID_ANY, wxT("from:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText12->Wrap( -1 );
+	bSizer8->Add( m_staticText12, 0, wxALIGN_CENTER|wxALL, 5 );
+
+	wxString m_choice4Choices[] = { wxT("Clipboard"), wxT("File"), wxT("Notepad") };
+	int m_choice4NChoices = sizeof( m_choice4Choices ) / sizeof( wxString );
+	m_choice4 = new wxChoice( m_panel5, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choice4NChoices, m_choice4Choices, 0 );
+	m_choice4->SetSelection( 1 );
+	bSizer8->Add( m_choice4, 0, wxALL, 5 );
+
+	m_staticText11 = new wxStaticText( m_panel5, wxID_ANY, wxT("to:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText11->Wrap( -1 );
+	bSizer8->Add( m_staticText11, 0, wxALIGN_CENTER|wxALL, 5 );
+
+	wxString m_choice5Choices[] = { wxT("Clipboard"), wxT("File"), wxT("Notepad") };
+	int m_choice5NChoices = sizeof( m_choice5Choices ) / sizeof( wxString );
+	m_choice5 = new wxChoice( m_panel5, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choice5NChoices, m_choice5Choices, 0 );
+	m_choice5->SetSelection( 1 );
+	bSizer8->Add( m_choice5, 0, wxALL, 5 );
 
 
 	bSizer4->Add( bSizer8, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
@@ -249,7 +262,7 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_panel5->SetSizer( bSizer4 );
 	m_panel5->Layout();
 	bSizer4->Fit( m_panel5 );
-	menu->AddPage( m_panel5, wxT("Notepad"), false );
+	menu->AddPage( m_panel5, wxT("Lab"), true );
 	m_panel41 = new wxPanel( menu, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer9;
 	bSizer9 = new wxBoxSizer( wxVERTICAL );
@@ -369,7 +382,11 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_panel41->SetSizer( bSizer9 );
 	m_panel41->Layout();
 	bSizer9->Fit( m_panel41 );
-	menu->AddPage( m_panel41, wxT("Hub"), true );
+	menu->AddPage( m_panel41, wxT("Hub"), false );
+	m_panel7 = new wxPanel( menu, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	m_panel7->Hide();
+
+	menu->AddPage( m_panel7, wxT("Chat"), false );
 	m_panel6 = new wxPanel( menu, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer5;
 	bSizer5 = new wxBoxSizer( wxVERTICAL );
@@ -383,6 +400,10 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_panel6->Layout();
 	bSizer5->Fit( m_panel6 );
 	menu->AddPage( m_panel6, wxT("Properties"), false );
+	m_panel10 = new wxPanel( menu, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	m_panel10->Hide();
+
+	menu->AddPage( m_panel10, wxT("MDNetwork"), false );
 
 	bSizer2->Add( menu, 1, wxEXPAND | wxALL, 5 );
 
@@ -397,5 +418,48 @@ TMenu::TMenu( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 }
 
 TMenu::~TMenu()
+{
+}
+
+MyDialog1::MyDialog1( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+
+	wxGridSizer* gSizer3;
+	gSizer3 = new wxGridSizer( 0, 2, 0, 0 );
+
+	wxBoxSizer* bSizer21;
+	bSizer21 = new wxBoxSizer( wxVERTICAL );
+
+	wxBoxSizer* bSizer23;
+	bSizer23 = new wxBoxSizer( wxHORIZONTAL );
+
+	m_staticText11 = new wxStaticText( this, wxID_ANY, wxT("Name: "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText11->Wrap( -1 );
+	bSizer23->Add( m_staticText11, 0, wxALL, 5 );
+
+	m_textCtrl3 = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer23->Add( m_textCtrl3, 0, wxALL, 5 );
+
+
+	bSizer21->Add( bSizer23, 1, wxEXPAND, 5 );
+
+
+	gSizer3->Add( bSizer21, 1, wxEXPAND, 5 );
+
+	wxBoxSizer* bSizer22;
+	bSizer22 = new wxBoxSizer( wxVERTICAL );
+
+
+	gSizer3->Add( bSizer22, 1, wxEXPAND, 5 );
+
+
+	this->SetSizer( gSizer3 );
+	this->Layout();
+
+	this->Centre( wxBOTH );
+}
+
+MyDialog1::~MyDialog1()
 {
 }

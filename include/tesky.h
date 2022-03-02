@@ -107,6 +107,7 @@ enum
 	ID_ntpdClImport,
 	ID_ntpdEncrypt,
 	ID_ntpdDecrypt,
+	ID_ntpdChainButton,
 	//PanelHub - Server/Client for key downloading
 	ID_hubStartServer,
 	ID_hubShareKeys,
@@ -132,7 +133,14 @@ public:
 			wxListBox* privKeysList;
 			wxListBox* pubKeysList;
 			//Notepad
-			wxChoice* choiceList;
+			wxBitmapButton* chainEncryption;
+			bool chain_enabled = false;
+			const wxBitmap chained;
+			const wxBitmap unchained;
+			//wxChoice* choiceList;
+				//updatedNotepad
+				wxChoice* fromChoices;
+				wxChoice* toChoices;
 			//SystemTray
 			wxTaskBarIcon   *m_taskBarIcon;
 
@@ -180,6 +188,7 @@ public:
 	void OnPrivKeysChoiceSelect(wxCommandEvent& event);
 	void OnNtpdEncrypt(wxCommandEvent& event);
 	void OnNtpdDecrypt(wxCommandEvent& event);
+	void OnNtpdChainClick(wxCommandEvent& event);
 		//Hub
 	void OnhubStartServer(wxCommandEvent& event);
 	void OnhubShareKeys(wxCommandEvent& event);
@@ -246,6 +255,7 @@ BEGIN_EVENT_TABLE(TMenu, wxFrame)
 		EVT_BUTTON(ID_ntpdClImport, TMenu::OnClImport)
 		EVT_BUTTON(ID_ntpdEncrypt, TMenu::OnNtpdEncrypt)
 		EVT_BUTTON(ID_ntpdDecrypt, TMenu::OnNtpdDecrypt)
+		EVT_BUTTON(ID_ntpdChainButton, TMenu::OnNtpdChainClick)
 	//Hub
 		EVT_BUTTON(ID_hubStartServer, TMenu::OnhubStartServer)
 		EVT_BUTTON(ID_hubShareKeys, TMenu::OnhubShareKeys)

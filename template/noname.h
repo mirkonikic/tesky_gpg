@@ -28,12 +28,12 @@ class forward_declare;
 #include <wx/sizer.h>
 #include <wx/listbox.h>
 #include <wx/panel.h>
-#include <wx/richtext/richtextctrl.h>
-#include <wx/choice.h>
 #include <wx/textctrl.h>
+#include <wx/choice.h>
 #include <wx/checklst.h>
 #include <wx/notebook.h>
 #include <wx/frame.h>
+#include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -67,11 +67,14 @@ class TMenu : public forward_declare
 		wxStaticText* m_staticText7;
 		wxListBox* m_listBox6;
 		wxPanel* m_panel5;
-		wxRichTextCtrl* m_richText2;
-		wxButton* m_button1;
-		wxButton* m_button2;
-		wxButton* m_button3;
-		wxChoice* m_choice1;
+		wxTextCtrl* m_textCtrl4;
+		wxButton* m_button11;
+		wxStaticText* m_staticText14;
+		wxButton* m_button12;
+		wxStaticText* m_staticText12;
+		wxChoice* m_choice4;
+		wxStaticText* m_staticText11;
+		wxChoice* m_choice5;
 		wxPanel* m_panel41;
 		wxPanel* m_panel8;
 		wxStaticText* m_staticText131;
@@ -86,14 +89,35 @@ class TMenu : public forward_declare
 		wxButton* m_button13;
 		wxButton* m_button14;
 		wxCheckListBox* m_checkList1;
+		wxPanel* m_panel7;
 		wxPanel* m_panel6;
 		wxStaticText* m_staticText22;
+		wxPanel* m_panel10;
 
 	public:
 
 		TMenu( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Tesky v0.2"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 640,480 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL, const wxString& name = wxT("tesky v2.0") );
 
 		~TMenu();
+
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class MyDialog1
+///////////////////////////////////////////////////////////////////////////////
+class MyDialog1 : public wxDialog
+{
+	private:
+
+	protected:
+		wxStaticText* m_staticText11;
+		wxTextCtrl* m_textCtrl3;
+
+	public:
+
+		MyDialog1( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Key Generation Menu"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 480,320 ), long style = wxDEFAULT_DIALOG_STYLE );
+
+		~MyDialog1();
 
 };
 

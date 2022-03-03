@@ -157,6 +157,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] add multiple recipients option - mozda promeni u checkbox list umesto listbox
 - [ ] tested on Windows10-ja-pera, Windows11-pera, Windows7-ja, MacOS-zl, ArchLin-ja, Fedora-ja, Ubuntu-ja, Debian-ja, PopOS-ja, BSD-ja, Manjaro-ja, Mint-ja, Kali-ja, OpenSUSE-ja
 - [ ] File tab, ima isto choice boxove: [:EN/deCRYPT:] To: [:NOTEPAD/FILE:] -> pa ima veliki FilePickerCtrl u koji cim drag&droppujes fajl, krene da enkriptuje ili dekriptuje, on kad zavrsi ispise to ili u notepad ili ima notepad u tom file tabu ili ako je izabran to file onda se pojavi save file picker... pa samo cuva fajlove po promeni tamo, ne mora nista da se klikne :D
+- [ ] Create installer -> Desktop app -> libraries -> can be run as a service
 - [ ] ********VERSION 1.0.0 STABLE RELEASE done:
 - [ ] Redesign of the app for WIN, LIN, MACOS - more space for more functionality
 - [ ] AUR SUBMISSION https://wiki.archlinux.org/title/AUR_submission_guidelines

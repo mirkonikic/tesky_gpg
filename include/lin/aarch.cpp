@@ -207,7 +207,18 @@ void tesky_generate_new_keypair()
 	gpgme_genkey_result_t result;
 	tesky_init_ctx();
 
-	const char *key_info;
+	//const char *key_info;
+	//default key info
+	const char key_info[] = "<GnupgKeyParms format=\"internal\">\n"
+						"Key-Type: default\n"
+						"Subkey-Type: default\n"
+						"Name-Real: Joe Tester\n"
+						"Name-Comment: with stupid passphrase\n"
+						"Name-Email: joe@foo.bar\n"
+						"Expire-Date: 0\n"
+						"Passphrase: abc\n"
+						"</GnupgKeyParms>\n";
+
 
 	/* start generate key */
 	/* You can find the gpgme_op_createkey function in the GPGME

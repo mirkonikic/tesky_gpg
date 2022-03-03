@@ -20,6 +20,43 @@ gpgme_hash_algo_t tesky_hash;
 gpgme_protocol_t tesky_protocol;
 
 
+/*
+	gpgme_error_t gpgme_op_genkey (gpgme_ctx_t ctx, const char *parms, gpgme_data_t public, gpgme_data_t secret)
+The function gpgme_op_genkey generates a new key pair in the context ctx. The meaning of public and secret depends on the crypto backend.
+
+GPG does not support public and secret, they should be NULL. GnuPG will generate a key pair and add it to the standard key ring. The fingerprint of the generated key is available with gpgme_op_genkey_result.
+
+GpgSM requires public to be a writable data object. GpgSM will generate a secret key (which will be stored by gpg-agent, and return a certificate request in public, which then needs to be signed by the certification authority and imported before it can be used. GpgSM does not make the fingerprint available.
+
+The argument parms specifies parameters for the key in an string that looks something like XML. The details about the format of parms are specific to the crypto engine used by ctx. The first line of the parameters must be <GnupgKeyParams format="internal"> and the last line must be </GnupgKeyParams>. Every line in between the first and last lines is treated as a Header: Value pair. In particular, no XML escaping is necessary if you need to include the characters <, >, or &.
+
+Here is an example for GnuPG as the crypto engine (all parameters of OpenPGP key generation are documented in the GPG manual):
+
+<GnupgKeyParms format="internal">
+Key-Type: default
+Subkey-Type: default
+Name-Real: Joe Tester
+Name-Comment: with stupid passphrase
+Name-Email: joe@foo.bar
+Expire-Date: 0
+Passphrase: abc
+</GnupgKeyParms>
+Here is an example for GpgSM as the crypto engine (all parameters of OpenPGP key generation are documented in the GPGSM manual):
+
+<GnupgKeyParms format="internal">
+Key-Type: RSA
+Key-Length: 1024
+Name-DN: C=de,O=g10 code,OU=Testlab,CN=Joe 2 Tester
+Name-Email: joe@foo.bar
+</GnupgKeyParms>
+
+*/
+
+
+
+
+
+
 
 /*	Potrebno za kjluceve, al za svaki slucaj cuvam ovde
 const char key_info[] = "<GnupgKeyParms format=\"internal\">\n"
@@ -165,6 +202,29 @@ void tesky_generate_new_keypair()
 
 	//ZA OVO CE MI TREBATI NOV wxFRAME
 	//mozda bolje prvo da probam enkr i dekr sa postojecim kljucevima :)
+
+	gpgme_error_t err;	
+	gpgme_genkey_result_t result;
+	tesky_init_ctx();
+
+	const char *key_info;
+
+	/* start generate key */
+	/* You can find the gpgme_op_createkey function in the GPGME
+	documentation. This func equals to gpg --quick-generate-key */
+
+	/* GPG does not support public and secret, they should be NULL.
+	GnuPG will generate a key pair and add it to the standard key ring.*/
+	err = gpgme_op_genkey(tesky_ctx, key_info,
+		/*public*/ NULL, /*private*/ NULL);
+	exit_if_err(err);
+	result = gpgme_op_genkey_result(tesky_ctx);
+
+	printf("Key: %s, %s, %s\n", result->fpr,
+		result->primary ? "primary" : "no primary",
+		result->sub ? "sub" : "no sub");
+
+	gpgme_release(tesky_ctx);
 }
 
 //TODO:

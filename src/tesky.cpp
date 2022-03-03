@@ -289,9 +289,9 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 //	KAKO DA MODIFIKUJEM CHOICES
 			//wxString pub_key_choices[] = {wxT("public_key1"), wxT("public_key2"), wxT("public_key3"), wxT("public_key4")};
 			//int pub_key_n_choices = sizeof(pub_key_choices) / sizeof(wxString);
-			wxString from_choices[] = {wxT("Clipboard"), wxT("File"), wxT("Notepad")};
-			wxString to_choices[] = {wxT("Clipboard"), wxT("File"), wxT("Notepad")};
-			int from_to_n_choices = 3;
+			wxString from_choices[] = {wxT("Clipboard"), wxT("Notepad")};	//, wxT("File")
+			wxString to_choices[] = {wxT("Clipboard"), wxT("Notepad")};		// wxT("File"),
+			int from_to_n_choices = 2;
 			//choiceList = new wxChoice(tab2, ID_ntpdPubKeysChoice, wxDefaultPosition, wxSize( 220,-1 ), pub_key_n_choices, pub_key_choices, 0);
 			fromChoices = new wxChoice(tab2, ID_ntpdPubKeysChoice, wxDefaultPosition, wxDefaultSize, from_to_n_choices, from_choices, 0);
 			toChoices = new wxChoice(tab2, ID_ntpdPubKeysChoice, wxDefaultPosition, wxDefaultSize, from_to_n_choices, to_choices, 0);
@@ -466,17 +466,17 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 }
 
 //[Method implementations:]
-	/*	Cool way i generated methods from event enum :D
-		clear; 
-		for i in $(cat src/tesky.cpp | grep "(ID*" | cut -c20-45 | cut -d " " -f 1); 
-		do 
-			echo "void On$(echo $i | cut -c4- | tr -d ",")(wxCommandEvent& event);"; 
-		done; 
-		for i in $(cat src/tesky.cpp | grep "(ID*" | cut -c20-45 | cut -d " " -f 1); 
-		do 
-			echo -e "void TMenu::On$(echo $i | cut -c4- | tr -d ",")(wxCommandEvent& event)\n{\n\n\tevent.Skip();\n}\n"; 
-		done
-	*/
+/*	Cool way i generated methods from event enum :D
+	clear; 
+	for i in $(cat src/tesky.cpp | grep "(ID*" | cut -c20-45 | cut -d " " -f 1); 
+	do 
+		echo "void On$(echo $i | cut -c4- | tr -d ",")(wxCommandEvent& event);"; 
+	done; 
+	for i in $(cat src/tesky.cpp | grep "(ID*" | cut -c20-45 | cut -d " " -f 1); 
+	do 
+		echo -e "void TMenu::On$(echo $i | cut -c4- | tr -d ",")(wxCommandEvent& event)\n{\n\n\tevent.Skip();\n}\n"; 
+	done
+*/
 
 //MENUBAR methods
 void TMenu::OnNewKeyPair(wxCommandEvent& event){event.Skip();}
@@ -762,20 +762,122 @@ void TMenu::init_GUI()
 }
 void TMenu::OnNtpdEncrypt(wxCommandEvent& event)
 {
-	const char *arg = strdup(notepadTextBox->GetValue().mb_str().data());
+	//check fromChoices and toChoices wxChoices
+	int from_selection = fromChoices->GetSelection();
+	int to_selection = toChoices->GetSelection();
+	
+	//process input accordingly
+	const char *arg;
+	wxTextDataObject data;
+	switch(from_selection)
+	{
+		case 0:
+			wxTheClipboard->Open();	
+			wxTheClipboard->GetData(data);
+			wxTheClipboard->Close();
+			arg = strdup(data.GetText());
+			printf("ENCRYPTION ENGINE: Input set to Clipboard :D");
+			break;
+		case 1:
+			arg = strdup(notepadTextBox->GetValue().mb_str().data());
+			printf("ENCRYPTION ENGINE: Input set to Notepad :D");
+			break;
+		default:
+			arg = strdup(notepadTextBox->GetValue().mb_str().data());	
+			break;
+	}
+
+	//call the encrypt method
 	std::string result = tesky_encrypt_data(arg, strlen(arg));
 	
-	//assign result to gui
-	notepadTextBox->ChangeValue(result.c_str());
+	//save to the beforementioned output
+	wxString data_out(result.c_str());
+	switch(to_selection)
+	{
+		case 0:
+			wxTheClipboard->Open();	
+			wxTheClipboard->SetData(new wxTextDataObject(data_out) );
+			wxTheClipboard->Close();
+			printf("ENCRYPTION ENGINE: Output set to Clipboard :D\n\n\n");
+			break;
+		case 1:
+			notepadTextBox->ChangeValue(data_out);//result.c_str());
+			printf("ENCRYPTION ENGINE: Output set to Notepad :D\n\n\n");
+			break;
+		default:
+			notepadTextBox->ChangeValue(data_out);//result.c_str());
+			break;
+	}
 
 	event.Skip();
 }
 void TMenu::OnNtpdDecrypt(wxCommandEvent& event)
 {
-	const char *arg = strdup(notepadTextBox->GetValue().mb_str().data());
-	std::string result = tesky_decrypt_data(arg, strlen(arg));
+	//DECRYPTION zavisi od link-a odnosno chain-a
+	//ako nije povezan - broken link - false
+	//		tada enkriptuje i dekriptuje sa leva na desno
+	//		Notepad -> Clipboard oba
+	//ako jeste povezan
+	//		tada enkriptuje L->D, a dekriptuje D->L
+	//		E: Notepad->Clipboard     D: Clipboard->Notepad
+	
+	//check fromChoices and toChoices wxChoices
+	int from_selection = fromChoices->GetSelection();
+	int to_selection = toChoices->GetSelection();
+	
+	//process input accordingly
+	const char *arg;
+	wxTextDataObject data;
+	
+	//u slucaju da je chain off - false - isto kao enkripcija
+	//		chain == 0
+	//		to == 0 -> Clipboard
+	//		to == 1 -> Notepad
 
-	notepadTextBox->ChangeValue(result.c_str());
+	//u slucaju da je chain on - true - suprotno od enkripcije
+	//		chain == 1
+	//		to == 1 -> Clipboard
+	//		to == 0 -> Notepad
+	if(from_selection == chain_enabled)
+	{
+			wxTheClipboard->Open();	
+			wxTheClipboard->GetData(data);
+			wxTheClipboard->Close();
+			arg = strdup(data.GetText());
+			printf("DECRYPTION ENGINE: Input set to Clipboard :D\n");
+	}
+	else if(from_selection == !chain_enabled)
+	{
+			arg = strdup(notepadTextBox->GetValue().mb_str().data());	
+			printf("DECRYPTION ENGINE: Input set to Notepad :D\n");
+	}
+	
+	//call the encrypt method
+	std::string result = tesky_decrypt_data(arg, strlen(arg));
+	//save to the beforementioned output
+	wxString data_out(result.c_str());
+
+	//u slucaju da je chain off - false - isto kao enkripcija
+	//		chain == 0
+	//		to == 0 -> Clipboard
+	//		to == 1 -> Notepad
+
+	//u slucaju da je chain on - true - suprotno od enkripcije
+	//		chain == 1
+	//		to == 1 -> Clipboard
+	//		to == 0 -> Notepad
+	if(to_selection == chain_enabled)
+	{
+			wxTheClipboard->Open();	
+			wxTheClipboard->SetData(new wxTextDataObject(data_out) );
+			wxTheClipboard->Close();
+			printf("DECRYPTION ENGINE: Output set to Clipboard :D\n\n\n");
+	}
+	else if(to_selection == !chain_enabled)
+	{
+			notepadTextBox->ChangeValue(data_out);//result.c_str());
+			printf("DECRYPTION ENGINE: Output set to Notepad :D\n\n\n");
+	}
 
 	event.Skip();
 }

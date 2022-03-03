@@ -10,7 +10,7 @@ CC=g++
 DEPS=include/*.h include/*/aarch.h
 
 compile: 
-	g++ ${SRC} ${FLAGS} -o ${BIN}
+	clear; g++ ${SRC} ${FLAGS} -o ${BIN}
 
 clean:
 	rm -f ${BIN}

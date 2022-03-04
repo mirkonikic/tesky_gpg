@@ -30,9 +30,12 @@ class forward_declare;
 #include <wx/panel.h>
 #include <wx/textctrl.h>
 #include <wx/choice.h>
+#include <wx/bmpbuttn.h>
 #include <wx/checklst.h>
 #include <wx/notebook.h>
 #include <wx/frame.h>
+#include <wx/datectrl.h>
+#include <wx/dateevt.h>
 #include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -75,6 +78,7 @@ class TMenu : public forward_declare
 		wxChoice* m_choice4;
 		wxStaticText* m_staticText11;
 		wxChoice* m_choice5;
+		wxBitmapButton* m_bpButton1;
 		wxPanel* m_panel41;
 		wxPanel* m_panel8;
 		wxStaticText* m_staticText131;
@@ -96,7 +100,7 @@ class TMenu : public forward_declare
 
 	public:
 
-		TMenu( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Tesky v0.2"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 640,480 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL, const wxString& name = wxT("tesky v2.0") );
+		TMenu( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Tesky v0.46"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 640,480 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL, const wxString& name = wxT("tesky v2.0") );
 
 		~TMenu();
 
@@ -110,12 +114,25 @@ class MyDialog1 : public wxDialog
 	private:
 
 	protected:
-		wxStaticText* m_staticText11;
-		wxTextCtrl* m_textCtrl3;
+		wxStaticText* m_staticText1732;
+		wxTextCtrl* m_textCtrl6;
+		wxStaticText* m_staticText17321;
+		wxTextCtrl* m_textCtrl61;
+		wxStaticText* m_staticText1711;
+		wxChoice* m_choice3;
+		wxChoice* m_choice31;
+		wxButton* m_button15;
+		wxStaticText* m_staticText172;
+		wxTextCtrl* m_textCtrl4;
+		wxStaticText* m_staticText17;
+		wxDatePickerCtrl* m_datePicker1;
+		wxStaticText* m_staticText171;
+		wxTextCtrl* m_textCtrl5;
+		wxButton* m_button151;
 
 	public:
 
-		MyDialog1( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Key Generation Menu"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 480,320 ), long style = wxDEFAULT_DIALOG_STYLE );
+		MyDialog1( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Key Generation Menu"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 480,330 ), long style = wxDEFAULT_DIALOG_STYLE );
 
 		~MyDialog1();
 

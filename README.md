@@ -26,6 +26,13 @@
 **Tesky** - [GPG key management](https://en.wikipedia.org/wiki/GNU_Privacy_Guard), encryption/decryption, sign/verify GUI software, based on OpenPGP standard
 <br>finish this!
 
+<br>
+<br>
+Kako bi napravio optimizovanije verzije aplikacije za OS X i za Windows OS, dok ne portujem wxWidgets biblioteku na MacOS i na Windows, koristicu C#, .NET, WPF i dotnet add package gpgme-sharp za windows, 
+<br>a za MacOS izgleda odgovara isti kod, sigurno odgovara gpgme.h, samo ne znam da li koristiti wxWidgets pa podesiti da uvek bude light mode ili koristiti Swift ili Qt C++, samo zavrsi jos New Key za linux :)
+<br>
+<br>
+
 <br>http://www.philzimmermann.com/EN/background/index.html
 <br>https://www.ietf.org/rfc/rfc2440.txt
 <br>P. Zimmerman: PGP: Source Code and Internals

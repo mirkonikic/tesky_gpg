@@ -27,6 +27,10 @@
 #include <wx/filepicker.h>
 #include <wx/srchctrl.h>
 #include <wx/textctrl.h>
+#include <wx/datectrl.h>
+#include <wx/dateevt.h>
+#include <wx/dialog.h>
+#include <wx/event.h>
 
 //[3] VARIABLES:
 //globalna varijabla za izabran kljuc sa kojim poslujemo
@@ -115,6 +119,33 @@ enum
 	ID_hubImportKeys,
 	//PanelProperties - Setting properties for program
 	//PanelChat - you can chat with selected certificate :)
+	//New Key Dialog
+	ID_nkOk,
+	ID_nkCancel,
+	ID_nkInit
+};
+
+class TDialog : public wxDialog
+{
+	public:	
+		//constructor
+		TDialog(wxFrame* parent);
+		//newKey
+		wxTextCtrl* nkNameInput;
+		wxTextCtrl* nkEmailInput;
+		wxChoice* nkAlgoChoice;
+		wxChoice* nkLengthChoice;
+		wxTextCtrl* nkPasswordInput;
+		wxDatePickerCtrl* nkDateInput;
+		wxTextCtrl* nkCommentInput;
+		wxButton* nkOkButton;
+		wxButton* nkCancelButton;
+		//events
+		void onNKOK(wxCommandEvent& event);
+		void onNKCancel(wxCommandEvent& event);
+
+private:
+	DECLARE_EVENT_TABLE()
 };
 
 class TMenu : public wxFrame
@@ -143,6 +174,8 @@ public:
 				wxChoice* toChoices;
 			//SystemTray
 			wxTaskBarIcon   *m_taskBarIcon;
+			//newKey
+			TDialog *dialog;
 
 	//Event Handlers
 	//MenuBar
@@ -205,6 +238,7 @@ public:
 	void init_GUI();
 	void UpdateGUI();
 
+
 private:
 	DECLARE_EVENT_TABLE()
 };
@@ -264,6 +298,13 @@ BEGIN_EVENT_TABLE(TMenu, wxFrame)
 	//Chat
 	//Properties
 	//MDNetwork
+	//New Key Dialog
+END_EVENT_TABLE()
+
+//event table for dialog
+BEGIN_EVENT_TABLE(TDialog, wxDialog)
+	EVT_BUTTON(ID_nkOk, TDialog::onNKOK)
+	EVT_BUTTON(ID_nkCancel, TDialog::onNKCancel)
 END_EVENT_TABLE()
 
 #endif

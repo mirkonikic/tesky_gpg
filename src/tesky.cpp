@@ -577,12 +577,138 @@ void TMenu::OnPubKeysListSelect(wxCommandEvent& event)
 	OnPublicKeyChangeUpdateGUI();
 	event.Skip();	
 }
+
+TDialog::TDialog(wxFrame* parent) : wxDialog(parent, wxID_ANY, "Key Generation Menu", wxDefaultPosition, wxSize(480, 330))
+{
+	//definisati elemente gui-a
+	wxStaticText* newKeyName;
+	wxStaticText* newKeyEmail;
+	wxStaticText* newKeyType;
+	wxStaticText* newKeyPassword;
+	wxStaticText* newKeyDate;
+	wxStaticText* newKeyComment;
+	
+	wxGridSizer* newKeyGridSizer = new wxGridSizer( 0, 2, 0, 0 );
+
+//left side
+	wxBoxSizer* newKeyLeftSizer = new wxBoxSizer( wxVERTICAL );
+
+	wxBoxSizer* newKeyLeftTopSizer = new wxBoxSizer( wxVERTICAL );
+
+	wxBoxSizer* newKeyNameSizer = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyEmailSizer = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyTypeSizer = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* newKeyChoicesSizer = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyOkSizer = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyOkBSizer = new wxBoxSizer( wxVERTICAL );
+
+	newKeyName = new wxStaticText( this, wxID_ANY, wxT("Name: "), wxDefaultPosition, wxDefaultSize, 0 );
+	nkNameInput = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 160,-1 ), 0 );
+	newKeyEmail = new wxStaticText( this, wxID_ANY, wxT("Email: "), wxDefaultPosition, wxDefaultSize, 0 );
+	nkEmailInput = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 167,-1 ), 0 );
+	newKeyType = new wxStaticText( this, wxID_ANY, wxT("Key type and length:"), wxDefaultPosition, wxDefaultSize, 0 );
+	wxString nkAlgoChoiceChoices[] = { wxT("RSA") };
+	int nkAlgoChoiceNChoices = sizeof( nkAlgoChoiceChoices ) / sizeof( wxString );
+	nkAlgoChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxSize( 130,-1 ), nkAlgoChoiceNChoices, nkAlgoChoiceChoices, 0 );
+	nkAlgoChoice->SetSelection( 0 );
+	wxString nkLengthChoiceChoices[] = { wxT("4096") };
+	int nkLengthChoiceNChoices = sizeof( nkLengthChoiceChoices ) / sizeof( wxString );
+	nkLengthChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxSize( 130,-1 ), nkLengthChoiceNChoices, nkLengthChoiceChoices, 0 );
+	nkLengthChoice->SetSelection( 0 );
+	nkOkButton = new wxButton( this, ID_nkOk, wxT("OK"), wxDefaultPosition, wxDefaultSize, 0 );
+
+	newKeyNameSizer->SetMinSize( wxSize( -1,40 ) );
+	newKeyEmailSizer->SetMinSize( wxSize( -1,60 ) );
+	newKeyTypeSizer->SetMinSize( wxSize( -1,60 ) );
+
+	newKeyNameSizer->Add( newKeyName, 0, wxALIGN_CENTER|wxALL, 10 );
+	newKeyNameSizer->Add( nkNameInput, 0, wxALIGN_CENTER|wxALL, 5 );
+	newKeyEmailSizer->Add( newKeyEmail, 0, wxALIGN_CENTER|wxLEFT, 10 );
+	newKeyEmailSizer->Add( nkEmailInput, 0, wxALIGN_CENTER|wxLEFT|wxRIGHT, 5 );
+	newKeyTypeSizer->Add( newKeyType, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10 );
+	newKeyChoicesSizer->Add( nkAlgoChoice, 0, wxALIGN_CENTER|wxALL, 5 );
+	newKeyChoicesSizer->Add( nkLengthChoice, 0, wxALIGN_CENTER|wxALL, 5 );
+	newKeyTypeSizer->Add( newKeyChoicesSizer, 1, wxEXPAND, 5 );
+	newKeyOkBSizer->Add( nkOkButton, 0, wxALL, 5 );
+	newKeyOkSizer->Add( newKeyOkBSizer, 1, wxALIGN_BOTTOM|wxALL, 15 );
+
+
+	newKeyLeftTopSizer->Add( newKeyNameSizer, 1, wxEXPAND, 5 );
+	newKeyLeftTopSizer->Add( newKeyEmailSizer, 0, wxLEFT, 5 );
+	newKeyLeftTopSizer->Add( newKeyTypeSizer, 1, wxEXPAND, 5 );
+
+
+	newKeyLeftSizer->Add( newKeyLeftTopSizer, 1, 0, 5 );
+	newKeyLeftSizer->Add( newKeyOkSizer, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
+
+	newKeyGridSizer->Add( newKeyLeftSizer, 1, wxEXPAND, 5 );
+//left side done
+
+//right side
+	wxBoxSizer* newKeyRightSizer = new wxBoxSizer( wxVERTICAL );
+
+	wxBoxSizer* newKeyPasswordSizer = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyDateSizer = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyCommentSizer = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* newKeyCancelSizer = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyCancelBSizer = new wxBoxSizer( wxVERTICAL );
+
+	newKeyPassword = new wxStaticText( this, wxID_ANY, wxT("Passphrase: "), wxDefaultPosition, wxDefaultSize, 0 );
+	nkPasswordInput = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD );
+	newKeyDate = new wxStaticText( this, wxID_ANY, wxT("Expire-Date: "), wxDefaultPosition, wxDefaultSize, 0 );
+	nkDateInput = new wxDatePickerCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
+	newKeyComment = new wxStaticText( this, wxID_ANY, wxT("Name-Comment:"), wxDefaultPosition, wxDefaultSize, 0 );
+	nkCommentInput = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+	nkCancelButton = new wxButton( this, ID_nkCancel, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+
+	newKeyPassword->Wrap( -1 );
+	newKeyDate->Wrap( -1 );
+	newKeyComment->Wrap( -1 );
+
+	newKeyPasswordSizer->SetMinSize( wxSize( -1,40 ) );
+	nkPasswordInput->SetMinSize( wxSize( 120,-1 ) );
+	newKeyDateSizer->SetMinSize( wxSize( -1,60 ) );
+	nkDateInput->SetMinSize( wxSize( 120,-1 ) );
+	newKeyCommentSizer->SetMinSize( wxSize( -1,60 ) );
+
+
+	newKeyPasswordSizer->Add( newKeyPassword, 0, wxALIGN_CENTER|wxALL, 10 );
+	newKeyPasswordSizer->Add( nkPasswordInput, 0, wxALIGN_CENTER|wxALL, 5 );
+	newKeyDateSizer->Add( newKeyDate, 0, wxALIGN_CENTER|wxALL, 10 );
+	newKeyDateSizer->Add( nkDateInput, 0, wxALIGN_CENTER|wxALL, 5 );
+	newKeyCommentSizer->Add( newKeyComment, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10 );
+	newKeyCommentSizer->Add( nkCommentInput, 0, wxALL|wxEXPAND, 5 );
+	newKeyCancelBSizer->Add( nkCancelButton, 0, wxALL, 5 );
+	newKeyCancelSizer->Add( newKeyCancelBSizer, 1, wxALIGN_BOTTOM|wxALL, 15 );
+
+	newKeyRightSizer->Add( newKeyPasswordSizer, 1, wxEXPAND, 5 );
+	newKeyRightSizer->Add( newKeyDateSizer, 1, wxEXPAND, 5 );
+	newKeyRightSizer->Add( newKeyCommentSizer, 1, wxEXPAND, 5 );
+	newKeyRightSizer->Add( newKeyCancelSizer, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
+
+	newKeyGridSizer->Add( newKeyRightSizer, 1, wxEXPAND, 5 );
+//right side done
+
+
+
+	this->SetSizer( newKeyGridSizer );
+	this->Layout();
+	this->Centre( wxBOTH );
+
+}
+
 void TMenu::OncertNewKey(wxCommandEvent& event)
 {
-	printf("newkey pressed\n");
-	wxDialog *dialog = new wxDialog(this, wxID_ANY, "Key Generation Menu", wxDefaultPosition, wxSize(480, 320));
+//TODO:
+//	NEKAKO napravi da znaju da ne moraju da postave password
+//	NEKAKO napravi da znaju da expire date moze da ne istice
+
+	printf("NEW_KEY: generation menu opened\n");
+	
+	TDialog *dialog = new TDialog(this);
 	dialog->ShowWindowModal();
 
+	printf("NEW_KEY: generation menu closed\n");
 	
 	//UVEK KAD POZIVAS ADD ILI DELETE, POZIVAS I UPDATE GUI
 	//tesky_add_to_pubkeylist("pubkey7", "user8");
@@ -928,3 +1054,38 @@ void TMenu::OnhubImportKeys(wxCommandEvent& event){event.Skip();}
 //Chat methods
 //Properties methods
 //MDNetwork methods
+
+
+void TDialog::onNKOK(wxCommandEvent& event)
+{
+	//pozvati generaciju kljuca
+	const char *name = nkNameInput->GetValue().mb_str().data();
+	const char *email = nkEmailInput->GetValue().mb_str().data();
+	const char *password = nkPasswordInput->GetValue().mb_str().data();
+	const char *comment = nkCommentInput->GetValue().mb_str().data();
+	char *algo;
+	char *length;
+	char *date;
+	printf("Name: %s\n", name);
+	printf("Email: %s\n", email);
+	printf("Pass: %s\n", password);
+	printf("Name: %s\n", comment);
+	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
+	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
+	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
+	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
+	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
+	/*
+	wxChoice* nkAlgoChoice;
+	wxChoice* nkLengthChoice;
+	wxDatePickerCtrl* nkDateInput;
+	wxTextCtrl* nkCommentInput;
+	wxButton* nkOkButton;
+	wxButton* nkCancelButton;
+	wxDialog *dialog;*/
+}
+void TDialog::onNKCancel(wxCommandEvent& event)
+{
+	//zatvoriti prozorce	
+	this->Destroy();
+}

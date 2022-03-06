@@ -428,162 +428,162 @@ MyDialog1::MyDialog1( wxWindow* parent, wxWindowID id, const wxString& title, co
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
-	wxGridSizer* gSizer3;
-	gSizer3 = new wxGridSizer( 0, 2, 0, 0 );
+	wxGridSizer* newKeyGridSizer;
+	newKeyGridSizer = new wxGridSizer( 0, 2, 0, 0 );
 
-	wxBoxSizer* bSizer22;
-	bSizer22 = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* newKeyLeftSizer;
+	newKeyLeftSizer = new wxBoxSizer( wxVERTICAL );
 
-	wxBoxSizer* bSizer27;
-	bSizer27 = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* newKeyLeftTopSizer;
+	newKeyLeftTopSizer = new wxBoxSizer( wxVERTICAL );
 
-	wxBoxSizer* bSizer2832;
-	bSizer2832 = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyNameSizer;
+	newKeyNameSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	bSizer2832->SetMinSize( wxSize( -1,40 ) );
-	m_staticText1732 = new wxStaticText( this, wxID_ANY, wxT("Name: "), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText1732->Wrap( -1 );
-	bSizer2832->Add( m_staticText1732, 0, wxALIGN_CENTER|wxALL, 10 );
+	newKeyNameSizer->SetMinSize( wxSize( -1,40 ) );
+	newKeyName = new wxStaticText( this, wxID_ANY, wxT("Name: "), wxDefaultPosition, wxDefaultSize, 0 );
+	newKeyName->Wrap( -1 );
+	newKeyNameSizer->Add( newKeyName, 0, wxALIGN_CENTER|wxALL, 10 );
 
-	m_textCtrl6 = new wxTextCtrl( this, wxID_ANY, wxT("Mirko"), wxDefaultPosition, wxSize( 160,-1 ), 0 );
-	bSizer2832->Add( m_textCtrl6, 0, wxALIGN_CENTER|wxALL, 5 );
-
-
-	bSizer27->Add( bSizer2832, 1, wxEXPAND, 5 );
-
-	wxBoxSizer* bSizer28321;
-	bSizer28321 = new wxBoxSizer( wxHORIZONTAL );
-
-	bSizer28321->SetMinSize( wxSize( -1,60 ) );
-	m_staticText17321 = new wxStaticText( this, wxID_ANY, wxT("Email: "), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText17321->Wrap( -1 );
-	bSizer28321->Add( m_staticText17321, 0, wxALIGN_CENTER|wxLEFT, 10 );
-
-	m_textCtrl61 = new wxTextCtrl( this, wxID_ANY, wxT("4370557@gmail.com"), wxDefaultPosition, wxSize( 167,-1 ), 0 );
-	bSizer28321->Add( m_textCtrl61, 0, wxALIGN_CENTER|wxLEFT|wxRIGHT, 5 );
+	nkNameInput = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 160,-1 ), 0 );
+	newKeyNameSizer->Add( nkNameInput, 0, wxALIGN_CENTER|wxALL, 5 );
 
 
-	bSizer27->Add( bSizer28321, 0, wxLEFT, 5 );
+	newKeyLeftTopSizer->Add( newKeyNameSizer, 1, wxEXPAND, 5 );
 
-	wxBoxSizer* bSizer2811;
-	bSizer2811 = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* newKeyEmailSizer;
+	newKeyEmailSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	bSizer2811->SetMinSize( wxSize( -1,60 ) );
-	m_staticText1711 = new wxStaticText( this, wxID_ANY, wxT("Key type and length:"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText1711->Wrap( -1 );
-	bSizer2811->Add( m_staticText1711, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10 );
+	newKeyEmailSizer->SetMinSize( wxSize( -1,60 ) );
+	newKeyEmail = new wxStaticText( this, wxID_ANY, wxT("Email: "), wxDefaultPosition, wxDefaultSize, 0 );
+	newKeyEmail->Wrap( -1 );
+	newKeyEmailSizer->Add( newKeyEmail, 0, wxALIGN_CENTER|wxLEFT, 10 );
 
-	wxBoxSizer* bSizer50;
-	bSizer50 = new wxBoxSizer( wxHORIZONTAL );
-
-	wxString m_choice3Choices[] = { wxT("RSA") };
-	int m_choice3NChoices = sizeof( m_choice3Choices ) / sizeof( wxString );
-	m_choice3 = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxSize( 130,-1 ), m_choice3NChoices, m_choice3Choices, 0 );
-	m_choice3->SetSelection( 0 );
-	bSizer50->Add( m_choice3, 0, wxALIGN_CENTER|wxALL, 5 );
-
-	wxString m_choice31Choices[] = { wxT("4096") };
-	int m_choice31NChoices = sizeof( m_choice31Choices ) / sizeof( wxString );
-	m_choice31 = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxSize( 130,-1 ), m_choice31NChoices, m_choice31Choices, 0 );
-	m_choice31->SetSelection( 0 );
-	bSizer50->Add( m_choice31, 0, wxALIGN_CENTER|wxALL, 5 );
+	nkEmailInput = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 167,-1 ), 0 );
+	newKeyEmailSizer->Add( nkEmailInput, 0, wxALIGN_CENTER|wxLEFT|wxRIGHT, 5 );
 
 
-	bSizer2811->Add( bSizer50, 1, wxEXPAND, 5 );
+	newKeyLeftTopSizer->Add( newKeyEmailSizer, 0, wxLEFT, 5 );
+
+	wxBoxSizer* newKeyTypeSizer;
+	newKeyTypeSizer = new wxBoxSizer( wxVERTICAL );
+
+	newKeyTypeSizer->SetMinSize( wxSize( -1,60 ) );
+	newKeyType = new wxStaticText( this, wxID_ANY, wxT("Key type and length:"), wxDefaultPosition, wxDefaultSize, 0 );
+	newKeyType->Wrap( -1 );
+	newKeyTypeSizer->Add( newKeyType, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10 );
+
+	wxBoxSizer* newKeyChoicesSizer;
+	newKeyChoicesSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	wxString nkAlgoChoiceChoices[] = { wxT("RSA") };
+	int nkAlgoChoiceNChoices = sizeof( nkAlgoChoiceChoices ) / sizeof( wxString );
+	nkAlgoChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxSize( 130,-1 ), nkAlgoChoiceNChoices, nkAlgoChoiceChoices, 0 );
+	nkAlgoChoice->SetSelection( 0 );
+	newKeyChoicesSizer->Add( nkAlgoChoice, 0, wxALIGN_CENTER|wxALL, 5 );
+
+	wxString nkLengthChoiceChoices[] = { wxT("4096") };
+	int nkLengthChoiceNChoices = sizeof( nkLengthChoiceChoices ) / sizeof( wxString );
+	nkLengthChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxSize( 130,-1 ), nkLengthChoiceNChoices, nkLengthChoiceChoices, 0 );
+	nkLengthChoice->SetSelection( 0 );
+	newKeyChoicesSizer->Add( nkLengthChoice, 0, wxALIGN_CENTER|wxALL, 5 );
 
 
-	bSizer27->Add( bSizer2811, 1, wxEXPAND, 5 );
+	newKeyTypeSizer->Add( newKeyChoicesSizer, 1, wxEXPAND, 5 );
 
 
-	bSizer22->Add( bSizer27, 1, 0, 5 );
-
-	wxBoxSizer* bSizer25;
-	bSizer25 = new wxBoxSizer( wxHORIZONTAL );
-
-	wxBoxSizer* bSizer26;
-	bSizer26 = new wxBoxSizer( wxVERTICAL );
-
-	m_button15 = new wxButton( this, wxID_ANY, wxT("OK"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer26->Add( m_button15, 0, wxALL, 5 );
+	newKeyLeftTopSizer->Add( newKeyTypeSizer, 1, wxEXPAND, 5 );
 
 
-	bSizer25->Add( bSizer26, 1, wxALIGN_BOTTOM|wxALL, 15 );
+	newKeyLeftSizer->Add( newKeyLeftTopSizer, 1, 0, 5 );
+
+	wxBoxSizer* newKeyOkSizer;
+	newKeyOkSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	wxBoxSizer* newKeyOkBSizer;
+	newKeyOkBSizer = new wxBoxSizer( wxVERTICAL );
+
+	nkOkButton = new wxButton( this, wxID_ANY, wxT("OK"), wxDefaultPosition, wxDefaultSize, 0 );
+	newKeyOkBSizer->Add( nkOkButton, 0, wxALL, 5 );
 
 
-	bSizer22->Add( bSizer25, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
+	newKeyOkSizer->Add( newKeyOkBSizer, 1, wxALIGN_BOTTOM|wxALL, 15 );
 
 
-	gSizer3->Add( bSizer22, 1, wxEXPAND, 5 );
-
-	wxBoxSizer* bSizer221;
-	bSizer221 = new wxBoxSizer( wxVERTICAL );
-
-	wxBoxSizer* bSizer282;
-	bSizer282 = new wxBoxSizer( wxHORIZONTAL );
-
-	bSizer282->SetMinSize( wxSize( -1,40 ) );
-	m_staticText172 = new wxStaticText( this, wxID_ANY, wxT("Passphrase: "), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText172->Wrap( -1 );
-	bSizer282->Add( m_staticText172, 0, wxALIGN_CENTER|wxALL, 10 );
-
-	m_textCtrl4 = new wxTextCtrl( this, wxID_ANY, wxT("mypassword"), wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD );
-	m_textCtrl4->SetMinSize( wxSize( 120,-1 ) );
-
-	bSizer282->Add( m_textCtrl4, 0, wxALIGN_CENTER|wxALL, 5 );
+	newKeyLeftSizer->Add( newKeyOkSizer, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
 
 
-	bSizer221->Add( bSizer282, 1, wxEXPAND, 5 );
+	newKeyGridSizer->Add( newKeyLeftSizer, 1, wxEXPAND, 5 );
 
-	wxBoxSizer* bSizer28;
-	bSizer28 = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyRightSizer;
+	newKeyRightSizer = new wxBoxSizer( wxVERTICAL );
 
-	bSizer28->SetMinSize( wxSize( -1,60 ) );
-	m_staticText17 = new wxStaticText( this, wxID_ANY, wxT("Expire-Date: "), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText17->Wrap( -1 );
-	bSizer28->Add( m_staticText17, 0, wxALIGN_CENTER|wxALL, 10 );
+	wxBoxSizer* newKeyPasswordSizer;
+	newKeyPasswordSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	m_datePicker1 = new wxDatePickerCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
-	m_datePicker1->SetMinSize( wxSize( 120,-1 ) );
+	newKeyPasswordSizer->SetMinSize( wxSize( -1,40 ) );
+	newKeyPassword = new wxStaticText( this, wxID_ANY, wxT("Passphrase: "), wxDefaultPosition, wxDefaultSize, 0 );
+	newKeyPassword->Wrap( -1 );
+	newKeyPasswordSizer->Add( newKeyPassword, 0, wxALIGN_CENTER|wxALL, 10 );
 
-	bSizer28->Add( m_datePicker1, 0, wxALIGN_CENTER|wxALL, 5 );
+	nkPasswordInput = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD );
+	nkPasswordInput->SetMinSize( wxSize( 120,-1 ) );
 
-
-	bSizer221->Add( bSizer28, 1, wxEXPAND, 5 );
-
-	wxBoxSizer* bSizer281;
-	bSizer281 = new wxBoxSizer( wxVERTICAL );
-
-	bSizer281->SetMinSize( wxSize( -1,60 ) );
-	m_staticText171 = new wxStaticText( this, wxID_ANY, wxT("Name-Comment:"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText171->Wrap( -1 );
-	bSizer281->Add( m_staticText171, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10 );
-
-	m_textCtrl5 = new wxTextCtrl( this, wxID_ANY, wxT("This is mirkos key\nthats my comment :)"), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
-	bSizer281->Add( m_textCtrl5, 0, wxALL|wxEXPAND, 5 );
+	newKeyPasswordSizer->Add( nkPasswordInput, 0, wxALIGN_CENTER|wxALL, 5 );
 
 
-	bSizer221->Add( bSizer281, 1, wxEXPAND, 5 );
+	newKeyRightSizer->Add( newKeyPasswordSizer, 1, wxEXPAND, 5 );
 
-	wxBoxSizer* bSizer251;
-	bSizer251 = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* newKeyDateSizer;
+	newKeyDateSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	wxBoxSizer* bSizer261;
-	bSizer261 = new wxBoxSizer( wxVERTICAL );
+	newKeyDateSizer->SetMinSize( wxSize( -1,60 ) );
+	newKeyDate = new wxStaticText( this, wxID_ANY, wxT("Expire-Date: "), wxDefaultPosition, wxDefaultSize, 0 );
+	newKeyDate->Wrap( -1 );
+	newKeyDateSizer->Add( newKeyDate, 0, wxALIGN_CENTER|wxALL, 10 );
 
-	m_button151 = new wxButton( this, wxID_ANY, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer261->Add( m_button151, 0, wxALL, 5 );
+	nkDateInput = new wxDatePickerCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
+	nkDateInput->SetMinSize( wxSize( 120,-1 ) );
 
-
-	bSizer251->Add( bSizer261, 1, wxALIGN_BOTTOM|wxALL, 15 );
-
-
-	bSizer221->Add( bSizer251, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
+	newKeyDateSizer->Add( nkDateInput, 0, wxALIGN_CENTER|wxALL, 5 );
 
 
-	gSizer3->Add( bSizer221, 1, wxEXPAND, 5 );
+	newKeyRightSizer->Add( newKeyDateSizer, 1, wxEXPAND, 5 );
+
+	wxBoxSizer* newKeyCommentSizer;
+	newKeyCommentSizer = new wxBoxSizer( wxVERTICAL );
+
+	newKeyCommentSizer->SetMinSize( wxSize( -1,60 ) );
+	newKeyComment = new wxStaticText( this, wxID_ANY, wxT("Name-Comment:"), wxDefaultPosition, wxDefaultSize, 0 );
+	newKeyComment->Wrap( -1 );
+	newKeyCommentSizer->Add( newKeyComment, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10 );
+
+	nkCommentInput = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+	newKeyCommentSizer->Add( nkCommentInput, 0, wxALL|wxEXPAND, 5 );
 
 
-	this->SetSizer( gSizer3 );
+	newKeyRightSizer->Add( newKeyCommentSizer, 1, wxEXPAND, 5 );
+
+	wxBoxSizer* newKeyCancelSizer;
+	newKeyCancelSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	wxBoxSizer* newKeyCancelBSizer;
+	newKeyCancelBSizer = new wxBoxSizer( wxVERTICAL );
+
+	nkCancelButton = new wxButton( this, wxID_ANY, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+	newKeyCancelBSizer->Add( nkCancelButton, 0, wxALL, 5 );
+
+
+	newKeyCancelSizer->Add( newKeyCancelBSizer, 1, wxALIGN_BOTTOM|wxALL, 15 );
+
+
+	newKeyRightSizer->Add( newKeyCancelSizer, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
+
+
+	newKeyGridSizer->Add( newKeyRightSizer, 1, wxEXPAND, 5 );
+
+
+	this->SetSizer( newKeyGridSizer );
 	this->Layout();
 
 	this->Centre( wxBOTH );

@@ -114,21 +114,21 @@ class MyDialog1 : public wxDialog
 	private:
 
 	protected:
-		wxStaticText* m_staticText1732;
-		wxTextCtrl* m_textCtrl6;
-		wxStaticText* m_staticText17321;
-		wxTextCtrl* m_textCtrl61;
-		wxStaticText* m_staticText1711;
-		wxChoice* m_choice3;
-		wxChoice* m_choice31;
-		wxButton* m_button15;
-		wxStaticText* m_staticText172;
-		wxTextCtrl* m_textCtrl4;
-		wxStaticText* m_staticText17;
-		wxDatePickerCtrl* m_datePicker1;
-		wxStaticText* m_staticText171;
-		wxTextCtrl* m_textCtrl5;
-		wxButton* m_button151;
+		wxStaticText* newKeyName;
+		wxTextCtrl* nkNameInput;
+		wxStaticText* newKeyEmail;
+		wxTextCtrl* nkEmailInput;
+		wxStaticText* newKeyType;
+		wxChoice* nkAlgoChoice;
+		wxChoice* nkLengthChoice;
+		wxButton* nkOkButton;
+		wxStaticText* newKeyPassword;
+		wxTextCtrl* nkPasswordInput;
+		wxStaticText* newKeyDate;
+		wxDatePickerCtrl* nkDateInput;
+		wxStaticText* newKeyComment;
+		wxTextCtrl* nkCommentInput;
+		wxButton* nkCancelButton;
 
 	public:
 

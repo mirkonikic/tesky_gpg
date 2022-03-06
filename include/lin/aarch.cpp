@@ -195,7 +195,7 @@ void tesky_import_key(const char *pathname)
 }
 //TODO:
 //Generate new key pair
-void tesky_generate_new_keypair()
+void tesky_generate_new_keypair(const char* key_info)
 {
 	//gpgme_genkey_result_t result;
 	//gpgme_key_t key;
@@ -209,6 +209,7 @@ void tesky_generate_new_keypair()
 
 	//const char *key_info;
 	//default key info
+	/* primer
 	const char key_info[] = "<GnupgKeyParms format=\"internal\">\n"
 						"Key-Type: default\n"
 						"Subkey-Type: default\n"
@@ -218,7 +219,7 @@ void tesky_generate_new_keypair()
 						"Expire-Date: 0\n"
 						"Passphrase: abc\n"
 						"</GnupgKeyParms>\n";
-
+	*/
 
 	/* start generate key */
 	/* You can find the gpgme_op_createkey function in the GPGME
@@ -235,6 +236,15 @@ void tesky_generate_new_keypair()
 		result->primary ? "primary" : "no primary",
 		result->sub ? "sub" : "no sub");
 
+	
+
+//TODO
+//	dodati u linked listu da bi se gui updateovao :)
+	//update_pubilc_key_list
+	//update_private_key_list
+//privremeno resenje
+	
+	
 	gpgme_release(tesky_ctx);
 }
 

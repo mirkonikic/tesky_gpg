@@ -86,7 +86,7 @@ void tesky_update_ctx(gpgme_protocol_t protocol_passed=TESKY_DEFAULT_PROTOCOL, g
 void tesky_end_ctx();
 
 //Key manipulation
-void tesky_generate_new_keypair();
+void tesky_generate_new_keypair(const char *key_info);
 void tesky_import_key(const char *pathname);
 //void tesky_export_key();
 //void delete_key();

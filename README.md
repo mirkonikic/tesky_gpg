@@ -122,7 +122,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] clipboard manipulation
 - [x] gpgme.h implementation
 - [x] Napravi linked listu za kljuceve
-- [ ] certificate creation and management
+- [x] certificate creation and management
 - [x] Redesign Notepad/Lab taba, na novi dizajn samo dodati dugme kao lanac sto npr width i height na slikama zakljuca, tako da zakljuca opcije za enc/dec. U smislu da ako stavimo Notepad Clipboard, da enkriptuje u clipboard, a dekriotuje u Notepad, a kada se raskine lanac, onda su oba ista, npr dekriptuje u notepad iz klipobrda i enkriptuje u notepad iz klipborda
 - [x] Encryption & Decryption
 - [x] Enable gpgme.h library
@@ -130,20 +130,23 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] Enable Clipboard
 - [ ] Enable system tray icon, na desni klik clipboard en/dec
 - [x] Notepad osmisliti kako i da ubacis da moze odmah u clipboard (dugme za back to clipboard ili encrypt clipboard...)
-- [ ] Certification tab -> delete key
 - [x] Notepad tab -> more functionalities
-- [ ] Optimize whole code
-- [ ] Comment whole code
 - [x] Promeni Notepad tab u nekoliko choiceBoxova -> Encrypt/Decrypt  To/From/The  Clipboard/Notepad/File
-- [ ] take care of all exceptions
 - [x] Fix color problem na linuxu kad promene system theme
 - [x] Napravi tesky biblbioteku - gpgme wrapper + WxWidgets
 - [x] Omoguce da se tesky programira u vidu tabova, uzmu tesky biblioteku i samo programiraju svoj tab
 - [ ] ********ALPHA version done:
+- [ ] Umesto search bara, mozda dodati delete i export dugmice u Certificates :)
 - [x] Certificates tab: New key, Import keys, OnInit load all keys from .tesky, 
 - [x] Notepad tab: Enc, Dec, Drag&DropFromFile, to clpbrd, to file, from clpbrd, To:[:SELEKTOVANI PUBKEY:], From:[:SELEKTOvANI PRVIKEY:], onda ti i ne treba drag&drop tab
 - [ ] system tray icon taskbar - NOT WORKING
 - [x] design for alpha version
+- [ ] take care of all exceptions
+- [ ] Exceptions: check if the key is valid, or expired, than show msg about expiration
+- [ ] Todo: input form validation za new key generation
+- [ ] Delete button Certificates, Certification tab -> delete key
+- [ ] Optimize whole code
+- [ ] Comment whole code
 - [ ] ********BETA version done:
 - [x] making code compileable on windows, *nix and macOS - https://stackoverflow.com/questions/3627127/writing-cross-platform-c-code-windows-linux-and-mac-osx
 - [ ] Properties -> Disable and Enable tabs, only need File encryption -> Filepad

@@ -31,6 +31,9 @@
 #include <wx/dateevt.h>
 #include <wx/dialog.h>
 #include <wx/event.h>
+#include <wx/datetime.h>
+#include<ctime>
+
 
 //[3] VARIABLES:
 //globalna varijabla za izabran kljuc sa kojim poslujemo

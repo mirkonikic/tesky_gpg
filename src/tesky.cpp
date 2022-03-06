@@ -710,6 +710,10 @@ void TMenu::OncertNewKey(wxCommandEvent& event)
 
 	printf("NEW_KEY: generation menu closed\n");
 	
+	UpdateGUI();
+
+	event.Skip();
+
 	//UVEK KAD POZIVAS ADD ILI DELETE, POZIVAS I UPDATE GUI
 	//tesky_add_to_pubkeylist("pubkey7", "user8");
 	//UpdateGUI();
@@ -1058,31 +1062,47 @@ void TMenu::OnhubImportKeys(wxCommandEvent& event){event.Skip();}
 
 void TDialog::onNKOK(wxCommandEvent& event)
 {
+//TODO:
+//	Input Validation
+
 	//pozvati generaciju kljuca
-	const char *name = nkNameInput->GetValue().mb_str().data();
-	const char *email = nkEmailInput->GetValue().mb_str().data();
-	const char *password = nkPasswordInput->GetValue().mb_str().data();
-	const char *comment = nkCommentInput->GetValue().mb_str().data();
-	char *algo;
-	char *length;
-	char *date;
-	printf("Name: %s\n", name);
-	printf("Email: %s\n", email);
-	printf("Pass: %s\n", password);
-	printf("Name: %s\n", comment);
-	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
-	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
-	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
-	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
-	printf("Name: %s\n", nkNameInput->GetValue().mb_str().data());
-	/*
-	wxChoice* nkAlgoChoice;
-	wxChoice* nkLengthChoice;
-	wxDatePickerCtrl* nkDateInput;
-	wxTextCtrl* nkCommentInput;
-	wxButton* nkOkButton;
-	wxButton* nkCancelButton;
-	wxDialog *dialog;*/
+	std::string name = strdup(nkNameInput->GetValue().mb_str().data());
+	std::string email = strdup(nkEmailInput->GetValue().mb_str().data());
+	std::string password = strdup(nkPasswordInput->GetValue().mb_str().data());
+	std::string comment = strdup(nkCommentInput->GetValue().mb_str().data());
+	std::string algo = strdup(nkAlgoChoice->GetString(nkAlgoChoice->GetSelection()).mb_str().data());
+	std::string length = strdup(nkLengthChoice->GetString(nkLengthChoice->GetSelection()).mb_str().data());
+	wxDateTime date = nkDateInput->GetValue();
+	std::time_t t = std::time(0);  // t is an integer type
+	int timestamp = date.GetTicks() - t;
+	if(timestamp < 1)	//ako razlika nije veca od jednog dana
+		timestamp = 0;	//ne istice :)
+		
+	//generate key
+	std::string key_info = "<GnupgKeyParms format=\"internal\">\n";
+	key_info.append("Key-Type: " + algo + "\n");
+	key_info.append("Key-Length: " + length + "\n");
+	key_info.append("Name-Real: " + name + "\n");
+	key_info.append("Name-Comment: " + comment + "\n");
+	key_info.append("Name-Email: " + email + "\n");
+	key_info.append("Expire-Date: " + std::to_string(timestamp/(60*60*24)) + "\n");
+	key_info.append("Passphrase: " + password + "\n");
+	key_info.append("</GnupgKeyParms>\n");
+	printf("%s\n", key_info.c_str());
+//	const char *key_info = "<GnupgKeyParms format=\"internal\">\n"
+//						"Key-Type: default\n"
+//						"Key-Length: %s\n", length"
+//						"Name-Real: Joe Tester\n"
+//						"Name-Comment: with stupid passphrase\n"
+//						"Name-Email: joe@foo.bar\n"
+//						"Expire-Date: 0\n"
+//						"Passphrase: abc\n"
+//						"</GnupgKeyParms>\n";
+
+	tesky_generate_new_keypair(key_info.c_str());
+
+	this->Destroy();
+	event.Skip();
 }
 void TDialog::onNKCancel(wxCommandEvent& event)
 {

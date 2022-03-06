@@ -47,8 +47,8 @@ bool TeskyApp::OnInit()
 
 
 	//Test TaskBarIcon
-	//if (!wxTaskBarIcon::IsAvailable())
-    //    wxMessageBox("There appears to be no system tray support in your current environment. This sample may not behave as expected.", "Warning", wxOK | wxICON_EXCLAMATION);
+	if (!wxTaskBarIcon::IsAvailable())
+        wxMessageBox("There appears to be no system tray support in your current environment. This sample may not behave as expected.", "Warning", wxOK | wxICON_EXCLAMATION);
 
 	//Write mirko to clipboard
 	//wxTheClipboard->Open();

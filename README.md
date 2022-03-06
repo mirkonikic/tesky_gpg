@@ -123,16 +123,29 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] gpgme.h implementation
 - [x] Napravi linked listu za kljuceve
 - [ ] certificate creation and management
-- [ ] Redesign Notepad/Lab taba, na novi dizajn samo dodati dugme kao lanac sto npr width i height na slikama zakljuca, tako da zakljuca opcije za enc/dec. U smislu da ako stavimo Notepad Clipboard, da enkriptuje u clipboard, a dekriotuje u Notepad, a kada se raskine lanac, onda su oba ista, npr dekriptuje u notepad iz klipobrda i enkriptuje u notepad iz klipborda
+- [x] Redesign Notepad/Lab taba, na novi dizajn samo dodati dugme kao lanac sto npr width i height na slikama zakljuca, tako da zakljuca opcije za enc/dec. U smislu da ako stavimo Notepad Clipboard, da enkriptuje u clipboard, a dekriotuje u Notepad, a kada se raskine lanac, onda su oba ista, npr dekriptuje u notepad iz klipobrda i enkriptuje u notepad iz klipborda
 - [x] Encryption & Decryption
 - [x] Enable gpgme.h library
-- [ ] Add functionalities to all buttons
+- [x] Add functionalities to all buttons
 - [x] Enable Clipboard
 - [ ] Enable system tray icon, na desni klik clipboard en/dec
-- [ ] Right Click enc/dec files ili ako je txt file samo dec to clipbrd
-- [ ] Notepad osmisliti kako i da ubacis da moze odmah u clipboard (dugme za back to clipboard ili encrypt clipboard...)
+- [x] Notepad osmisliti kako i da ubacis da moze odmah u clipboard (dugme za back to clipboard ili encrypt clipboard...)
 - [ ] Certification tab -> delete key
-- [ ] Notepad tab -> more functionalities
+- [x] Notepad tab -> more functionalities
+- [ ] Optimize whole code
+- [ ] Comment whole code
+- [x] Promeni Notepad tab u nekoliko choiceBoxova -> Encrypt/Decrypt  To/From/The  Clipboard/Notepad/File
+- [ ] take care of all exceptions
+- [x] Fix color problem na linuxu kad promene system theme
+- [x] Napravi tesky biblbioteku - gpgme wrapper + WxWidgets
+- [x] Omoguce da se tesky programira u vidu tabova, uzmu tesky biblioteku i samo programiraju svoj tab
+- [ ] ********ALPHA version done:
+- [x] Certificates tab: New key, Import keys, OnInit load all keys from .tesky, 
+- [x] Notepad tab: Enc, Dec, Drag&DropFromFile, to clpbrd, to file, from clpbrd, To:[:SELEKTOVANI PUBKEY:], From:[:SELEKTOvANI PRVIKEY:], onda ti i ne treba drag&drop tab
+- [ ] system tray icon taskbar - NOT WORKING
+- [x] design for alpha version
+- [ ] ********BETA version done:
+- [x] making code compileable on windows, *nix and macOS - https://stackoverflow.com/questions/3627127/writing-cross-platform-c-code-windows-linux-and-mac-osx
 - [ ] Properties -> Disable and Enable tabs, only need File encryption -> Filepad
 - [ ] Properties -> add ASCII ARMOR checkbox
 - [ ] Properties -> add Crypto choice list
@@ -140,22 +153,6 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] Properties -> add Protocol choice list
 - [ ] Properties -> Tracker or NAT traversal radio list
 - [ ] Properties -> change theme -> prvo dark/light theme
-- [ ] Optimize whole code
-- [ ] Comment whole code
-- [ ] Promeni Notepad tab u nekoliko choiceBoxova -> Encrypt/Decrypt  To/From/The  Clipboard/Notepad/File
-- [ ] take care of all exceptions
-- [x] Fix color problem na linuxu kad promene system theme
-- [ ] Napravi tesky biblbioteku - gpgme wrapper + WxWidgets
-- [ ] Omoguce da se tesky programira u vidu tabova, uzmu tesky biblioteku i samo programiraju svoj tab
-- [ ] implement file encryption in notepad - Lab tab
-- [ ] ********ALPHA version done:
-- [ ] Certificates tab: New key, Import keys, OnInit load all keys from .tesky, 
-- [ ] Notepad tab: Enc, Dec, Drag&DropFromFile, to clpbrd, to file, from clpbrd, To:[:SELEKTOVANI PUBKEY:], From:[:SELEKTOvANI PRVIKEY:], onda ti i ne treba drag&drop tab
-- [ ] system tray icon taskbar - NOT WORKING
-- [ ] ???????? right click on file encrypt
-- [x] design for alpha version
-- [ ] ********BETA version done:
-- [x] making code compileable on windows, *nix and macOS - https://stackoverflow.com/questions/3627127/writing-cross-platform-c-code-windows-linux-and-mac-osx
 - [ ] razmisli da za windows predjes na c# i wpf ili ostanes na c++
 - [ ] Dodaj opciju da moze screenshot da se enkriptuje kao slika i kada se dekriptuje prikaze se preko nekog image viewer programa, ili postoji tab za skrinshot i u njemu deo koji prikazuje slike
 - [ ] ako odlucis za windows wpf, mozes sve za wx da prebacis u lin dir ili da napravis dva odvojena source code-a
@@ -173,6 +170,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [ ] publish on debian and ubuntu
 - [ ] publish on archlinux
 - [ ] ********VERSION 2.0.0 FEATURE COMPLETE RELEASE done:
+- [ ] ???Right Click enc/dec files ili ako je txt file samo dec to clipbrd
 - [ ] Wireshark PacketEncryptor tab - npr za skype bi sve enkriptova
 - [ ] MDNetwork tab - ima slika grafa sa belim cvorovima, pa klikom ih povezujes
 - [ ] File Drag and Drop tab

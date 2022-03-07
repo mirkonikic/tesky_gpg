@@ -32,6 +32,8 @@
 #include <wx/dialog.h>
 #include <wx/event.h>
 #include <wx/datetime.h>
+#include <wx/icon.h>
+
 #include<ctime>
 
 
@@ -125,7 +127,32 @@ enum
 	//New Key Dialog
 	ID_nkOk,
 	ID_nkCancel,
-	ID_nkInit
+	ID_nkInit,
+	//taskBarIcon
+	PU_RESTORE,
+    PU_NEW_ICON,
+    PU_EXIT,
+    PU_CHECKMARK,
+    PU_SUB1,
+    PU_SUB2,
+    PU_SUBMAIN,
+};
+
+class MyTaskBarIcon : public wxTaskBarIcon
+{
+public:
+    MyTaskBarIcon(){}
+
+    void OnLeftButtonDClick(wxTaskBarIconEvent&);
+    //void OnMenuRestore(wxCommandEvent&);
+    //void OnMenuExit(wxCommandEvent&);
+    //void OnMenuSetNewIcon(wxCommandEvent&);
+    //void OnMenuCheckmark(wxCommandEvent&);
+    //void OnMenuUICheckmark(wxUpdateUIEvent&);
+    //void OnMenuSub(wxCommandEvent&);
+    virtual wxMenu *CreatePopupMenu();
+
+    wxDECLARE_EVENT_TABLE();
 };
 
 class TDialog : public wxDialog
@@ -304,11 +331,25 @@ BEGIN_EVENT_TABLE(TMenu, wxFrame)
 	//New Key Dialog
 END_EVENT_TABLE()
 
+
 //event table for dialog
 BEGIN_EVENT_TABLE(TDialog, wxDialog)
 	EVT_BUTTON(ID_nkOk, TDialog::onNKOK)
 	EVT_BUTTON(ID_nkCancel, TDialog::onNKCancel)
 END_EVENT_TABLE()
+
+
+//system tray event table
+wxBEGIN_EVENT_TABLE(MyTaskBarIcon, wxTaskBarIcon)
+    //EVT_MENU(PU_RESTORE, MyTaskBarIcon::OnMenuRestore)
+    //EVT_MENU(PU_EXIT,    MyTaskBarIcon::OnMenuExit)
+    //EVT_MENU(PU_NEW_ICON,MyTaskBarIcon::OnMenuSetNewIcon)
+    //EVT_MENU(PU_CHECKMARK,MyTaskBarIcon::OnMenuCheckmark)
+    //EVT_UPDATE_UI(PU_CHECKMARK,MyTaskBarIcon::OnMenuUICheckmark)
+    EVT_TASKBAR_LEFT_DCLICK  (MyTaskBarIcon::OnLeftButtonDClick)
+    //EVT_MENU(PU_SUB1, MyTaskBarIcon::OnMenuSub)
+    //EVT_MENU(PU_SUB2, MyTaskBarIcon::OnMenuSub)
+wxEND_EVENT_TABLE()
 
 #endif
 

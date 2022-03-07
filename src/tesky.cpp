@@ -455,6 +455,18 @@ TMenu::TMenu(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxPoint(
 	init_GUI();
 
 	//Create taskbar icon
+	//wxBitmap(wxT("img/tesky_link.png")
+	MyTaskBarIcon* m_taskBarIcon = new MyTaskBarIcon();
+
+    // we should be able to show up to 128 characters on Windows
+    if (!m_taskBarIcon->SetIcon(wxIcon(wxT("img/tesky_link.png")),
+                                 "wxTaskBarIcon Sample\n"
+                                 "With a very, very, very, very\n"
+                                 "long tooltip whose length is\n"
+                                 "greater than 64 characters."))
+    {
+        wxLogError("Could not set icon.");
+    }
 
 	//Enable gpgme.h library
 	//Add functionalities to buttons
@@ -1108,4 +1120,35 @@ void TDialog::onNKCancel(wxCommandEvent& event)
 {
 	//zatvoriti prozorce	
 	this->Destroy();
+}
+
+wxMenu *MyTaskBarIcon::CreatePopupMenu()
+{
+    wxMenu *menu = new wxMenu;
+    menu->Append(PU_RESTORE, "&Restore main window");
+    menu->AppendSeparator();
+    menu->Append(PU_NEW_ICON, "&Set New Icon");
+    menu->AppendSeparator();
+    menu->AppendCheckItem(PU_CHECKMARK, "Test &check mark");
+    menu->AppendSeparator();
+    wxMenu *submenu = new wxMenu;
+    submenu->Append(PU_SUB1, "One submenu");
+    submenu->AppendSeparator();
+    submenu->Append(PU_SUB2, "Another submenu");
+    menu->Append(PU_SUBMAIN, "Submenu", submenu);
+    /* OSX has built-in quit menu for the dock menu, but not for the status item */
+#ifdef __WXOSX__
+    if ( OSXIsStatusItem() )
+#endif
+    {
+        menu->AppendSeparator();
+        menu->Append(PU_EXIT,    "E&xit");
+    }
+    return menu;
+}
+
+void MyTaskBarIcon::OnLeftButtonDClick(wxTaskBarIconEvent&)
+{
+    printf("ikonica kliknuta :)\n");
+	CreatePopupMenu();
 }

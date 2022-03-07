@@ -113,7 +113,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 
 
 ### TODO
-- [ ] ********PRE-ALPHA version done:
+- [x] ********PRE-ALPHA version done:
 - [x] base design
 - [x] menu with apropriate tabs
 - [x] fix sizer alignment in Hub tab
@@ -128,7 +128,7 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] Enable gpgme.h library
 - [x] Add functionalities to all buttons
 - [x] Enable Clipboard
-- [ ] Enable system tray icon, na desni klik clipboard en/dec
+- [x] Enable system tray icon, na desni klik clipboard en/dec
 - [x] Notepad osmisliti kako i da ubacis da moze odmah u clipboard (dugme za back to clipboard ili encrypt clipboard...)
 - [x] Notepad tab -> more functionalities
 - [x] Promeni Notepad tab u nekoliko choiceBoxova -> Encrypt/Decrypt  To/From/The  Clipboard/Notepad/File
@@ -136,6 +136,8 @@ za GPGME lib, u C++ ukljuciti         #include "gpgme.h"   onda imas pristup met
 - [x] Napravi tesky biblbioteku - gpgme wrapper + WxWidgets
 - [x] Omoguce da se tesky programira u vidu tabova, uzmu tesky biblioteku i samo programiraju svoj tab
 - [ ] ********ALPHA version done:
+- [ ] zavrsiti system tray icon skroz :)
+- [ ] poslati wxwidgets issue da zavisi od topbaricon extensiona
 - [ ] Umesto search bara, mozda dodati delete i export dugmice u Certificates :)
 - [x] Certificates tab: New key, Import keys, OnInit load all keys from .tesky, 
 - [x] Notepad tab: Enc, Dec, Drag&DropFromFile, to clpbrd, to file, from clpbrd, To:[:SELEKTOVANI PUBKEY:], From:[:SELEKTOvANI PRVIKEY:], onda ti i ne treba drag&drop tab

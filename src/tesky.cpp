@@ -1125,24 +1125,26 @@ void TDialog::onNKCancel(wxCommandEvent& event)
 wxMenu *MyTaskBarIcon::CreatePopupMenu()
 {
     wxMenu *menu = new wxMenu;
-    menu->Append(PU_RESTORE, "&Restore main window");
+    menu->Append(PU_RESTORE, "&Open/Minimize Window");
     menu->AppendSeparator();
-    menu->Append(PU_NEW_ICON, "&Set New Icon");
+    menu->Append(PU_NEW_ICON, "&Encrypt clipboard");
+//    menu->Append(PU_NEW_ICON, "&Set New Icon");
     menu->AppendSeparator();
-    menu->AppendCheckItem(PU_CHECKMARK, "Test &check mark");
+    menu->AppendCheckItem(PU_CHECKMARK, "&Decyrpt clipboard");
+//    menu->AppendCheckItem(PU_CHECKMARK, "Test &check mark");
     menu->AppendSeparator();
-    wxMenu *submenu = new wxMenu;
-    submenu->Append(PU_SUB1, "One submenu");
-    submenu->AppendSeparator();
-    submenu->Append(PU_SUB2, "Another submenu");
-    menu->Append(PU_SUBMAIN, "Submenu", submenu);
+//    wxMenu *submenu = new wxMenu;
+//    submenu->Append(PU_SUB1, "One submenu");
+//    submenu->AppendSeparator();
+//    submenu->Append(PU_SUB2, "Another submenu");
+//    menu->Append(PU_SUBMAIN, "Submenu", submenu);
     /* OSX has built-in quit menu for the dock menu, but not for the status item */
 #ifdef __WXOSX__
     if ( OSXIsStatusItem() )
 #endif
     {
         menu->AppendSeparator();
-        menu->Append(PU_EXIT,    "E&xit");
+        menu->Append(PU_EXIT,    "&Quit");
     }
     return menu;
 }

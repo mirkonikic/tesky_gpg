@@ -1,0 +1,11 @@
+- fix user design
+- if you click on notepad, first page makes you select public and priv key
+- notepad fix UX, allow user to accept from network -> port 3946 and send to network which in pubkey
+- hub -> implement server and client -> use ngrok to test it out
+- notepad: Clipboard/Notepad/Files/Network -> Clipboard/Notepad/Files/Network
+- structure it a bit better -> add singleton and make it work in parts OOP implemented
+  - Interface: independant of working segment
+  - Crypter: uses some cryptography algorithm to accept data, encrypt it and return it back to caller 
+  - Controller: singleton to control the whole application
+  - Provider: enables connection required by various parts of application
++ no need for database, directly implement into gpg

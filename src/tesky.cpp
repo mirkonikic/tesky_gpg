@@ -1,5 +1,4 @@
 //start point of program
-
 //requirements za development:
 //	sudo apt-get install libgpgme-dev
 //	sudo apt-get install wxwidgets
@@ -18,8 +17,7 @@ bool TeskyApp::OnInit()
 	tesky_aarch_info();		//print name of platform
 	tesky_init_gpgme();		//initialize engine and gpgme lib
 	tesky_init_keylists();	//initialize linked list, if .tesky, fill the lists
-	
-	
+		
 //DONE:
 //	Na kraju uredi kod za razlicite arhitekture:
 //include/probe.h - include-uje jednu od sledecih implementacija funkcija, ostatak se nalazi u main.cpp
@@ -45,7 +43,6 @@ bool TeskyApp::OnInit()
 //	SADA TESKY ULAZI U ALPHA VERZIJU :)
 //	System Tray Icon
 
-
 	//Test TaskBarIcon
 	if (!wxTaskBarIcon::IsAvailable())
         wxMessageBox("There appears to be no system tray support in your current environment. This sample may not behave as expected.", "Warning", wxOK | wxICON_EXCLAMATION);
@@ -63,6 +60,21 @@ bool TeskyApp::OnInit()
 	wxMessageBox(data.GetText());
 	wxTheClipboard->Close();
 	*/
+
+
+
+
+
+	// Ovde implementiraj:
+	//	Crypter -> implementira metode neophodne za rad
+	//	Interface -> je tehnicki iskontrolisan od strane wxwidgets
+	//	Provider -> napravicu connect i recieve/send metode u klasi
+	//	Controller -> singleton koji prati sta se desava i utice na osnovu toga
+	// 
+
+
+
+
 
 	TMenu *frame = new TMenu(wxT(" Tesky v0.46 "));
 	frame->Show(true);

@@ -6,7 +6,13 @@
 #include "../include/tesky.h"
 
 //starts the main function and implements passed class
-IMPLEMENT_APP(TeskyApp)
+IMPLEMENT_APP(TeskyApp);
+
+// Instantiate modules globally
+Crypter crypter;        // provide data encryption service
+Provider provider;      // provide secure tunnel between peers
+
+// use this class as a controller
 
 //[MAIN:]
 bool TeskyApp::OnInit()
@@ -14,9 +20,9 @@ bool TeskyApp::OnInit()
 //TODO:
 //	Add debug/verbose flag, koja daje visak informacija u terminalu
 
-	tesky_aarch_info();		//print name of platform
-	tesky_init_gpgme();		//initialize engine and gpgme lib
-	tesky_init_keylists();	//initialize linked list, if .tesky, fill the lists
+  crypter.tesky_aarch_info();		//print name of platform
+  crypter.tesky_init_gpgme();		//initialize engine and gpgme lib
+  crypter.tesky_init_keylists();	//initialize linked list, if .tesky, fill the lists
 		
 //DONE:
 //	Na kraju uredi kod za razlicite arhitekture:
@@ -560,14 +566,14 @@ void TMenu::OncertImportKeysFile(wxFileDirPickerEvent& event)
 {
 	const char *path = strdup(importKeysFile->GetPath().mb_str().data());
 	//printf("%s\n", path);
-	tesky_import_key(path);
+	crypter.tesky_import_key(path);
 	UpdateGUI();
 	event.Skip();
 }
 void TMenu::OnPrivKeysListSelect(wxCommandEvent& event)
 {
 	//prolazim kroz kljuceve da nadjem onaj sa id-om kliknutog kljuca
-	privkey *pcurr = priv_head_node;
+	privkey *pcurr = crypter.priv_head_node;
 	int selected_n = privKeysList->GetSelection();
 	while(pcurr->next!=nullptr && (pcurr->id)<selected_n)
 	{
@@ -578,14 +584,14 @@ void TMenu::OnPrivKeysListSelect(wxCommandEvent& event)
 	if(pcurr->id != selected_n)
 		printf("Nisam nasao choiceList id..");
 
-	priv_curr_key = pcurr;
+	crypter.priv_curr_key = pcurr;
 	OnPrivateKeyChangeUpdateGUI();
 	event.Skip();
 }
 void TMenu::OnPubKeysListSelect(wxCommandEvent& event)
 {
 	//prolazim kroz kljuceve da nadjem onaj sa id-om kliknutog kljuca
-	pubkey *pcurr = pub_head_node;
+	pubkey *pcurr = crypter.pub_head_node;
 	int selected_n = pubKeysList->GetSelection();
 	while(pcurr->next!=nullptr && (pcurr->id)<selected_n)
 	{
@@ -597,7 +603,7 @@ void TMenu::OnPubKeysListSelect(wxCommandEvent& event)
 	if(pcurr->id != selected_n)
 		printf("Nisam nasao choiceList id..");
 
-	pub_curr_key = pcurr;
+	crypter.pub_curr_key = pcurr;
 	OnPublicKeyChangeUpdateGUI();
 	event.Skip();	
 }
@@ -843,13 +849,13 @@ void TMenu::OnPubKeysChoiceSelect(wxCommandEvent& event)
 void TMenu::OnPublicKeyChangeUpdateGUI()
 {
 	//update all elements that keep track of public keys
-	pubKeysList->SetSelection(pub_curr_key->id);
+	pubKeysList->SetSelection(crypter.pub_curr_key->id);
 	//choiceList->SetSelection(pub_curr_key->id);
 }
 void TMenu::OnPrivateKeyChangeUpdateGUI()
 {
 	//update all elements that keep track of private keys
-	privKeysList->SetSelection(priv_curr_key->id);
+	privKeysList->SetSelection(crypter.priv_curr_key->id);
 	//PrivateChoiceList->SetSelection(priv_curr_key->id);
 }
 void TMenu::UpdateGUI()
@@ -864,10 +870,10 @@ void TMenu::UpdateGUI()
 	//append when new element is added to list
 	int n_pubList = pubKeysList->GetCount();
 	int n_privList = privKeysList->GetCount();
-	if(n_pubList < n_pubkey)		//ima vise elemenata u kljucevima nego GUI
+	if(n_pubList < crypter.n_pubkey)		//ima vise elemenata u kljucevima nego GUI
 	{
-		printf("UPDATE: vise elemenata ima List:%d < pub: %d\n", pubKeysList->GetCount(), n_pubkey);
-		pubkey *p1 = pub_head_node;					//krecemo od pocetnog el. liste jer ne znamo za koliko je veci broj elemenata liste od GUI-a
+		printf("UPDATE: vise elemenata ima List:%d < pub: %d\n", pubKeysList->GetCount(), crypter.n_pubkey);
+		pubkey *p1 = crypter.pub_head_node;					//krecemo od pocetnog el. liste jer ne znamo za koliko je veci broj elemenata liste od GUI-a
 		while(p1!=nullptr)
 		{
 			if((p1->id+1) > n_pubList)				//posto je id manji za jedan od broja tog elementa, dodajemo +1
@@ -887,10 +893,10 @@ void TMenu::UpdateGUI()
 	}
 		
 	//delete when some element is deleted from list
-	if(n_privList < n_privkey)		//ima vise elemenata u kljucevima nego GUI
+	if(n_privList < crypter.n_privkey)		//ima vise elemenata u kljucevima nego GUI
 	{
-		printf("UPDATE: vise elemenata ima List:%d < pub: %d\n", privKeysList->GetCount(), n_privkey);
-		privkey *p2 = priv_head_node;
+		printf("UPDATE: vise elemenata ima List:%d < pub: %d\n", privKeysList->GetCount(), crypter.n_privkey);
+		privkey *p2 = crypter.priv_head_node;
 		while(p2!=nullptr)
 		{
 			if((p2->id+1) > n_privList)
@@ -908,15 +914,16 @@ void TMenu::UpdateGUI()
 		}
 	}
 }
+
 void TMenu::init_GUI()
 {
 	//populate GUI elements with elements from public/priv linkedlist elements
 	//check if there are any elements
-	if(n_pubkey == 0 && n_privkey == 0)
+	if(crypter.n_pubkey == 0 && crypter.n_privkey == 0)
 		return;
 	
-	pubkey *p1 = pub_head_node;
-	privkey *p2 = priv_head_node;
+	pubkey *p1 = crypter.pub_head_node;
+	privkey *p2 = crypter.priv_head_node;
 
 	//public keys list -> choiceList.append() & pubKeysList->append()
 	while(p1!=nullptr)
@@ -948,9 +955,9 @@ void TMenu::init_GUI()
 	}
 
 	//set selections in choiceList
-	if(pub_curr_key != nullptr)
+	if(crypter.pub_curr_key != nullptr)
 		OnPublicKeyChangeUpdateGUI();
-	if(priv_curr_key != nullptr)
+	if(crypter.priv_curr_key != nullptr)
 		OnPrivateKeyChangeUpdateGUI();
 }
 void TMenu::OnNtpdEncrypt(wxCommandEvent& event)
@@ -981,7 +988,7 @@ void TMenu::OnNtpdEncrypt(wxCommandEvent& event)
 	}
 
 	//call the encrypt method
-	std::string result = tesky_encrypt_data(arg, strlen(arg));
+	std::string result = crypter.tesky_encrypt_data(arg, strlen(arg));
 	
 	//save to the beforementioned output
 	wxString data_out(result.c_str());
@@ -1046,7 +1053,7 @@ void TMenu::OnNtpdDecrypt(wxCommandEvent& event)
 	}
 	
 	//call the encrypt method
-	std::string result = tesky_decrypt_data(arg, strlen(arg));
+	std::string result = crypter.tesky_decrypt_data(arg, strlen(arg));
 	//save to the beforementioned output
 	wxString data_out(result.c_str());
 
@@ -1123,7 +1130,7 @@ void TDialog::onNKOK(wxCommandEvent& event)
 //						"Passphrase: abc\n"
 //						"</GnupgKeyParms>\n";
 
-	tesky_generate_new_keypair(key_info.c_str());
+	crypter.tesky_generate_new_keypair(key_info.c_str());
 
 	this->Destroy();
 	event.Skip();

@@ -11,7 +11,10 @@
 //PROBLEM JER common_lib -> aarch.h
 //PROBLEM JER aarch.cpp  -> aarch.h
 //ZATO SU GLOBAL VARIABLES FROWNED UPON
-#include "common_lib.h"	//CROSS-PLATFORM HEADERS
+
+//#include "common_lib.h"	//CROSS-PLATFORM HEADERS
+#include "crypter.h"
+#include "provider.h"
 
 #include <ostream>
 

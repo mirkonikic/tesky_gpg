@@ -1,6 +1,8 @@
 <div align="center">
 <h1>tesky v0.46</h1>
 
+- [ ] actually finish it and make it public / peer2peer architecture, where i can actually share my pubkeys etc...
+- [ ] do not add chats and stuff, might end up being too complex, but definitely add send message
 
 [![Logo](img/banner.png)](https://github.com/mirkonikic/tesky_gpg)<br>
 <img alt="GitHub followers" src="https://img.shields.io/github/followers/mirkonikic?style=social">
